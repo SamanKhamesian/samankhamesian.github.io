@@ -24,11 +24,7 @@
 
             /* Horizontal gap between the name block and the photo */
             --hero-gap: 1.25rem;
-
-            /* Empty space held at the bottom of the viewport. Because the body
-               centers its content vertically, this reserve pushes the hero up
-               and leaves room for the description box that goes here later. */
-            --bottom-reserve: 10rem;
+            --bottom-reserve: 14rem;
         }
         * {
             box-sizing: border-box;
@@ -119,8 +115,8 @@
 
         .photo-frame {
             flex-shrink: 0;
-            width: clamp(200px, 30vw, 320px);
-            height: clamp(200px, 30vw, 320px);
+            width: clamp(180px, 30vw, 280px);
+            height: clamp(180px, 30vw, 280px);
             border-radius: 50%;
             overflow: hidden;
         }
@@ -136,9 +132,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /* Same font metrics as the ASCII art, so 1ch matches one art column.
-               The art has a single leading space on every line, so we inset by 1ch
-               to line the first icon up with the "K" of KHAMESIAN. */
             font-family: 'JetBrains Mono', ui-monospace, monospace;
             font-size: var(--art-font-size);
             padding-left: 1ch;
@@ -297,7 +290,6 @@
             var scale = blockWidth > wrapWidth ? wrapWidth / blockWidth : 1;
 
             block.style.transform = 'scale(' + scale + ')';
-            // transform doesn't change layout height, so reserve the scaled height
             wrap.style.height = (block.offsetHeight * scale) + 'px';
         }
         window.addEventListener('load', fitName);
