@@ -41,27 +41,41 @@
             inset: 0;
             z-index: 0;
             pointer-events: none;
+            overflow: hidden;
             -webkit-mask-image: linear-gradient(90deg, black 0%, black 10%, transparent 22%, transparent 78%, black 90%, black 100%);
             mask-image: linear-gradient(90deg, black 0%, black 10%, transparent 22%, transparent 78%, black 90%, black 100%);
         }
         .bin-row {
             position: absolute;
             left: 0;
-            width: 200%;
+            /* FIX 1: was width:200%. The box must hug its own text, otherwise
+               translateX(-50%) is not exactly one copy of the strip and the
+               two copies overlap -> the "00" / "01" / "11" artifact.
+               Do NOT simply remove this: an absolutely positioned box with
+               left:0 shrink-to-fits, capped at the containing block width. */
+            width: max-content;
             white-space: nowrap;
             color: var(--accent);
             font-family: 'JetBrains Mono', ui-monospace, monospace;
             font-size: 26px;
-            letter-spacing: 20px;
+            /* FIX 2: the gap now lives entirely here. No space characters in
+               the string, so there is no trailing-whitespace collapse at the
+               end of each half's line box. */
+            letter-spacing: 55px;
             opacity: 0.55;
+            will-change: transform;
+            animation-name: flowRight;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
         }
+        /* FIX 3: no width. Each copy is sized purely by its own content, so
+           copy #2 begins exactly where copy #1 ends. */
         .bin-row .half {
             display: inline-block;
-            width: 50%;
         }
         @keyframes flowRight {
             from { transform: translateX(-50%); }
-            to { transform: translateX(0%); }
+            to   { transform: translateX(0%); }
         }
         .container {
             max-width: 1100px;
@@ -111,6 +125,16 @@
                 text-align: center;
                 gap: 2rem;
             }
+            .bin-row {
+                font-size: 18px;
+                letter-spacing: 34px;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .bin-row {
+                animation: none;
+                transform: translateX(-50%);
+            }
         }
     </style>
 </head>
@@ -152,42 +176,77 @@
         window.addEventListener('load', fitName);
         window.addEventListener('resize', fitName);
 
+        /* Measure the real on-screen width of one digit slot rather than
+           hardcoding 20px. The old guess was ~3.5x too small, which is why the
+           rows were built far wider than one screen. */
+        function measureSlot(container) {
+            var probe = document.createElement('div');
+            probe.className = 'bin-row';
+            probe.style.animation = 'none';
+            probe.style.visibility = 'hidden';
+            probe.style.top = '0';
+
+            var probeHalf = document.createElement('span');
+            probeHalf.className = 'half';
+            probeHalf.textContent = '0101010101'; // 10 digits, no spaces
+            probe.appendChild(probeHalf);
+            container.appendChild(probe);
+
+            var slot = probeHalf.getBoundingClientRect().width / 10;
+            container.removeChild(probe);
+
+            return (slot && slot > 1) ? slot : 71;
+        }
+
         function buildBinaryRows() {
             var container = document.getElementById('binRows');
             if (!container) return;
             container.innerHTML = '';
+
             var speeds = [14, 9, 19, 11, 16, 8];
             var tops = [6, 20, 38, 55, 72, 88];
-            var count = speeds.length;
-            var digitSlot = 20;
-            var digitsPerHalf = Math.ceil(window.innerWidth / digitSlot) + 20;
-            for (var i = 0; i < count; i++) {
+            var slot = measureSlot(container);
+            var digitsPerHalf = Math.ceil(window.innerWidth / slot) + 2;
+
+            for (var i = 0; i < speeds.length; i++) {
                 var row = document.createElement('div');
                 row.className = 'bin-row';
                 row.style.top = tops[i] + '%';
-                row.style.animation = 'flowRight ' + speeds[i] + 's linear infinite';
+                row.style.animationDuration = speeds[i] + 's';
                 row.style.transform = 'translateX(-50%)';
+
                 var str = '';
                 for (var j = 0; j < digitsPerHalf; j++) {
-                    str += Math.round(Math.random()) + ' ';
+                    str += Math.round(Math.random());
                 }
+
                 var half1 = document.createElement('span');
                 half1.className = 'half';
                 half1.textContent = str;
-                var half2 = document.createElement('span');
-                half2.className = 'half';
-                half2.textContent = str;
+
+                /* cloneNode guarantees copy #2 is identical to copy #1, which
+                   is what makes the loop seamless at the wrap point. */
+                var half2 = half1.cloneNode(true);
+
                 row.appendChild(half1);
                 row.appendChild(half2);
                 container.appendChild(row);
             }
         }
+
         buildBinaryRows();
+
         var binResizeTimer;
         window.addEventListener('resize', function () {
             clearTimeout(binResizeTimer);
             binResizeTimer = setTimeout(buildBinaryRows, 200);
         });
+
+        /* Fonts load after first paint, so the first measurement can land on
+           the fallback font. Remeasure once JetBrains Mono is ready. */
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(buildBinaryRows);
+        }
     </script>
 </body>
 </html>
