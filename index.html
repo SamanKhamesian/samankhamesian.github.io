@@ -6,7 +6,7 @@
     <title>Saman Khamesian</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -21,6 +21,9 @@
             margin: 0;
             padding: 0;
         }
+        html, body {
+            height: 100%;
+        }
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
@@ -30,10 +33,41 @@
             justify-content: center;
             align-items: center;
             padding: 2rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .bin-rows {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            -webkit-mask-image: linear-gradient(90deg, black 0%, black 10%, transparent 22%, transparent 78%, black 90%, black 100%);
+            mask-image: linear-gradient(90deg, black 0%, black 10%, transparent 22%, transparent 78%, black 90%, black 100%);
+        }
+        .bin-row {
+            position: absolute;
+            left: 0;
+            width: 200%;
+            white-space: nowrap;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 13px;
+            letter-spacing: 6px;
+            opacity: 0.55;
+        }
+        .bin-row .half {
+            display: inline-block;
+            width: 50%;
+        }
+        @keyframes flowRight {
+            from { transform: translateX(-50%); }
+            to { transform: translateX(0%); }
         }
         .container {
             max-width: 1100px;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
         .hero {
             display: flex;
@@ -49,8 +83,8 @@
         .name {
             font-family: 'JetBrains Mono', ui-monospace, monospace;
             font-weight: 700;
-            font-size: 0.95rem;
-            line-height: 1.1;
+            font-size: 1.2rem;
+            line-height: 1.15;
             color: var(--accent);
             white-space: pre;
             margin: 0;
@@ -59,8 +93,8 @@
         }
         .photo-frame {
             flex-shrink: 0;
-            width: clamp(220px, 32vw, 360px);
-            height: clamp(220px, 32vw, 360px);
+            width: clamp(220px, 32vw, 320px);
+            height: clamp(220px, 32vw, 320px);
             border-radius: 50%;
             overflow: hidden;
         }
@@ -81,6 +115,7 @@
     </style>
 </head>
 <body>
+    <div class="bin-rows" id="binRows"></div>
     <div class="container">
         <div class="hero">
             <div class="name-wrap">
@@ -116,6 +151,43 @@
         }
         window.addEventListener('load', fitName);
         window.addEventListener('resize', fitName);
+
+        function buildBinaryRows() {
+            var container = document.getElementById('binRows');
+            if (!container) return;
+            container.innerHTML = '';
+            var speeds = [14, 9, 19, 11, 16, 8];
+            var tops = [6, 20, 38, 55, 72, 88];
+            var count = speeds.length;
+            var digitSlot = 20;
+            var digitsPerHalf = Math.ceil(window.innerWidth / digitSlot) + 20;
+            for (var i = 0; i < count; i++) {
+                var row = document.createElement('div');
+                row.className = 'bin-row';
+                row.style.top = tops[i] + '%';
+                row.style.animation = 'flowRight ' + speeds[i] + 's linear infinite';
+                row.style.transform = 'translateX(-50%)';
+                var str = '';
+                for (var j = 0; j < digitsPerHalf; j++) {
+                    str += Math.round(Math.random()) + ' ';
+                }
+                var half1 = document.createElement('span');
+                half1.className = 'half';
+                half1.textContent = str;
+                var half2 = document.createElement('span');
+                half2.className = 'half';
+                half2.textContent = str;
+                row.appendChild(half1);
+                row.appendChild(half2);
+                container.appendChild(row);
+            }
+        }
+        buildBinaryRows();
+        var binResizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(binResizeTimer);
+            binResizeTimer = setTimeout(buildBinaryRows, 200);
+        });
     </script>
 </body>
 </html>
