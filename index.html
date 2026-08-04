@@ -3,140 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name — Personal Page</title>
-    <!-- Google Fonts for Claude look: Lora (serif) & Inter (sans) -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
-    
+    <title>Saman Khamesian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --bg-color: #F9F6F0;
-            --surface-color: #FFFFFF;
             --text-primary: #2A2825;
             --text-secondary: #736E65;
-            --accent: #C96442;
+            --accent: #EE5D29;
             --border-color: #E6DFD5;
         }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
-            padding: 4rem 1.5rem;
+            align-items: center;
+            padding: 2rem 1.5rem;
         }
-
         .container {
-            max-width: 640px;
+            max-width: 900px;
             width: 100%;
         }
-
-        header {
-            margin-bottom: 3rem;
-        }
-
-        h1 {
-            font-family: 'Lora', serif;
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        .tagline {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            font-family: 'Lora', serif;
-            font-style: italic;
-        }
-
-        section {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-        }
-
-        h2 {
-            font-family: 'Lora', serif;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-
-        p:last-child {
-            margin-bottom: 0;
-        }
-
-        .links-list {
-            list-style: none;
+        .hero {
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        a.btn {
-            display: inline-flex;
             align-items: center;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.2s ease;
+            justify-content: space-between;
+            gap: 2.5rem;
+        }
+        .name {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(2.6rem, 8vw, 5.4rem);
+            line-height: 1.05;
+            letter-spacing: 0.01em;
+            color: transparent;
+            background:
+                repeating-linear-gradient(90deg,
+                    transparent 0, transparent 16px,
+                    rgba(42,40,37,0.55) 16px, rgba(42,40,37,0.55) 18px),
+                repeating-linear-gradient(0deg,
+                    transparent 0, transparent 16px,
+                    rgba(42,40,37,0.55) 16px, rgba(42,40,37,0.55) 18px),
+                var(--accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-stroke: 2px var(--text-primary);
+            text-shadow:
+                2px 2px 0 var(--text-primary),
+                4px 4px 0 var(--text-primary),
+                6px 6px 0 var(--text-primary);
+        }
+        .photo-frame {
+            flex-shrink: 0;
+            width: clamp(140px, 22vw, 220px);
+            height: clamp(140px, 22vw, 220px);
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        a.btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+        @media (max-width: 640px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <header>
-            <h1>Jane Doe</h1>
-            <div class="tagline">Researcher, writer, and builder exploring human-AI interaction.</div>
-        </header>
-
-        <section>
-            <h2>About</h2>
-            <p>I focus on creating intuitive software and studying how technology shapes modern communication. Currently experimenting with minimal interfaces and personal knowledge systems.</p>
-        </section>
-
-        <section>
-            <h2>Connect</h2>
-            <p>Find my code, thoughts, or reach out directly below.</p>
-            <ul class="links-list">
-                <li><a href="#" class="btn">GitHub</a></li>
-                <li><a href="#" class="btn">X / Twitter</a></li>
-                <li><a href="#" class="btn">Substack</a></li>
-                <li><a href="#" class="btn">Email</a></li>
-            </ul>
-        </section>
+        <div class="hero">
+            <h1 class="name">SAMAN<br>KHAMESIAN</h1>
+            <div class="photo-frame">
+                <img src="images/profile.jpg" alt="Saman Khamesian">
+            </div>
+        </div>
     </div>
-
 </body>
 </html>
