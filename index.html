@@ -35,16 +35,18 @@
             max-width: 1100px;
             width: 100%;
         }
+        .stage {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+        }
         .hero {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             gap: 2.5rem;
-        }
-        .name-wrap {
-            flex: 1;
-            min-width: 0;
-            overflow: hidden;
+            flex-shrink: 0;
+            transform-origin: center center;
         }
         .name {
             font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -54,13 +56,11 @@
             color: var(--accent);
             white-space: pre;
             margin: 0;
-            display: inline-block;
-            transform-origin: left center;
         }
         .photo-frame {
             flex-shrink: 0;
-            width: clamp(280px, 44vw, 440px);
-            height: clamp(280px, 44vw, 440px);
+            width: 440px;
+            height: 440px;
             border-radius: 50%;
             overflow: hidden;
         }
@@ -76,15 +76,26 @@
                 flex-direction: column-reverse;
                 text-align: center;
                 gap: 2rem;
+                transform: none !important;
+            }
+            .stage {
+                height: auto !important;
+            }
+            .photo-frame {
+                width: 200px;
+                height: 200px;
+            }
+            .name {
+                font-size: 0.62rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="hero">
-            <div class="name-wrap">
-                <pre class="name" id="nameArt"> ███████╗  █████╗  ███╗   ███╗  █████╗  ███╗   ██╗
+        <div class="stage" id="stage">
+        <div class="hero" id="hero">
+            <pre class="name" id="nameArt"> ███████╗  █████╗  ███╗   ███╗  █████╗  ███╗   ██╗
  ██╔════╝ ██╔══██╗ ████╗ ████║ ██╔══██╗ ████╗  ██║
  ███████╗ ███████║ ██╔████╔██║ ███████║ ██╔██╗ ██║
  ╚════██║ ██╔══██║ ██║╚██╔╝██║ ██╔══██║ ██║╚██╗██║
@@ -97,25 +108,32 @@
  ██╔═██╗  ██╔══██║ ██╔══██║ ██║╚██╔╝██║ ██╔══╝   ╚════██║ ██║ ██╔══██║ ██║╚██╗██║
  ██║  ██╗ ██║  ██║ ██║  ██║ ██║ ╚═╝ ██║ ███████╗ ███████║ ██║ ██║  ██║ ██║ ╚████║
  ╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝     ╚═╝ ╚══════╝ ╚══════╝ ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═══╝</pre>
-            </div>
             <div class="photo-frame">
                 <img src="images/profile.jpg" alt="Saman Khamesian">
             </div>
         </div>
+        </div>
     </div>
     <script>
-        function fitName() {
-            var wrap = document.querySelector('.name-wrap');
-            var art = document.getElementById('nameArt');
-            if (!wrap || !art) return;
-            art.style.transform = 'scale(1)';
-            var wrapWidth = wrap.clientWidth;
-            var artWidth = art.scrollWidth;
-            var scale = artWidth > wrapWidth ? wrapWidth / artWidth : 1;
-            art.style.transform = 'scale(' + scale + ')';
+        function fitStage() {
+            var stage = document.getElementById('stage');
+            var hero = document.getElementById('hero');
+            if (!stage || !hero) return;
+            if (window.innerWidth <= 640) {
+                hero.style.transform = 'none';
+                stage.style.height = 'auto';
+                return;
+            }
+            hero.style.transform = 'scale(1)';
+            var naturalWidth = hero.scrollWidth;
+            var naturalHeight = hero.scrollHeight;
+            var availableWidth = stage.clientWidth;
+            var scale = naturalWidth > availableWidth ? availableWidth / naturalWidth : 1;
+            hero.style.transform = 'scale(' + scale + ')';
+            stage.style.height = (naturalHeight * scale) + 'px';
         }
-        window.addEventListener('load', fitName);
-        window.addEventListener('resize', fitName);
+        window.addEventListener('load', fitStage);
+        window.addEventListener('resize', fitStage);
     </script>
 </body>
 </html>
