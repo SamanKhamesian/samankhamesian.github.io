@@ -6,11 +6,11 @@
     <title>Saman Khamesian</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #F9F6F0;
+            --bg-color: #FFF4EF;
             --text-primary: #2A2825;
             --text-secondary: #736E65;
             --accent: #EE5D29;
@@ -32,7 +32,7 @@
             padding: 2rem 1.5rem;
         }
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             width: 100%;
         }
         .hero {
@@ -41,32 +41,26 @@
             justify-content: space-between;
             gap: 2.5rem;
         }
+        .name-wrap {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+        }
         .name {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: clamp(2.6rem, 8vw, 5.4rem);
-            line-height: 1.05;
-            letter-spacing: 0.01em;
-            color: transparent;
-            background:
-                repeating-linear-gradient(90deg,
-                    transparent 0, transparent 16px,
-                    rgba(42,40,37,0.55) 16px, rgba(42,40,37,0.55) 18px),
-                repeating-linear-gradient(0deg,
-                    transparent 0, transparent 16px,
-                    rgba(42,40,37,0.55) 16px, rgba(42,40,37,0.55) 18px),
-                var(--accent);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-stroke: 2px var(--text-primary);
-            text-shadow:
-                2px 2px 0 var(--text-primary),
-                4px 4px 0 var(--text-primary),
-                6px 6px 0 var(--text-primary);
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-weight: 700;
+            font-size: 1.05rem;
+            line-height: 1.15;
+            color: var(--accent);
+            white-space: pre;
+            margin: 0;
+            display: inline-block;
+            transform-origin: left center;
         }
         .photo-frame {
             flex-shrink: 0;
-            width: clamp(140px, 22vw, 220px);
-            height: clamp(140px, 22vw, 220px);
+            width: clamp(280px, 44vw, 440px);
+            height: clamp(280px, 44vw, 440px);
             border-radius: 50%;
             overflow: hidden;
         }
@@ -89,11 +83,39 @@
 <body>
     <div class="container">
         <div class="hero">
-            <h1 class="name">SAMAN<br>KHAMESIAN</h1>
+            <div class="name-wrap">
+                <pre class="name" id="nameArt"> ███████╗  █████╗  ███╗   ███╗  █████╗  ███╗   ██╗
+ ██╔════╝ ██╔══██╗ ████╗ ████║ ██╔══██╗ ████╗  ██║
+ ███████╗ ███████║ ██╔████╔██║ ███████║ ██╔██╗ ██║
+ ╚════██║ ██╔══██║ ██║╚██╔╝██║ ██╔══██║ ██║╚██╗██║
+ ███████║ ██║  ██║ ██║ ╚═╝ ██║ ██║  ██║ ██║ ╚████║
+ ╚══════╝ ╚═╝  ╚═╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═══╝
+
+ ██╗  ██╗ ██╗  ██╗  █████╗  ███╗   ███╗ ███████╗ ███████╗ ██╗  █████╗  ███╗   ██╗
+ ██║ ██╔╝ ██║  ██║ ██╔══██╗ ████╗ ████║ ██╔════╝ ██╔════╝ ██║ ██╔══██╗ ████╗  ██║
+ █████╔╝  ███████║ ███████║ ██╔████╔██║ █████╗   ███████╗ ██║ ███████║ ██╔██╗ ██║
+ ██╔═██╗  ██╔══██║ ██╔══██║ ██║╚██╔╝██║ ██╔══╝   ╚════██║ ██║ ██╔══██║ ██║╚██╗██║
+ ██║  ██╗ ██║  ██║ ██║  ██║ ██║ ╚═╝ ██║ ███████╗ ███████║ ██║ ██║  ██║ ██║ ╚████║
+ ╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝     ╚═╝ ╚══════╝ ╚══════╝ ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═══╝</pre>
+            </div>
             <div class="photo-frame">
                 <img src="images/profile.jpg" alt="Saman Khamesian">
             </div>
         </div>
     </div>
+    <script>
+        function fitName() {
+            var wrap = document.querySelector('.name-wrap');
+            var art = document.getElementById('nameArt');
+            if (!wrap || !art) return;
+            art.style.transform = 'scale(1)';
+            var wrapWidth = wrap.clientWidth;
+            var artWidth = art.scrollWidth;
+            var scale = artWidth > wrapWidth ? wrapWidth / artWidth : 1;
+            art.style.transform = 'scale(' + scale + ')';
+        }
+        window.addEventListener('load', fitName);
+        window.addEventListener('resize', fitName);
+    </script>
 </body>
 </html>
