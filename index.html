@@ -16,12 +16,19 @@
             --accent: #EE5D29;
             --border-color: #E6DFD5;
             --icon-bg: #2C2C2A;
-            --icon-bg: #2C2C2A;
 
             /* ASCII art metrics - the icon row derives its size from these */
-            --art-font-size: 0.95rem;
-            --icon-size: 70px;
-            --icon-radius: 17px;
+            --art-font-size: 0.7rem;
+            --icon-size: 55px;
+            --icon-radius: 12px;
+
+            /* Horizontal gap between the name block and the photo */
+            --hero-gap: 1.25rem;
+
+            /* Empty space held at the bottom of the viewport. Because the body
+               centers its content vertically, this reserve pushes the hero up
+               and leaves room for the description box that goes here later. */
+            --bottom-reserve: 10rem;
         }
         * {
             box-sizing: border-box;
@@ -39,7 +46,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 2rem 1.5rem;
+            padding: 2rem 1.5rem calc(2rem + var(--bottom-reserve));
             position: relative;
             overflow-x: hidden;
         }
@@ -83,11 +90,14 @@
         .hero {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 2.5rem;
+            /* centered as a pair, so --hero-gap is the real distance between them */
+            justify-content: center;
+            gap: var(--hero-gap);
         }
         .name-wrap {
-            flex: 1;
+            /* shrink-to-fit instead of flex:1, otherwise the name column keeps
+               eating the leftover width and the gap looks huge when the art is small */
+            flex: 0 1 auto;
             min-width: 0;
         }
 
@@ -109,8 +119,8 @@
 
         .photo-frame {
             flex-shrink: 0;
-            width: clamp(220px, 32vw, 360px);
-            height: clamp(220px, 32vw, 360px);
+            width: clamp(200px, 30vw, 320px);
+            height: clamp(200px, 30vw, 320px);
             border-radius: 50%;
             overflow: hidden;
         }
@@ -132,7 +142,7 @@
             font-family: 'JetBrains Mono', ui-monospace, monospace;
             font-size: var(--art-font-size);
             padding-left: 1ch;
-            margin-top: 2.4rem;
+            margin-top: 2rem;
         }
         .social {
             width: var(--icon-size);
@@ -165,16 +175,21 @@
         }
 
         @media (max-width: 640px) {
+            :root {
+                --bottom-reserve: 6rem;
+                --icon-size: 46px;
+                --icon-radius: 12px;
+            }
             .hero {
                 flex-direction: column-reverse;
-                gap: 2rem;
+                gap: 1.75rem;
             }
             .bin-row {
                 font-size: 18px;
                 letter-spacing: 34px;
             }
             .socials {
-                margin-top: 1.8rem;
+                margin-top: 1.5rem;
             }
         }
         @media (prefers-reduced-motion: reduce) {
