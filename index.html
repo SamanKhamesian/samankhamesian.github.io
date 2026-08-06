@@ -9,6 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
+        /* ---------- Anthropic Serif (self-hosted, used ONLY by the
+           Education heading). One variable font: wght 300..800, opsz 16..48.
+           The weight RANGE below is what unlocks real bold — a single
+           font-weight value would lock the browser to Light. ---------- */
+        @font-face {
+            font-family: 'Anthropic Serif';
+            src: url('fonts/AnthropicSerif.woff2') format('woff2');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+
         :root {
             --bg-color: #FCFCFB;
             --text-primary: #2A2825;
@@ -33,13 +45,21 @@
                this stack picks it up with no other changes. */
             --font-mono: 'Anthropic Mono', 'JetBrains Mono', ui-monospace,
                          SFMono-Regular, Menlo, monospace;
+
+            /* Education heading only */
+            --font-serif: 'Anthropic Serif', 'Iowan Old Style', Georgia, serif;
+
+            --edu-logo-size: 76px;   /* logo tile */
+            --edu-rail: 16px;        /* left edge -> vertical line */
         }
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        html, body { height: 100%; }
+        /* min-height (not height) so the body can grow past one screen
+           now that there's a section below the fold. */
+        html, body { min-height: 100%; }
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
@@ -54,8 +74,13 @@
 
         /* ---------- animated binary background ---------- */
         .bin-rows {
-            position: fixed;
-            inset: 0;
+            /* absolute (not fixed) = stays at the top of the page and
+               scrolls away, so you only ever see these 6 rows */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
@@ -258,6 +283,110 @@
             50.01%, 100% { opacity: 0; }
         }
 
+        /* =========================================================
+           EDUCATION  — sits OUTSIDE #page, so fitViewport() never
+           scales it and it flows/scrolls at natural size.
+           ========================================================= */
+        .edu {
+            /* Fallback only. fitEdu() overwrites width + margin-left with
+               the hero's measured on-screen bounds. */
+            width: 100%;
+            max-width: 1100px;
+            position: relative;
+            z-index: 1;
+            margin-top: 5rem;
+            padding-bottom: 4rem;
+            scroll-margin-top: var(--nav-reserve);
+        }
+        .edu-head {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+        .edu-logo {
+            width: var(--edu-logo-size);
+            height: var(--edu-logo-size);
+            flex: 0 0 auto;
+        }
+        .edu-logo svg {
+            width: 100%;
+            height: 100%;
+            border-radius: 14px;
+            display: block;
+        }
+        .edu-head h2 {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: clamp(1.9rem, 4.6vw, 2.6rem);
+            letter-spacing: -0.015em;
+            line-height: 1;
+            font-optical-sizing: auto;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .tl {
+            list-style: none;
+            position: relative;
+            padding-left: 2.5rem;
+        }
+        .tl::before {
+            content: '';
+            position: absolute;
+            left: var(--edu-rail);
+            top: 0.6rem;
+            bottom: 0.6rem;
+            width: 1px;
+            background: var(--border-color);
+        }
+        .tl li { position: relative; padding: 0 0 2.1rem; }
+        .tl li:last-child { padding-bottom: 0; }
+        .tl .tl-dot {
+            position: absolute;
+            left: calc(var(--edu-rail) - 2.5rem - 4px);
+            top: 0.42rem;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--border-color);
+        }
+        .tl li:first-child .tl-dot {
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(238, 93, 41, 0.14);
+        }
+        .tl .when {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+        .tl .deg {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
+            line-height: 1.35;
+        }
+        .tl .track {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+            line-height: 1.4;
+        }
+        .tl .sch {
+            font-size: 0.94rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-top: 0.28rem;
+        }
+        .tl .meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.32rem;
+            line-height: 1.6;
+        }
+
         /* ---------- mobile: let it scroll, don't force one screen ---------- */
         @media (max-width: 640px) {
             :root {
@@ -265,8 +394,11 @@
                 --icon-size: min(44px, 10.5vw);
                 --icon-radius: 11px;
                 --art-font-size: 0.7rem;
+                --edu-logo-size: 56px;
             }
             body { padding: var(--nav-reserve) 1rem 3rem; }
+            /* 110% overflowed the screen and clipped long lines */
+            .page { width: 100%; }
             .hero {
                 flex-direction: column-reverse;
                 align-items: center;
@@ -288,6 +420,17 @@
             .term-body { padding: 1.1rem 1rem 1.2rem; }
             .term { font-size: 0.76rem; line-height: 1.66; }
             .bin-row { font-size: 18px; letter-spacing: 34px; }
+
+            .edu {
+                width: 100%;
+                margin-top: 3.25rem;
+                padding-bottom: 2rem;
+            }
+            .edu-head { gap: 0.85rem; margin-bottom: 1.9rem; }
+            .tl { padding-left: 1.9rem; }
+            .tl .tl-dot { left: calc(var(--edu-rail) - 1.9rem - 4px); }
+            .tl li { padding-bottom: 1.8rem; }
+            .tl .deg { font-size: 0.95rem; }
         }
         @media (prefers-reduced-motion: reduce) {
             .bin-row { animation: none; transform: translateX(-50%); }
@@ -383,6 +526,88 @@
         </div>
 
     </div>
+    <!-- /#page — fitViewport() scales ONLY what is inside the div above -->
+
+    <!-- ============================================================
+         EDUCATION — deliberately a SIBLING of #page, not a child.
+         Keeping it out here means fitViewport() never measures or
+         scales it, so the hero still fits one screen and this
+         section flows underneath at full size.
+         ============================================================ -->
+    <section class="edu" id="education">
+
+        <div class="edu-head">
+            <div class="edu-logo">
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Education">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="60" y="86" width="140" height="164" fill="#FAF9F6" transform="rotate(-2 130 168)"/>
+                    <rect x="96" y="70" width="146" height="168" fill="#FAF9F6" transform="rotate(1.5 169 154)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M70 96 C 68 150 69 202 70 246 C 118 248 168 247 208 246"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M52 148 C 88 126 122 108 152 92 C 186 110 222 130 258 150 C 224 170 190 188 158 202 C 124 186 88 168 52 148 Z"/>
+                        <path d="M104 172 C 100 194 100 212 104 224 C 126 240 190 240 210 223 C 213 210 212 192 210 170"/>
+                        <path d="M152 94 C 190 110 226 132 256 150 C 259 176 257 200 254 218"/>
+                        <path d="M244 222 C 240 232 239 242 241 250"/>
+                        <path d="M254 224 C 254 234 255 244 257 252"/>
+                        <path d="M264 221 C 269 230 271 240 270 249"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Education</h2>
+        </div>
+
+        <ol class="tl">
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">JAN 2024 — EXPECTED JAN 2029</div>
+                <div class="deg">Ph.D. in Computer Science</div>
+                <div class="sch">Arizona State University</div>
+                <div class="meta">
+                    School of Computing and Augmented Intelligence · Tempe, AZ, USA<br>
+                    GPA 4.00 / 4.00
+                </div>
+            </li>
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">SEP 2018 — JUL 2021</div>
+                <div class="deg">M.Sc. in Computer Engineering</div>
+                <div class="track">Artificial Intelligence and Robotics</div>
+                <div class="sch">Shahid Beheshti University</div>
+                <div class="meta">
+                    Faculty of Computer Science and Engineering · Tehran, Iran<br>
+                    GPA 17.59 / 20.00
+                </div>
+            </li>
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">SEP 2014 — AUG 2018</div>
+                <div class="deg">B.Sc. in Computer Engineering</div>
+                <div class="track">Hardware</div>
+                <div class="sch">Shahid Beheshti University</div>
+                <div class="meta">
+                    Faculty of Computer Science and Engineering · Tehran, Iran<br>
+                    GPA 17.16 / 20.00
+                </div>
+            </li>
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">2011 — 2014</div>
+                <div class="deg">Diploma in Mathematics &amp; Physics</div>
+                <div class="sch">Shahid Beheshti High School (SAMPAD)</div>
+                <div class="meta">
+                    National Organization for Development of Exceptional Talents · Babol, Mazandaran, Iran<br>
+                    GPA 19.53 / 20.00
+                </div>
+            </li>
+
+        </ol>
+    </section>
 
     <script>
         /* ---------- email assembled at runtime (anti-scrape) ---------- */
@@ -469,6 +694,35 @@
             bio.style.width = Math.round(width) + 'px';
         }
 
+        /* Pin the Education section to the hero's RENDERED bounds.
+
+           #page is scaled with transform: scale() + transform-origin:
+           top center, so its on-screen left edge sits inboard of its
+           layout position. .edu is never scaled, so matching CSS widths
+           does NOT align them. Measure the terminal's real rect instead
+           (it already spans name-left -> photo-right) and copy it.
+           Must run AFTER fitBio() and fitViewport(). */
+        function fitEdu() {
+            var edu = document.getElementById('education');
+            var bio = document.getElementById('bio');
+            if (!edu || !bio) return;
+
+            edu.style.alignSelf = '';
+            edu.style.marginLeft = '';
+            edu.style.width = '';
+
+            var b = bio.getBoundingClientRect();
+            if (!b.width) return;
+
+            var body = document.body;
+            var padLeft = parseFloat(getComputedStyle(body).paddingLeft) || 0;
+            var bodyLeft = body.getBoundingClientRect().left + padLeft;
+
+            edu.style.alignSelf = 'flex-start';
+            edu.style.marginLeft = Math.round(b.left - bodyLeft) + 'px';
+            edu.style.width = Math.round(b.width) + 'px';
+        }
+
         /* Shrink the whole column just enough to clear the fold. */
         function fitViewport() {
             var page = document.getElementById('page');
@@ -507,6 +761,7 @@
 
             fitBio();
             fitViewport();
+            fitEdu();      /* last: needs the post-scale rendered rect */
         }
 
         document.addEventListener('DOMContentLoaded', relayout);
