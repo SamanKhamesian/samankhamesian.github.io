@@ -11,13 +11,15 @@
 
     <style>
         /* ---------- Anthropic Serif (self-hosted, used ONLY by the
-           Education heading). One variable font: wght 300..800, opsz 16..48.
-           The weight RANGE below is what unlocks real bold — a single
-           font-weight value would lock the browser to Light. ---------- */
+           Education / Work headings). One variable font: wght 300..800,
+           opsz 16..48. The weight RANGE below is what tells the browser
+           the axis exists — with a single value it assumes the file only
+           has Light and FAKES any other weight by smearing the outlines,
+           which is what swallowed the space in "Work Experience". ---------- */
         @font-face {
             font-family: 'Anthropic Serif';
             src: url('fonts/AnthropicSerif.woff2') format('woff2');
-            font-weight: 300;
+            font-weight: 300 800;
             font-style: normal;
             font-display: swap;
         }
@@ -69,6 +71,10 @@
 
             --edu-logo-size: 76px;   /* logo tile */
             --edu-rail: 16px;        /* left edge -> vertical line */
+
+            /* Width of the forced gap between words in section headings.
+               This is the dial — nothing else needs touching. */
+            --head-space: 0.4em;
         }
 
         /* =========================================================
@@ -416,7 +422,7 @@
         }
         .edu-head h2 {
             font-family: var(--font-serif);
-            font-weight: 700;
+            font-weight: 300;
             font-size: clamp(1.9rem, 4.6vw, 2.6rem);
             letter-spacing: -0.015em;
             line-height: 1;
@@ -424,6 +430,16 @@
             font-optical-sizing: auto;
             -webkit-font-smoothing: antialiased;
             transition: color 0.3s ease;
+        }
+
+        /* Hard space — the CSS equivalent of \hspace{} in LaTeX.
+           Forces a fixed gap no matter what the font's own space glyph
+           does, since the width comes from the box, not the glyph.
+           A real space character stays INSIDE the span, so copy/paste
+           and screen readers still get "Work Experience". */
+        .edu-head h2 .hsp {
+            display: inline-block;
+            width: var(--head-space);
         }
 
         .tl {
@@ -864,7 +880,7 @@
                     </g>
                 </svg>
             </div>
-            <h2>Work Experience</h2>
+            <h2>Work<span class="hsp"> </span>Experience</h2>
         </div>
 
         <ol class="tl">
