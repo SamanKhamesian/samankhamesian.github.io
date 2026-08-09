@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saman Khamesian</title>
+    <meta name="theme-color" content="#FCFCFB" id="themeColorMeta">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -28,6 +29,23 @@
             --accent: #EE5D29;
             --border-color: #E6DFD5;
             --icon-bg: #2C2C2A;
+            --icon-fg: #FFFFFF;
+
+            /* Education heading */
+            --heading: #2A2825;
+
+            /* terminal window */
+            --term-bg: #FFFFFF;
+            --term-border: #DCD7CF;
+            --term-bar: linear-gradient(#F7F6F4, #EAE8E4);
+            --term-bar-border: #DCD7CF;
+            --term-shadow: 0 20px 44px rgba(44, 44, 42, 0.15),
+                           0 2px 6px rgba(44, 44, 42, 0.08);
+
+            /* misc themed bits */
+            --bin-opacity: 0.55;
+            --dot-glow: rgba(238, 93, 41, 0.14);
+            --hover-shadow: rgba(44, 44, 42, 0.30);
 
             /* ASCII art metrics — these two also drive the photo diameter,
                since the photo is sized to the name block's height. */
@@ -52,6 +70,36 @@
             --edu-logo-size: 76px;   /* logo tile */
             --edu-rail: 16px;        /* left edge -> vertical line */
         }
+
+        /* =========================================================
+           DARK THEME — only colors change here, no layout values.
+           Set by JS on <html data-theme="dark"> before first paint.
+           ========================================================= */
+        html[data-theme="dark"] {
+            --bg-color: #181818;            /* rgb(24,24,24) */
+            --text-primary: #EDEAE4;
+            --text-secondary: #A29B92;
+            --accent: #EE5D29;              /* orange stays orange */
+            --border-color: #3A3735;
+            --icon-bg: #FFFFFF;             /* white tiles */
+            --icon-fg: #181818;
+
+            --heading: #FFFFFF;
+
+            --term-bg: #1B1B1B;             /* rgb(27,27,27)  macOS body  */
+            --term-border: #2B2B2B;
+            --term-bar: #383633;            /* rgb(56,54,51)  macOS bar   */
+            --term-bar-border: #2B2B2B;
+            --term-shadow: 0 22px 48px rgba(0, 0, 0, 0.55),
+                           0 2px 8px rgba(0, 0, 0, 0.40);
+
+            --bin-opacity: 0.42;
+            --dot-glow: rgba(238, 93, 41, 0.20);
+            --hover-shadow: rgba(0, 0, 0, 0.55);
+
+            color-scheme: dark;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -60,6 +108,7 @@
         /* min-height (not height) so the body can grow past one screen
            now that there's a section below the fold. */
         html, body { min-height: 100%; }
+        html { background-color: var(--bg-color); }   /* no white overscroll flash */
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
@@ -70,6 +119,52 @@
             padding: var(--nav-reserve) 1.5rem 1.5rem;
             position: relative;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* ---------- theme toggle ---------- */
+        /* Fixed top-right for now. When the nav tabs land, move this
+           into that row and drop `position: fixed`. */
+        .theme-toggle {
+            position: fixed;
+            top: 1.15rem;
+            right: 1.5rem;
+            z-index: 20;
+        }
+        .theme-btn {
+            width: var(--icon-size);
+            height: var(--icon-size);
+            padding: 0;
+            border: 0;
+            cursor: pointer;
+            border-radius: var(--icon-radius);
+            background-color: var(--icon-bg);
+            color: var(--icon-fg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+                        box-shadow 0.22s ease,
+                        background-color 0.3s ease,
+                        color 0.3s ease;
+        }
+        .theme-btn svg {
+            width: 66%;
+            height: 66%;
+            display: none;
+            pointer-events: none;
+        }
+        .theme-btn[data-mode="light"]  svg[data-mode="light"],
+        .theme-btn[data-mode="dark"]   svg[data-mode="dark"],
+        .theme-btn[data-mode="system"] svg[data-mode="system"] { display: block; }
+        .theme-btn:hover,
+        .theme-btn:focus-visible {
+            transform: translateY(-4px) scale(1.12);
+            box-shadow: 0 10px 22px var(--hover-shadow);
+        }
+        .theme-btn:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
         }
 
         /* ---------- animated binary background ---------- */
@@ -96,7 +191,7 @@
             font-family: 'JetBrains Mono', ui-monospace, monospace;
             font-size: 26px;
             letter-spacing: 55px;
-            opacity: 0.55;
+            opacity: var(--bin-opacity);
             will-change: transform;
             animation-name: flowRight;
             animation-timing-function: linear;
@@ -180,14 +275,16 @@
             flex: 0 0 auto;
             border-radius: var(--icon-radius);
             background-color: var(--icon-bg);
-            color: #FFFFFF;
+            color: var(--icon-fg);
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
             position: relative;
             transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
-                        box-shadow 0.22s ease;
+                        box-shadow 0.22s ease,
+                        background-color 0.3s ease,
+                        color 0.3s ease;
         }
         /* invisible 44px tap target, visual size unchanged */
         .social::after {
@@ -208,7 +305,7 @@
         .social:hover,
         .social:focus-visible {
             transform: translateY(-4px) scale(1.12);
-            box-shadow: 0 10px 22px rgba(44, 44, 42, 0.30);
+            box-shadow: 0 10px 22px var(--hover-shadow);
         }
         .social:focus-visible {
             outline: 3px solid var(--accent);
@@ -220,20 +317,22 @@
             margin: 1.5rem auto 0;
         }
         .term-window {
-            background: #FFFFFF;
-            border: 1px solid #DCD7CF;
+            background: var(--term-bg);
+            border: 1px solid var(--term-border);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 20px 44px rgba(44, 44, 42, 0.15),
-                        0 2px 6px rgba(44, 44, 42, 0.08);
+            box-shadow: var(--term-shadow);
+            transition: background-color 0.3s ease, border-color 0.3s ease,
+                        box-shadow 0.3s ease;
         }
         .term-bar {
             display: flex;
             align-items: center;
             gap: 8px;
             padding: 10px 13px;
-            background: linear-gradient(#F7F6F4, #EAE8E4);
-            border-bottom: 1px solid #DCD7CF;
+            background: var(--term-bar);
+            border-bottom: 1px solid var(--term-bar-border);
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
         .dot {
             width: 11px;
@@ -321,8 +420,10 @@
             font-size: clamp(1.9rem, 4.6vw, 2.6rem);
             letter-spacing: -0.015em;
             line-height: 1;
+            color: var(--heading);
             font-optical-sizing: auto;
             -webkit-font-smoothing: antialiased;
+            transition: color 0.3s ease;
         }
 
         .tl {
@@ -352,7 +453,7 @@
         }
         .tl li:first-child .tl-dot {
             background: var(--accent);
-            box-shadow: 0 0 0 4px rgba(238, 93, 41, 0.14);
+            box-shadow: 0 0 0 4px var(--dot-glow);
         }
         .tl .when {
             font-family: var(--font-mono);
@@ -397,6 +498,7 @@
                 --edu-logo-size: 56px;
             }
             body { padding: var(--nav-reserve) 1rem 3rem; }
+            .theme-toggle { top: 0.7rem; right: 1rem; }
             /* 110% overflowed the screen and clipped long lines */
             .page { width: 100%; }
             .hero {
@@ -435,15 +537,114 @@
         @media (prefers-reduced-motion: reduce) {
             .bin-row { animation: none; transform: translateX(-50%); }
             .social { transition: none; }
+            .theme-btn { transition: none; }
             .cursor { animation: none; }
         }
     </style>
+
+    <script>
+        /* =========================================================
+           THEME ENGINE
+           Runs in <head> so the right theme is on <html> before the
+           first paint — no white flash on a dark-mode load.
+
+           Modes cycle:  system -> light -> dark -> system
+             system = follows the OS setting  (the default)
+             light  = forced day
+             dark   = forced night
+           ========================================================= */
+        (function () {
+            var MODES  = ['system', 'light', 'dark'];
+            var LABELS = {
+                system: 'System',
+                light:  'Light',
+                dark:   'Dark'
+            };
+            var STORE_KEY = 'sk-theme-mode';
+
+            var mode = 'system';
+            try {
+                var saved = localStorage.getItem(STORE_KEY);
+                if (saved && MODES.indexOf(saved) !== -1) mode = saved;
+            } catch (e) { /* private mode / storage blocked — stay on system */ }
+
+            function prefersDark() {
+                return !!(window.matchMedia &&
+                          window.matchMedia('(prefers-color-scheme: dark)').matches);
+            }
+
+            function resolve(m) {
+                if (m === 'light') return 'light';
+                if (m === 'dark')  return 'dark';
+                return prefersDark() ? 'dark' : 'light';
+            }
+
+            function apply() {
+                var theme = resolve(mode);
+                document.documentElement.setAttribute('data-theme', theme);
+
+                var meta = document.getElementById('themeColorMeta');
+                if (meta) meta.setAttribute('content', theme === 'dark' ? '#181818' : '#FCFCFB');
+
+                var btn = document.getElementById('themeBtn');
+                if (btn) {
+                    var i    = MODES.indexOf(mode);
+                    var next = MODES[(i + 1) % MODES.length];
+                    btn.setAttribute('data-mode', mode);
+                    btn.setAttribute('title', 'Theme: ' + LABELS[mode] + ' — click for ' + LABELS[next]);
+                    btn.setAttribute('aria-label', 'Theme: ' + LABELS[mode] + '. Click to switch to ' + LABELS[next] + '.');
+                }
+            }
+
+            apply();   /* before first paint */
+
+            /* System mode flips live when the OS switches (which, on your
+               Mac, is what the sunset schedule drives). */
+            if (window.matchMedia) {
+                var mq = window.matchMedia('(prefers-color-scheme: dark)');
+                var onOS = function () { if (mode === 'system') apply(); };
+                if (mq.addEventListener) mq.addEventListener('change', onOS);
+                else if (mq.addListener) mq.addListener(onOS);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var btn = document.getElementById('themeBtn');
+                if (!btn) return;
+                btn.addEventListener('click', function () {
+                    mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length];
+                    try { localStorage.setItem(STORE_KEY, mode); } catch (e) {}
+                    apply();
+                });
+                apply();
+            });
+        })();
+    </script>
 </head>
 <body>
     <div class="bin-rows" id="binRows"></div>
 
     <!-- Nav tabs (Research, Education, ...) go here later.
-         The --nav-reserve padding above already holds the space. -->
+         The --nav-reserve padding above already holds the space.
+         When they land, move .theme-toggle into that row. -->
+
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeBtn" type="button" data-mode="system" title="Theme">
+            <!-- light: sun -->
+            <svg data-mode="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="4.1"/>
+                <path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/>
+            </svg>
+            <!-- dark: moon -->
+            <svg data-mode="dark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                <path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/>
+            </svg>
+            <!-- system: display -->
+            <svg data-mode="system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/>
+                <path d="M8.8 21h6.4M12 17v4"/>
+            </svg>
+        </button>
+    </div>
 
     <div class="page" id="page">
 
