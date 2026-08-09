@@ -534,6 +534,72 @@
             background: var(--accent);
         }
 
+        /* =========================================================
+           PUBLICATIONS — reference list. Shares .edu for the heading
+           and fitEdu() alignment; every class below is prefixed
+           .pub- so nothing collides with the .tl timeline.
+           ========================================================= */
+        .pub-grp {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin: 2.4rem 0 1.15rem;
+        }
+        .pub-grp:first-of-type { margin-top: 0; }
+        /* hairline that runs from the label out to the right edge */
+        .pub-grp::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .pub-list { list-style: none; }
+        .pub-list li {
+            display: flex;
+            gap: 1.15rem;
+            padding: 0 0 1.35rem;
+            font-size: 0.88rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+        /* fixed-width year column so every entry's text starts on the
+           same vertical line */
+        .pub-yr {
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--accent);
+            flex: 0 0 3.2rem;
+            padding-top: 0.12em;
+        }
+        .pub-t   { color: var(--text-primary); font-weight: 500; }
+        .pub-me  { color: var(--text-primary); font-weight: 600; }
+        .pub-ven { font-style: italic; }
+
+        .pub-links { margin-top: 0.3rem; }
+        .pub-link {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.04em;
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+        .pub-link:hover,
+        .pub-link:focus-visible { border-bottom-color: var(--accent); }
+        .pub-link:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+        .pub-link + .pub-link { margin-left: 0.9rem; }
+
         /* ---------- mobile: let it scroll, don't force one screen ---------- */
         @media (max-width: 640px) {
             :root {
@@ -580,6 +646,10 @@
             .tl .tl-dot { left: calc(var(--edu-rail) - 1.9rem - 4px); }
             .tl li { padding-bottom: 1.8rem; }
             .tl .deg { font-size: 0.95rem; }
+
+            /* year moves above the entry instead of beside it */
+            .pub-list li { flex-direction: column; gap: 0.25rem; }
+            .pub-yr { flex: none; }
         }
         @media (prefers-reduced-motion: reduce) {
             .bin-row { animation: none; transform: translateX(-50%); }
@@ -595,7 +665,7 @@
            Runs in <head> so the right theme is on <html> before the
            first paint — no white flash on a dark-mode load.
 
-           Modes cycle:  system -> light -> dark -> system
+           Modes cycle:  system -> light -> dark
              system = follows the OS setting  (the default)
              light  = forced day
              dark   = forced night
@@ -910,6 +980,158 @@
                     <li>Worked across backend and frontend using Django and Python.</li>
                     <li>Collaborated in a six-person engineering team following an Agile workflow, with sprint planning, stand-ups, and code reviews.</li>
                 </ul>
+            </li>
+
+        </ol>
+    </section>
+
+    <!-- ============================================================
+         PUBLICATIONS — same construction again: a SIBLING of #page,
+         and class="edu pub" so fitEdu() pins it to the same left
+         edge and width as Education and Work.
+         ============================================================ -->
+    <section class="edu pub" id="publications">
+
+        <div class="edu-head">
+            <div class="edu-logo">
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Publications">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="34" y="78" width="140" height="176" fill="#FAF9F6" transform="rotate(-7 104 166)"/>
+                    <rect x="86" y="62" width="146" height="182" fill="#FAF9F6" transform="rotate(2 159 153)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M48 96 C 44 152 45 208 50 258 C 92 264 134 263 168 257"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M92 78 C 88 136 89 194 94 246 C 138 254 186 252 226 244 C 230 190 229 132 225 74 C 180 66 134 68 92 78 Z"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M120 116 C 146 111 176 111 200 115"/>
+                        <path d="M120 152 C 146 147 176 147 200 151"/>
+                        <path d="M120 188 C 138 184 156 184 172 187"/>
+                    </g>
+                    <g fill="#FAF9F6" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M271 18
+                                 C 280 18 292 22 299 30 C 304 36 305 40 303 43
+                                 C 302 50 300 54 298 57 C 294 61 290 63 291 66
+                                 C 295 70 298 72 298 75 C 299 80 299 84 298 87
+                                 C 296 92 292 96 289 98 C 284 103 280 105 276 105
+                                 C 271 106 267 105 265 106 C 268 110 269 113 268 116
+                                 C 267 121 265 124 263 126 C 258 131 253 133 248 134
+                                 C 241 136 234 136 227 136 C 218 136 210 135 202 133
+                                 C 195 132 187 131 181 129 C 185 124 189 119 193 114
+                                 C 197 108 201 102 204 98 C 206 96 208 95 209 94
+                                 C 213 88 217 81 221 74 C 226 66 231 58 236 50
+                                 C 241 42 246 35 251 29 C 257 23 264 19 271 18 Z"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M209 95 C 226 82 245 68 260 57"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M181 129 C 173 137 165 150 156 166"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Publications</h2>
+        </div>
+
+        <div class="pub-grp">Journal Articles</div>
+        <ol class="pub-list">
+
+            <li>
+                <span class="pub-yr">2026</span>
+                <div>
+                    <span class="pub-me">S. Khamesian</span>, A. Arefeen, M. A. Grando, B. M. Thompson, and H. Ghasemzadeh, <span class="pub-t">&ldquo;Glycemic-aware and architecture-agnostic training framework for blood glucose forecasting in type 1 diabetes,&rdquo;</span> <span class="pub-ven">BMC Artificial Intelligence</span>, vol. 2, no. 1, Art. no. 13.
+                    <div class="pub-links">
+                        <a class="pub-link" href="https://link.springer.com/article/10.1186/s44398-026-00032-x" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
+                        <a class="pub-link" href="https://github.com/SamanKhamesian/GLIMMER" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <span class="pub-yr">2026</span>
+                <div>
+                    A. Arefeen, <span class="pub-me">S. Khamesian</span>, M. A. Grando, B. Thompson, and H. Ghasemzadeh, <span class="pub-t">&ldquo;GlyTwin: Enhancing digital twin for glucose control in type 1 diabetes using patient-centric counterfactual treatments,&rdquo;</span> <span class="pub-ven">IEEE J. Biomed. Health Inform.</span>
+                    <div class="pub-links">
+                        <a class="pub-link" href="https://arxiv.org/abs/2504.09846" target="_blank" rel="noopener noreferrer">Preprint &#8599;</a>
+                        <a class="pub-link" href="https://github.com/Arefeen06088/GlyTwin" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <span class="pub-yr">2024</span>
+                <div>
+                    <span class="pub-me">S. Khamesian</span> and H. Malek, <span class="pub-t">&ldquo;Hybrid self-attention NEAT: A novel evolutionary self-attention approach to improve the NEAT algorithm in high-dimensional inputs,&rdquo;</span> <span class="pub-ven">Evolving Systems</span>, vol. 15, no. 2, pp. 489&ndash;503.
+                    <div class="pub-links">
+                        <a class="pub-link" href="https://link.springer.com/article/10.1007/s12530-023-09510-3" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
+                        <a class="pub-link" href="https://github.com/SamanKhamesian/Hybrid-Self-Attention-NEAT" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                    </div>
+                </div>
+            </li>
+
+        </ol>
+
+        <div class="pub-grp">Conference Papers</div>
+        <ol class="pub-list">
+
+            <li>
+                <span class="pub-yr">2025</span>
+                <div>
+                    <span class="pub-me">S. Khamesian</span>, A. Arefeen, B. M. Thompson, M. A. Grando, and H. Ghasemzadeh, <span class="pub-t">&ldquo;AZT1D: A real-world dataset for type 1 diabetes,&rdquo;</span> in <span class="pub-ven">Proc. IEEE 21st Int. Conf. Body Sensor Netw. (BSN)</span>.
+                    <div class="pub-links">
+                        <a class="pub-link" href="https://ieeexplore.ieee.org/document/11337496" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
+                        <a class="pub-link" href="https://data.mendeley.com/datasets/gk9m674wcx/1" target="_blank" rel="noopener noreferrer">Dataset &#8599;</a>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <span class="pub-yr">2025</span>
+                <div>
+                    <span class="pub-me">S. Khamesian</span>, A. Arefeen, S. M. Carpenter, and H. Ghasemzadeh, <span class="pub-t">&ldquo;NutriGen: Personalized meal plan generator leveraging large language models to enhance dietary and nutritional adherence,&rdquo;</span> in <span class="pub-ven">Proc. 47th Annu. Int. Conf. IEEE Eng. Med. Biol. Soc. (EMBC)</span>, Copenhagen, Denmark.
+                    <div class="pub-links">
+                        <a class="pub-link" href="https://ieeexplore.ieee.org/document/11253879" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
+                        <a class="pub-link" href="https://github.com/SamanKhamesian/NutriGen" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <span class="pub-yr">2024</span>
+                <div>
+                    A. Arefeen, <span class="pub-me">S. Khamesian</span>, M. A. Grando, B. Thompson, and H. Ghasemzadeh, <span class="pub-t">&ldquo;GlyMan: Glycemic management using patient-centric counterfactuals,&rdquo;</span> in <span class="pub-ven">Proc. IEEE Int. Conf. Biomed. Health Inform. (BHI)</span>.
+                    <div class="pub-links">
+                        <a class="pub-link" href="https://ieeexplore.ieee.org/document/10913587" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
+                        <a class="pub-link" href="https://github.com/Arefeen06088/GlyMan" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                    </div>
+                </div>
+            </li>
+
+        </ol>
+
+        <div class="pub-grp">Under Review</div>
+        <ol class="pub-list">
+
+            <li>
+                <span class="pub-yr">2026</span>
+                <div>
+                    <span class="pub-me">S. Khamesian</span>, S. H. Balaji, D. Y. Shi, S. M. Carpenter, D. E. Rivera, W. B. Knox, P. Stone, and H. Ghasemzadeh, <span class="pub-t">&ldquo;GUIDE: Reinforcement learning for behavioral action support in type 1 diabetes,&rdquo;</span> submitted to <span class="pub-ven">IEEE J. Biomed. Health Inform.</span>
+                    <div class="pub-links">
+                        <a class="pub-link" href="https://arxiv.org/abs/2604.00385" target="_blank" rel="noopener noreferrer">Preprint &#8599;</a>
+                        <a class="pub-link" href="https://github.com/SamanKhamesian/GUIDE" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <span class="pub-yr">2026</span>
+                <div>
+                    <span class="pub-me">S. Khamesian</span>, A. Arefeen, M. A. Grando, B. M. Thompson, C. B. Cook, and H. Ghasemzadeh, <span class="pub-t">&ldquo;Understanding associations between behavioral factors and glycemic outcomes in patients with type 1 diabetes using automated insulin delivery systems: Longitudinal observational study,&rdquo;</span> submitted to <span class="pub-ven">JMIR Diabetes</span>.
+                    <div class="pub-links">
+                        <a class="pub-link" href="https://preprints.jmir.org/preprint/94692" target="_blank" rel="noopener noreferrer">Preprint &#8599;</a>
+                    </div>
+                </div>
             </li>
 
         </ol>
