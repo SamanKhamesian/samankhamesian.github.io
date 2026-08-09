@@ -488,6 +488,36 @@
             line-height: 1.6;
         }
 
+        /* A second .edu section stacks under the first without the full
+           hero gap. Education's padding-bottom supplies most of it. */
+        .edu + .edu { margin-top: 1rem; }
+
+        /* Bullets inside a timeline entry (Work Experience).
+           The padding here also cancels the .tl li spacing, which would
+           otherwise apply to these nested list items too. */
+        .tl .pts {
+            list-style: none;
+            margin-top: 0.7rem;
+        }
+        .tl .pts li {
+            position: relative;
+            padding: 0 0 0 1.65rem;
+            margin-top: 0.55rem;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        .tl .pts li::before {
+            content: '';
+            position: absolute;
+            left: 0.45rem;
+            top: 0.52em;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
         /* ---------- mobile: let it scroll, don't force one screen ---------- */
         @media (max-width: 640px) {
             :root {
@@ -528,6 +558,7 @@
                 margin-top: 3.25rem;
                 padding-bottom: 2rem;
             }
+            .edu + .edu { margin-top: 1.25rem; }
             .edu-head { gap: 0.85rem; margin-bottom: 1.9rem; }
             .tl { padding-left: 1.9rem; }
             .tl .tl-dot { left: calc(var(--edu-rail) - 1.9rem - 4px); }
@@ -810,6 +841,64 @@
         </ol>
     </section>
 
+    <!-- ============================================================
+         WORK EXPERIENCE — same construction as Education above:
+         a SIBLING of #page so fitViewport() never scales it, and
+         fitEdu() pins it to the same left edge and width.
+         ============================================================ -->
+    <section class="edu" id="work">
+
+        <div class="edu-head">
+            <div class="edu-logo">
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Work Experience">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="32" y="112" width="150" height="136" fill="#FAF9F6" transform="rotate(-3.5 107 180)"/>
+                    <rect x="142" y="92" width="152" height="146" fill="#FAF9F6" transform="rotate(3 218 165)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M56 168 C 118 177 206 177 264 168"/>
+                        <path d="M142 182 C 154 180 168 180 180 182"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M56 132 C 54 164 55 198 58 228 C 118 236 208 235 264 228 C 267 198 266 164 264 132 C 196 124 122 124 56 132 Z"/>
+                        <path d="M126 128 C 126 108 132 98 146 95 C 160 92 173 93 182 98 C 192 104 196 114 196 128"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Work Experience</h2>
+        </div>
+
+        <ol class="tl">
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">OCT 2021 — JUN 2023</div>
+                <div class="deg">Machine Learning Engineer</div>
+                <div class="sch">Mofid Securities</div>
+                <div class="meta">Tehran, Iran</div>
+                <ul class="pts">
+                    <li>Designed a stock recommender system using market trends and user behavior to improve engagement.</li>
+                    <li>Built LSTM-based models to improve forecasting accuracy and predict stock trading volumes.</li>
+                    <li>Implemented spoof detection for eKYC using anomaly detection and video analysis, achieving 98% TPR at 5% FPR.</li>
+                    <li>Partnered with data engineers, analysts, and product managers to deliver business-aligned technical solutions.</li>
+                </ul>
+            </li>
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">JUL 2018 — SEP 2018</div>
+                <div class="deg">Software Engineering Intern</div>
+                <div class="sch">Cafebazaar</div>
+                <div class="meta">Tehran, Iran</div>
+                <ul class="pts">
+                    <li>Developed a news agency website as the core internship project.</li>
+                    <li>Worked across backend and frontend using Django and Python.</li>
+                    <li>Collaborated in a six-person engineering team following an Agile workflow, with sprint planning, stand-ups, and code reviews.</li>
+                </ul>
+            </li>
+
+        </ol>
+    </section>
+
     <script>
         /* ---------- email assembled at runtime (anti-scrape) ---------- */
         (function () {
@@ -895,22 +984,24 @@
             bio.style.width = Math.round(width) + 'px';
         }
 
-        /* Pin the Education section to the hero's RENDERED bounds.
+        /* Pin the Education / Work sections to the hero's RENDERED bounds.
 
            #page is scaled with transform: scale() + transform-origin:
            top center, so its on-screen left edge sits inboard of its
            layout position. .edu is never scaled, so matching CSS widths
            does NOT align them. Measure the terminal's real rect instead
-           (it already spans name-left -> photo-right) and copy it.
-           Must run AFTER fitBio() and fitViewport(). */
+           (it already spans name-left -> photo-right) and copy it onto
+           every .edu section. Must run AFTER fitBio() and fitViewport(). */
         function fitEdu() {
-            var edu = document.getElementById('education');
+            var sections = document.querySelectorAll('.edu');
             var bio = document.getElementById('bio');
-            if (!edu || !bio) return;
+            if (!sections.length || !bio) return;
 
-            edu.style.alignSelf = '';
-            edu.style.marginLeft = '';
-            edu.style.width = '';
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].style.alignSelf = '';
+                sections[i].style.marginLeft = '';
+                sections[i].style.width = '';
+            }
 
             var b = bio.getBoundingClientRect();
             if (!b.width) return;
@@ -919,9 +1010,11 @@
             var padLeft = parseFloat(getComputedStyle(body).paddingLeft) || 0;
             var bodyLeft = body.getBoundingClientRect().left + padLeft;
 
-            edu.style.alignSelf = 'flex-start';
-            edu.style.marginLeft = Math.round(b.left - bodyLeft) + 'px';
-            edu.style.width = Math.round(b.width) + 'px';
+            for (var j = 0; j < sections.length; j++) {
+                sections[j].style.alignSelf = 'flex-start';
+                sections[j].style.marginLeft = Math.round(b.left - bodyLeft) + 'px';
+                sections[j].style.width = Math.round(b.width) + 'px';
+            }
         }
 
         /* Shrink the whole column just enough to clear the fold. */
