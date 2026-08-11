@@ -676,6 +676,14 @@
             background: var(--accent);
         }
 
+        /* Project name at the head of a Research bullet — bold, in the
+           primary text color, so it reads as a label against the
+           secondary-gray description that follows it. */
+        .tl .pts .pj {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
         /* =========================================================
            PUBLICATIONS — reference list. Shares .edu for the heading
            and fitEdu() alignment; every class below is prefixed
@@ -1204,6 +1212,65 @@
                     <li>Developed a news agency website as the core internship project.</li>
                     <li>Worked across backend and frontend using Django and Python.</li>
                     <li>Collaborated in a six-person engineering team following an Agile workflow, with sprint planning, stand-ups, and code reviews.</li>
+                </ul>
+            </li>
+
+        </ol>
+    </section>
+
+    <!-- ============================================================
+         RESEARCH EXPERIENCE — same construction as Work above:
+         a SIBLING of #page so fitViewport() never scales it, and
+         fitEdu() pins it to the same left edge and width.
+         ============================================================ -->
+    <section class="edu" id="research">
+
+        <div class="edu-head">
+            <div class="edu-logo">
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Research Experience">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="38" y="76" width="146" height="158" fill="#FAF9F6" transform="rotate(-4 111 155)"/>
+                    <rect x="112" y="62" width="150" height="164" fill="#FAF9F6" transform="rotate(3 187 144)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M52 92 C 48 144 49 196 54 240 C 96 246 138 245 172 240"/>
+                    </g>
+                    <g fill="#FAF9F6" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M186 196 C 202 210 224 232 244 252 C 252 260 264 259 270 251 C 276 243 274 232 266 225 C 246 207 224 187 208 173 Z"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M134 52 C 178 52 214 88 214 132 C 214 176 178 212 134 212 C 90 212 54 176 54 132 C 54 88 90 52 134 52 Z"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M86 118 C 92 100 104 88 120 82"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Research<span class="hsp"> </span>Experience</h2>
+        </div>
+
+        <ol class="tl">
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">JAN 2024 — PRESENT</div>
+                <div class="deg">Graduate Research Associate</div>
+                <div class="sch">Embedded Machine Intelligence Lab (EMIL)</div>
+                <div class="meta">Arizona State University · Phoenix, AZ</div>
+                <ul class="pts">
+                    <li><span class="pj">GUIDE</span> &ndash; Reinforcement Learning for Behavioral Support in T1D: Designed an RL framework for personalized insulin dosing, meal timing, and activity decisions; trained and evaluated offline and online agents on patient-specific simulators under realistic behavioral and physiological constraints. Conducted with the University of Texas at Austin through the NSF-funded ASU IFML ExpandAI project.</li>
+                    <li><span class="pj">NutriGen</span> &ndash; LLM-Based Personalized Meal Planning: Built an LLM framework that grounds structured meal plans in USDA nutrition data via prompt engineering, achieving 1.55% (Llama 3.1 8B) and 3.68% (GPT-3.5 Turbo) caloric error while minimizing required user input.</li>
+                </ul>
+            </li>
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">MAR 2024 — PRESENT</div>
+                <div class="deg">Research Affiliate</div>
+                <div class="sch">Mayo Clinic</div>
+                <div class="meta">Scottsdale, AZ</div>
+                <ul class="pts">
+                    <li><span class="pj">ExActHealth</span> &ndash; Mobile App for Food and Activity Data Collection: Designed and deployed an Android application for research data collection, integrating Health Connect smartwatch streams (activity, heart rate, sleep) with structured food logging; ran a 30-day clinical study with 20 type 1 diabetes participants and achieved 87% usability approval.</li>
+                    <li><span class="pj">GLIMMER</span> &ndash; Glycemic-Aware Blood Glucose Forecasting: Developed an architecture-agnostic forecasting framework with a genetic-algorithm-optimized loss function emphasizing dysglycemic regions; improved RMSE by up to 24.6% and MAE by 29.6% over baselines, reaching 98.4% recall and 86.8% F1 for dysglycemia detection with only 10K parameters.</li>
                 </ul>
             </li>
 
