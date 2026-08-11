@@ -4,990 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saman Khamesian</title>
+    <meta name="description" content="Saman Khamesian — Ph.D. student in Computer Science at Arizona State University, working on AI for healthcare and type 1 diabetes.">
     <meta name="theme-color" content="#FCFCFB" id="themeColorMeta">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 
-    <style>
-        /* ---------- Anthropic Serif (self-hosted, used ONLY by the
-           Education / Work headings). One variable font: wght 300..800,
-           opsz 16..48. The weight RANGE below is what tells the browser
-           the axis exists — with a single value it assumes the file only
-           has Light and FAKES any other weight by smearing the outlines,
-           which is what swallowed the space in "Work Experience". ---------- */
-        @font-face {
-            font-family: 'Anthropic Serif';
-            src: url('fonts/AnthropicSerif.woff2') format('woff2');
-            font-weight: 300 800;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        :root {
-            --bg-color: #FCFCFB;
-            --text-primary: #2A2825;
-            --text-secondary: #736E65;
-            --accent: #EE5D29;
-            --border-color: #E6DFD5;
-            --icon-bg: #2C2C2A;
-            --icon-fg: #FFFFFF;
-
-            /* Education heading */
-            --heading: #2A2825;
-
-            /* terminal window */
-            --term-bg: #FFFFFF;
-            --term-border: #DCD7CF;
-            --term-bar: linear-gradient(#F7F6F4, #EAE8E4);
-            --term-bar-border: #DCD7CF;
-            --term-shadow: 0 20px 44px rgba(44, 44, 42, 0.15),
-                           0 2px 6px rgba(44, 44, 42, 0.08);
-
-            /* Theme control — button + dropdown panel.
-               These FOLLOW the page theme instead of inverting it, so a
-               light page gets a light button. That's the opposite of
-               --icon-bg below, which inverts on purpose so the profile
-               tiles stay high-contrast. */
-            --tbtn-bg: #FFFFFF;
-            --tbtn-fg: #2A2825;
-            --tbtn-border: #E2DCD3;
-            --menu-bg: #FFFFFF;
-            --menu-border: #E2DCD3;
-            --menu-hover: #F3F1ED;
-            --menu-shadow: 0 16px 36px rgba(44, 44, 42, 0.16),
-                           0 2px 6px rgba(44, 44, 42, 0.08);
-
-            /* misc themed bits */
-            --bin-opacity: 0.55;
-            --dot-glow: rgba(238, 93, 41, 0.14);
-            --hover-shadow: rgba(44, 44, 42, 0.30);
-
-            /* ASCII art metrics — these two also drive the photo diameter,
-               since the photo is sized to the name block's height.
-               --icon-size also sets the Download Resume pill's height and
-               the theme button, so all three stay the same size. */
-            --art-font-size: 0.68rem;
-            --icon-size: 36px;
-            --icon-radius: 9px;
-
-            --hero-gap: 1.25rem;
-
-            /* Space held at the top for the future nav tabs */
-            --nav-reserve: 4.5rem;
-
-            /* Anthropic brand face requested first; JetBrains Mono is the
-               fallback. If you self-host the real file, add @font-face and
-               this stack picks it up with no other changes. */
-            --font-mono: 'Anthropic Mono', 'JetBrains Mono', ui-monospace,
-                         SFMono-Regular, Menlo, monospace;
-
-            /* Education heading only */
-            --font-serif: 'Anthropic Serif', 'Iowan Old Style', Georgia, serif;
-
-            --edu-logo-size: 76px;   /* logo tile */
-            --edu-rail: 16px;        /* left edge -> vertical line */
-
-            /* Width of the forced gap between words in section headings.
-               This is the dial — nothing else needs touching. */
-            --head-space: 0.3em;
-        }
-
-        /* =========================================================
-           DARK THEME — only colors change here, no layout values.
-           Set by JS on <html data-theme="dark"> before first paint.
-           ========================================================= */
-        html[data-theme="dark"] {
-            --bg-color: #181818;            /* rgb(24,24,24) */
-            --text-primary: #EDEAE4;
-            --text-secondary: #A29B92;
-            --accent: #EE5D29;              /* orange stays orange */
-            --border-color: #3A3735;
-            --icon-bg: #FFFFFF;             /* white tiles */
-            --icon-fg: #181818;
-
-            --heading: #FFFFFF;
-
-            --term-bg: #1B1B1B;             /* rgb(27,27,27)  macOS body  */
-            --term-border: #2B2B2B;
-            --term-bar: #383633;            /* rgb(56,54,51)  macOS bar   */
-            --term-bar-border: #2B2B2B;
-            --term-shadow: 0 22px 48px rgba(0, 0, 0, 0.55),
-                           0 2px 8px rgba(0, 0, 0, 0.40);
-
-            /* Theme control — dark page, dark button. */
-            --tbtn-bg: #232322;
-            --tbtn-fg: #EDEAE4;
-            --tbtn-border: #3A3735;
-            --menu-bg: #2A2A28;
-            --menu-border: #3A3735;
-            --menu-hover: #383633;
-            --menu-shadow: 0 18px 40px rgba(0, 0, 0, 0.60),
-                           0 2px 8px rgba(0, 0, 0, 0.45);
-
-            --bin-opacity: 0.42;
-            --dot-glow: rgba(238, 93, 41, 0.20);
-            --hover-shadow: rgba(0, 0, 0, 0.55);
-
-            color-scheme: dark;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        /* min-height (not height) so the body can grow past one screen
-           now that there's a section below the fold. */
-        html, body { min-height: 100%; }
-        html { background-color: var(--bg-color); }   /* no white overscroll flash */
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: var(--nav-reserve) 1.5rem 1.5rem;
-            position: relative;
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* =========================================================
-           THEME CONTROL — button plus a three-choice menu.
-           Fixed top-right for now. When the nav tabs land, move
-           .theme-toggle into that row and drop `position: fixed`.
-           ========================================================= */
-        .theme-toggle {
-            position: fixed;
-            top: 1.15rem;
-            right: 1.5rem;
-            z-index: 30;
-        }
-        .theme-btn {
-            width: var(--icon-size);
-            height: var(--icon-size);
-            padding: 0;
-            border: 1px solid var(--tbtn-border);
-            cursor: pointer;
-            border-radius: var(--icon-radius);
-            background-color: var(--tbtn-bg);
-            color: var(--tbtn-fg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
-                        box-shadow 0.22s ease,
-                        background-color 0.3s ease,
-                        color 0.3s ease,
-                        border-color 0.3s ease;
-        }
-        .theme-btn svg {
-            width: 66%;
-            height: 66%;
-            display: none;
-            pointer-events: none;
-        }
-        /* The button shows the icon of the SELECTED mode, so System
-           shows the display icon rather than the resolved sun/moon. */
-        .theme-btn[data-mode="light"]  svg[data-mode="light"],
-        .theme-btn[data-mode="dark"]   svg[data-mode="dark"],
-        .theme-btn[data-mode="system"] svg[data-mode="system"] { display: block; }
-        .theme-btn:hover,
-        .theme-btn:focus-visible,
-        .theme-btn[aria-expanded="true"] {
-            transform: translateY(-4px) scale(1.12);
-            box-shadow: 0 10px 22px var(--hover-shadow);
-        }
-        .theme-btn:focus-visible {
-            outline: 3px solid var(--accent);
-            outline-offset: 4px;
-        }
-
-        .theme-menu {
-            position: absolute;
-            top: calc(100% + 10px);
-            right: 0;
-            min-width: 176px;
-            padding: 6px;
-            background: var(--menu-bg);
-            border: 1px solid var(--menu-border);
-            border-radius: 14px;
-            box-shadow: var(--menu-shadow);
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            transform-origin: top right;
-            animation: menuIn 0.15s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .theme-menu[hidden] { display: none; }
-        @keyframes menuIn {
-            from { opacity: 0; transform: translateY(-6px) scale(0.96); }
-            to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .theme-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            width: 100%;
-            padding: 0.52rem 0.6rem;
-            border: 0;
-            background: transparent;
-            border-radius: 9px;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.88rem;
-            color: var(--text-primary);
-            text-align: left;
-            transition: background-color 0.15s ease;
-        }
-        .theme-item:hover { background: var(--menu-hover); }
-        .theme-item:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: -2px;
-        }
-        .ti-icon {
-            width: 17px;
-            height: 17px;
-            flex: 0 0 auto;
-            color: var(--text-secondary);
-        }
-        .ti-label { flex: 1; }
-        .ti-check {
-            width: 15px;
-            height: 15px;
-            flex: 0 0 auto;
-            color: var(--accent);
-            opacity: 0;
-        }
-        .theme-item[aria-checked="true"] { font-weight: 500; }
-        .theme-item[aria-checked="true"] .ti-icon { color: var(--text-primary); }
-        .theme-item[aria-checked="true"] .ti-check { opacity: 1; }
-
-        /* ---------- animated binary background ---------- */
-        .bin-rows {
-            /* absolute (not fixed) = stays at the top of the page and
-               scrolls away, so you only ever see these 6 rows */
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-            -webkit-mask-image: linear-gradient(90deg, black 0%, black 10%, transparent 22%, transparent 78%, black 90%, black 100%);
-            mask-image: linear-gradient(90deg, black 0%, black 10%, transparent 22%, transparent 78%, black 90%, black 100%);
-        }
-        .bin-row {
-            position: absolute;
-            left: 0;
-            width: max-content;
-            white-space: nowrap;
-            color: var(--accent);
-            font-family: 'JetBrains Mono', ui-monospace, monospace;
-            font-size: 26px;
-            letter-spacing: 55px;
-            opacity: var(--bin-opacity);
-            will-change: transform;
-            animation-name: flowRight;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-        }
-        .bin-row .half { display: inline-block; }
-        @keyframes flowRight {
-            from { transform: translateX(-50%); }
-            to   { transform: translateX(0%); }
-        }
-
-        /* ---------- page column (JS scales this to fit the viewport) ---------- */
-        .page {
-            max-width: 1100px;
-            width: 110%;
-            position: relative;
-            z-index: 1;
-            transform-origin: top center;
-        }
-
-        /* ---------- hero ---------- */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--hero-gap);
-        }
-        .name-wrap {
-            flex: 0 1 auto;
-            min-width: 0;
-            max-width: 100%;
-        }
-        .art-fit {
-            width: 100%;
-            overflow: hidden;
-        }
-        .name-block {
-            display: block;
-            width: max-content;
-            transform-origin: left top;
-        }
-        .name {
-            font-family: 'JetBrains Mono', ui-monospace, monospace;
-            font-weight: 700;
-            font-size: var(--art-font-size);
-            line-height: 1.1;
-            color: var(--accent);
-            white-space: pre;
-            margin: 0;
-            display: block;
-        }
-        .photo-frame {
-            flex-shrink: 0;
-            /* fallback only — fitPhoto() overrides this with the exact
-               height of the name block so the two align top and bottom */
-            width: clamp(150px, 20vw, 230px);
-            height: clamp(150px, 20vw, 230px);
-            border-radius: 50%;
-            overflow: hidden;
-        }
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* =========================================================
-           ACTION ROW — Download Resume pill first, then the profile
-           tiles, spread edge to edge across the name block so the
-           last tile lands flush with the final ASCII character.
-           space-between splits the leftover width EQUALLY between
-           every pair, so all the gaps stay identical on their own;
-           the 0.5rem gap below is only the floor if space runs out.
-           ========================================================= */
-        .socials {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.5rem;
-            width: 100%;
-            margin-top: 1.25rem;
-        }
-        .social {
-            width: var(--icon-size);
-            height: var(--icon-size);
-            flex: 0 0 auto;
-            border-radius: var(--icon-radius);
-            background-color: var(--icon-bg);
-            color: var(--icon-fg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            position: relative;
-            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
-                        box-shadow 0.22s ease,
-                        background-color 0.3s ease,
-                        color 0.3s ease;
-        }
-        /* invisible 44px tap target, visual size unchanged */
-        .social::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: max(100%, 44px);
-            height: max(100%, 44px);
-        }
-        .social svg {
-            width: 70%;
-            height: 70%;
-            display: block;
-            pointer-events: none;
-        }
-        .social:hover,
-        .social:focus-visible {
-            transform: translateY(-4px) scale(1.12);
-            box-shadow: 0 10px 22px var(--hover-shadow);
-        }
-        .social:focus-visible {
-            outline: 3px solid var(--accent);
-            outline-offset: 4px;
-        }
-
-        /* Download Resume — same fill as the tiles (--icon-bg / --icon-fg),
-           so the whole row is one material and orange stays reserved for
-           the name, the prompt and the timeline dots. */
-        .resume {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.45rem;
-            flex: 0 0 auto;
-            height: var(--icon-size);
-            padding: 0 0.8rem;
-            border-radius: var(--icon-radius);
-            background-color: var(--icon-bg);
-            color: var(--icon-fg);
-            border: 1.5px solid var(--icon-bg);
-            font-family: var(--font-mono);
-            font-size: 0.66rem;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            text-decoration: none;
-            white-space: nowrap;
-            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
-                        box-shadow 0.22s ease,
-                        background-color 0.3s ease,
-                        color 0.3s ease,
-                        border-color 0.3s ease;
-        }
-        .resume svg {
-            width: 13px;
-            height: 13px;
-            flex: 0 0 auto;
-            pointer-events: none;
-        }
-        .resume:hover,
-        .resume:focus-visible {
-            transform: translateY(-4px) scale(1.06);
-            box-shadow: 0 10px 22px var(--hover-shadow);
-        }
-        .resume:focus-visible {
-            outline: 3px solid var(--accent);
-            outline-offset: 4px;
-        }
-
-        /* ---------- terminal bio ---------- */
-        .bio {
-            margin: 1.5rem auto 0;
-        }
-        .term-window {
-            background: var(--term-bg);
-            border: 1px solid var(--term-border);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--term-shadow);
-            transition: background-color 0.3s ease, border-color 0.3s ease,
-                        box-shadow 0.3s ease;
-        }
-        .term-bar {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 13px;
-            background: var(--term-bar);
-            border-bottom: 1px solid var(--term-bar-border);
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
-        .dot {
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            flex: 0 0 auto;
-        }
-        .dot.r { background: #FF5F57; }
-        .dot.y { background: #FEBC2E; }
-        .dot.g { background: #28C840; }
-
-        .term-body { padding: 1.2rem 1.35rem 1.3rem; }
-        .term {
-            font-family: var(--font-mono);
-            font-size: 0.78rem;
-            line-height: 1.6;
-        }
-        .term .cmd {
-            color: var(--text-primary);
-            font-weight: 500;
-            white-space: pre-wrap;
-        }
-        .term .prompt {
-            color: var(--accent);
-            font-weight: 700;
-            margin-right: 0.6ch;
-            user-select: none;
-        }
-        .term .out {
-            color: var(--text-secondary);
-            margin: 0.3rem 0 0.9rem;
-        }
-        .term .out p + p { margin-top: 0.7rem; }
-        .term .last { margin-bottom: 0; }
-
-        .cursor {
-            display: inline-block;
-            width: 0.58em;
-            height: 1.05em;
-            background: var(--accent);
-            vertical-align: -0.18em;
-            margin-left: 0.1ch;
-            animation: blink 1.06s step-end infinite;
-        }
-        @keyframes blink {
-            0%, 50%      { opacity: 1; }
-            50.01%, 100% { opacity: 0; }
-        }
-
-        /* =========================================================
-           EDUCATION  — sits OUTSIDE #page, so fitViewport() never
-           scales it and it flows/scrolls at natural size.
-           ========================================================= */
-        .edu {
-            /* Fallback only. fitEdu() overwrites width + margin-left with
-               the hero's measured on-screen bounds. */
-            width: 100%;
-            max-width: 1100px;
-            position: relative;
-            z-index: 1;
-            margin-top: 5rem;
-            padding-bottom: 4rem;
-            scroll-margin-top: var(--nav-reserve);
-        }
-        .edu-head {
-            display: flex;
-            align-items: center;
-            gap: 1.1rem;
-            margin-bottom: 2.5rem;
-        }
-        .edu-logo {
-            width: var(--edu-logo-size);
-            height: var(--edu-logo-size);
-            flex: 0 0 auto;
-        }
-        .edu-logo svg {
-            width: 100%;
-            height: 100%;
-            border-radius: 14px;
-            display: block;
-        }
-        .edu-head h2 {
-            font-family: var(--font-serif);
-            font-weight: 300;
-            font-size: clamp(1.9rem, 4.6vw, 2.6rem);
-            letter-spacing: -0.015em;
-            line-height: 1;
-            color: var(--heading);
-            font-optical-sizing: auto;
-            -webkit-font-smoothing: antialiased;
-            transition: color 0.3s ease;
-        }
-
-        /* Hard space — the CSS equivalent of \hspace{} in LaTeX.
-           Forces a fixed gap no matter what the font's own space glyph
-           does, since the width comes from the box, not the glyph.
-           A real space character stays INSIDE the span, so copy/paste
-           and screen readers still get "Work Experience". */
-        .edu-head h2 .hsp {
-            display: inline-block;
-            width: var(--head-space);
-        }
-
-        .tl {
-            list-style: none;
-            position: relative;
-            padding-left: 2.5rem;
-        }
-        .tl::before {
-            content: '';
-            position: absolute;
-            left: var(--edu-rail);
-            top: 0.6rem;
-            bottom: 0.6rem;
-            width: 1px;
-            background: var(--border-color);
-        }
-        .tl li { position: relative; padding: 0 0 2.1rem; }
-        .tl li:last-child { padding-bottom: 0; }
-        .tl .tl-dot {
-            position: absolute;
-            left: calc(var(--edu-rail) - 2.5rem - 4px);
-            top: 0.42rem;
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: var(--border-color);
-        }
-        .tl li:first-child .tl-dot {
-            background: var(--accent);
-            box-shadow: 0 0 0 4px var(--dot-glow);
-        }
-        .tl .when {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-        }
-        .tl .deg {
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            font-weight: 700;
-            margin-top: 0.25rem;
-            line-height: 1.35;
-        }
-        .tl .track {
-            font-family: var(--font-mono);
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            margin-top: 0.2rem;
-            line-height: 1.4;
-        }
-        .tl .sch {
-            font-size: 0.94rem;
-            font-weight: 500;
-            color: var(--accent);
-            margin-top: 0.28rem;
-        }
-        .tl .meta {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 0.32rem;
-            line-height: 1.6;
-        }
-
-        /* A second .edu section stacks under the first without the full
-           hero gap. Education's padding-bottom supplies most of it. */
-        .edu + .edu { margin-top: 1rem; }
-
-        /* Bullets inside a timeline entry (Work Experience).
-           The padding here also cancels the .tl li spacing, which would
-           otherwise apply to these nested list items too. */
-        .tl .pts {
-            list-style: none;
-            margin-top: 0.7rem;
-        }
-        .tl .pts li {
-            position: relative;
-            padding: 0 0 0 1.65rem;
-            margin-top: 0.55rem;
-            font-size: 0.85rem;
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-        .tl .pts li::before {
-            content: '';
-            position: absolute;
-            left: 0.45rem;
-            top: 0.52em;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: var(--accent);
-        }
-
-        /* Project name at the head of a Research bullet — bold, in the
-           primary text color, so it reads as a label against the
-           secondary-gray description that follows it. */
-        .tl .pts .pj {
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
-        /* =========================================================
-           PUBLICATIONS — reference list. Shares .edu for the heading
-           and fitEdu() alignment; every class below is prefixed
-           .pub- so nothing collides with the .tl timeline.
-           ========================================================= */
-        .pub-grp {
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
-            margin: 2.4rem 0 1.15rem;
-        }
-        .pub-grp:first-of-type { margin-top: 0; }
-        /* hairline that runs from the label out to the right edge */
-        .pub-grp::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border-color);
-        }
-
-        .pub-list { list-style: none; }
-        .pub-list li {
-            display: flex;
-            gap: 1.15rem;
-            padding: 0 0 1.35rem;
-            font-size: 0.88rem;
-            line-height: 1.65;
-            color: var(--text-secondary);
-        }
-        /* fixed-width year column so every entry's text starts on the
-           same vertical line */
-        .pub-yr {
-            font-family: var(--font-mono);
-            font-size: 0.76rem;
-            font-weight: 700;
-            color: var(--accent);
-            flex: 0 0 3.2rem;
-            padding-top: 0.12em;
-        }
-        .pub-t   { color: var(--text-primary); font-weight: 500; }
-        .pub-me  { color: var(--text-primary); font-weight: 600; }
-        .pub-ven { font-style: italic; }
-
-        .pub-links { margin-top: 0.3rem; }
-        .pub-link {
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
-            letter-spacing: 0.04em;
-            color: var(--accent);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s ease;
-        }
-        .pub-link:hover,
-        .pub-link:focus-visible { border-bottom-color: var(--accent); }
-        .pub-link:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 3px;
-        }
-        .pub-link + .pub-link { margin-left: 0.9rem; }
-
-        /* ---------- mobile: let it scroll, don't force one screen ---------- */
-        @media (max-width: 640px) {
-            :root {
-                --nav-reserve: 2rem;
-                --icon-size: min(40px, 10vw);
-                --icon-radius: 10px;
-                --art-font-size: 0.7rem;
-                --edu-logo-size: 56px;
-            }
-            body { padding: var(--nav-reserve) 1rem 3rem; }
-            .theme-toggle { top: 0.7rem; right: 1rem; }
-            /* 110% overflowed the screen and clipped long lines */
-            .page { width: 100%; }
-            .hero {
-                flex-direction: column-reverse;
-                align-items: center;
-                gap: 1.6rem;
-                width: 100%;
-            }
-            .name-wrap { width: 100%; }
-            /* resume bar gets its own line, tiles centered below it */
-            .socials {
-                justify-content: center;
-                gap: clamp(6px, 3vw, 14px);
-                margin-top: 1.1rem;
-            }
-            .socials .resume {
-                flex: 1 0 100%;
-                margin-bottom: 0.35rem;
-            }
-            .photo-frame {
-                width: clamp(150px, 46vw, 210px);
-                height: clamp(150px, 46vw, 210px);
-                margin: 0 auto;
-            }
-            .bio { margin-top: 1.75rem; }
-            .term-body { padding: 1.1rem 1rem 1.2rem; }
-            .term { font-size: 0.76rem; line-height: 1.66; }
-            .bin-row { font-size: 18px; letter-spacing: 34px; }
-
-            .edu {
-                width: 100%;
-                margin-top: 3.25rem;
-                padding-bottom: 2rem;
-            }
-            .edu + .edu { margin-top: 1.25rem; }
-            .edu-head { gap: 0.85rem; margin-bottom: 1.9rem; }
-            .tl { padding-left: 1.9rem; }
-            .tl .tl-dot { left: calc(var(--edu-rail) - 1.9rem - 4px); }
-            .tl li { padding-bottom: 1.8rem; }
-            .tl .deg { font-size: 0.95rem; }
-
-            /* year moves above the entry instead of beside it */
-            .pub-list li { flex-direction: column; gap: 0.25rem; }
-            .pub-yr { flex: none; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .bin-row { animation: none; transform: translateX(-50%); }
-            .social { transition: none; }
-            .resume { transition: none; }
-            .theme-btn { transition: none; }
-            .theme-menu { animation: none; }
-            .cursor { animation: none; }
-        }
-    </style>
-
-    <script>
-        /* =========================================================
-           THEME ENGINE
-           Runs in <head> so the right theme is on <html> before the
-           first paint — no white flash on a dark-mode load.
-
-           Three explicit choices in a menu (no cycling):
-             light  = forced day
-             dark   = forced night
-             system = follows the OS setting  (the default)
-           ========================================================= */
-        (function () {
-            var MODES  = ['light', 'dark', 'system'];
-            var LABELS = {
-                light:  'Light',
-                dark:   'Dark',
-                system: 'System'
-            };
-            var STORE_KEY = 'sk-theme-mode';
-
-            var mode = 'system';
-            try {
-                var saved = localStorage.getItem(STORE_KEY);
-                if (saved && MODES.indexOf(saved) !== -1) mode = saved;
-            } catch (e) { /* private mode / storage blocked — stay on system */ }
-
-            function prefersDark() {
-                return !!(window.matchMedia &&
-                          window.matchMedia('(prefers-color-scheme: dark)').matches);
-            }
-
-            function resolve(m) {
-                if (m === 'light') return 'light';
-                if (m === 'dark')  return 'dark';
-                return prefersDark() ? 'dark' : 'light';
-            }
-
-            function apply() {
-                var theme = resolve(mode);
-                document.documentElement.setAttribute('data-theme', theme);
-
-                var meta = document.getElementById('themeColorMeta');
-                if (meta) meta.setAttribute('content', theme === 'dark' ? '#181818' : '#FCFCFB');
-
-                var btn = document.getElementById('themeBtn');
-                if (btn) {
-                    btn.setAttribute('data-mode', mode);
-                    btn.setAttribute('title', 'Theme: ' + LABELS[mode]);
-                    btn.setAttribute('aria-label', 'Theme: ' + LABELS[mode] + '. Change theme.');
-                }
-
-                var items = document.querySelectorAll('.theme-item');
-                for (var i = 0; i < items.length; i++) {
-                    items[i].setAttribute('aria-checked',
-                        items[i].getAttribute('data-set') === mode ? 'true' : 'false');
-                }
-            }
-
-            apply();   /* before first paint */
-
-            /* System mode flips live when the OS switches (which, on your
-               Mac, is what the sunset schedule drives). */
-            if (window.matchMedia) {
-                var mq = window.matchMedia('(prefers-color-scheme: dark)');
-                var onOS = function () { if (mode === 'system') apply(); };
-                if (mq.addEventListener) mq.addEventListener('change', onOS);
-                else if (mq.addListener) mq.addListener(onOS);
-            }
-
-            document.addEventListener('DOMContentLoaded', function () {
-                var btn  = document.getElementById('themeBtn');
-                var menu = document.getElementById('themeMenu');
-                if (!btn || !menu) return;
-
-                var items = menu.querySelectorAll('.theme-item');
-
-                function open() {
-                    menu.hidden = false;
-                    btn.setAttribute('aria-expanded', 'true');
-                    var checked = menu.querySelector('.theme-item[aria-checked="true"]');
-                    (checked || items[0]).focus();
-                }
-                function close(returnFocus) {
-                    menu.hidden = true;
-                    btn.setAttribute('aria-expanded', 'false');
-                    if (returnFocus) btn.focus();
-                }
-                function isOpen() { return !menu.hidden; }
-
-                btn.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    if (isOpen()) { close(false); } else { open(); }
-                });
-
-                for (var i = 0; i < items.length; i++) {
-                    (function (item, idx) {
-                        item.addEventListener('click', function () {
-                            mode = item.getAttribute('data-set');
-                            try { localStorage.setItem(STORE_KEY, mode); } catch (e) {}
-                            apply();
-                            close(true);
-                        });
-                        item.addEventListener('keydown', function (e) {
-                            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-                                e.preventDefault();
-                                var n = (e.key === 'ArrowDown') ? idx + 1 : idx - 1;
-                                items[(n + items.length) % items.length].focus();
-                            }
-                        });
-                    })(items[i], i);
-                }
-
-                /* clicks inside the panel must not bubble to the
-                   document handler that closes it */
-                menu.addEventListener('click', function (e) { e.stopPropagation(); });
-
-                document.addEventListener('click', function () { if (isOpen()) close(false); });
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape' && isOpen()) close(true);
-                });
-
-                apply();
-            });
-        })();
-    </script>
+    <!-- no defer: this has to run before the first paint -->
+    <script src="theme.js"></script>
 </head>
 <body>
     <div class="bin-rows" id="binRows"></div>
 
-    <!-- Nav tabs (Research, Education, ...) go here later.
-         The --nav-reserve padding above already holds the space.
-         When they land, move .theme-toggle into that row. -->
-
-    <div class="theme-toggle">
-        <button class="theme-btn" id="themeBtn" type="button" data-mode="system"
-                aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu" title="Theme">
-            <!-- light: sun -->
-            <svg data-mode="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                <circle cx="12" cy="12" r="4.1"/>
-                <path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/>
-            </svg>
-            <!-- dark: moon -->
-            <svg data-mode="dark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-                <path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/>
-            </svg>
-            <!-- system: display -->
-            <svg data-mode="system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                <rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/>
-                <path d="M8.8 21h6.4M12 17v4"/>
-            </svg>
+    <!-- ============================================================got
+         NAV — identical on every page except which link carries
+         aria-current="page". Links marked .is-soon point nowhere
+         until those pages exist.
+         ============================================================ -->
+    <nav class="nav" id="nav" aria-label="Main">
+        <button class="nav-burger" id="navBurger" type="button"
+                aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+            <svg class="bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
 
-        <div class="theme-menu" id="themeMenu" role="menu" aria-label="Theme" hidden>
-            <button class="theme-item" type="button" role="menuitemradio" data-set="light" aria-checked="false">
-                <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/></svg>
-                <span class="ti-label">Light</span>
-                <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
-            </button>
+        <a class="nav-home" href="index.html">Saman Khamesian</a>
 
-            <button class="theme-item" type="button" role="menuitemradio" data-set="dark" aria-checked="false">
-                <svg class="ti-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/></svg>
-                <span class="ti-label">Dark</span>
-                <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
-            </button>
-
-            <button class="theme-item" type="button" role="menuitemradio" data-set="system" aria-checked="false">
-                <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/><path d="M8.8 21h6.4M12 17v4"/></svg>
-                <span class="ti-label">System</span>
-                <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
-            </button>
+        <div class="nav-links" id="navLinks">
+            <a class="nav-link" href="index.html" aria-current="page">About Me</a>
+            <a class="nav-link" href="experience.html">Experience</a>
+            <a class="nav-link" href="publications.html">Publications</a>
+            <a class="nav-link is-soon" href="#" aria-disabled="true">Projects</a>
+            <a class="nav-link is-soon" href="#" aria-disabled="true">Activities</a>
+            <a class="nav-link is-soon" href="#" aria-disabled="true">Personal</a>
         </div>
-    </div>
+
+        <div class="nav-tools">
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeBtn" type="button" data-mode="system"
+                        aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu" title="Theme">
+                    <svg data-mode="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="4.1"/>
+                        <path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/>
+                    </svg>
+                    <svg data-mode="dark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                        <path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/>
+                    </svg>
+                    <svg data-mode="system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/>
+                        <path d="M8.8 21h6.4M12 17v4"/>
+                    </svg>
+                </button>
+
+                <div class="theme-menu" id="themeMenu" role="menu" aria-label="Theme" hidden>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="light" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/></svg>
+                        <span class="ti-label">Light</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="dark" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/></svg>
+                        <span class="ti-label">Dark</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="system" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/><path d="M8.8 21h6.4M12 17v4"/></svg>
+                        <span class="ti-label">System</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <div class="page" id="page">
 
@@ -1013,7 +103,8 @@
 
                 <nav class="socials" id="socials" aria-label="Resume and profiles">
                     <!-- Resume sits first: it's the primary action, so it
-                         reads before the profile tiles. -->
+                         reads before the profile tiles. On a phone it drops
+                         below them via `order` (see styles.css). -->
                     <a class="resume" href="files/Resume_Saman_Khamesian.pdf" download aria-label="Download resume (PDF)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.5v11"/><path d="M7.5 10.5 12 15l4.5-4.5"/><path d="M4.5 19.5h15"/></svg>
                         <span>Download Resume</span>
@@ -1080,585 +171,175 @@
     <!-- /#page — fitViewport() scales ONLY what is inside the div above -->
 
     <!-- ============================================================
-         EDUCATION — deliberately a SIBLING of #page, not a child.
-         Keeping it out here means fitViewport() never measures or
-         scales it, so the hero still fits one screen and this
-         section flows underneath at full size.
+         OVERVIEW CARDS — deliberately a SIBLING of #page, so
+         fitViewport() never scales them. fitHub() pins the grid to
+         the terminal's rendered left edge and width.
          ============================================================ -->
-    <section class="edu" id="education">
+    <section class="hub" id="hub" aria-label="Sections">
+        <div class="hub-grid">
 
-        <div class="edu-head">
-            <div class="edu-logo">
-                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Education">
-                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
-                    <rect x="60" y="86" width="140" height="164" fill="#FAF9F6" transform="rotate(-2 130 168)"/>
-                    <rect x="96" y="70" width="146" height="168" fill="#FAF9F6" transform="rotate(1.5 169 154)"/>
-                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M70 96 C 68 150 69 202 70 246 C 118 248 168 247 208 246"/>
-                    </g>
-                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M52 148 C 88 126 122 108 152 92 C 186 110 222 130 258 150 C 224 170 190 188 158 202 C 124 186 88 168 52 148 Z"/>
-                        <path d="M104 172 C 100 194 100 212 104 224 C 126 240 190 240 210 223 C 213 210 212 192 210 170"/>
-                        <path d="M152 94 C 190 110 226 132 256 150 C 259 176 257 200 254 218"/>
-                        <path d="M244 222 C 240 232 239 242 241 250"/>
-                        <path d="M254 224 C 254 234 255 244 257 252"/>
-                        <path d="M264 221 C 269 230 271 240 270 249"/>
-                    </g>
-                </svg>
-            </div>
-            <h2>Education</h2>
+            <a class="card" href="experience.html">
+                <div class="card-head">
+                    <div class="card-logo">
+                        <!-- backpack: what you carry with you -->
+                        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Experience">
+                            <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                            <rect x="36" y="74" width="146" height="160" fill="#FAF9F6" transform="rotate(-4 109 154)"/>
+                            <rect x="112" y="60" width="150" height="166" fill="#FAF9F6" transform="rotate(3 187 143)"/>
+                            <g fill="none" stroke="#141413" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M92 108 C 60 138 50 190 60 240"/>
+                                <path d="M228 108 C 260 138 270 190 260 240"/>
+                                <path d="M128 92 C 128 62 140 46 160 46 C 180 46 192 62 192 92"/>
+                            </g>
+                            <g fill="#FAF9F6" stroke="#141413" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M80 104 C 68 156 68 220 76 276 C 130 288 190 288 244 276 C 252 220 252 156 240 104 C 190 92 130 92 80 104 Z"/>
+                            </g>
+                            <g fill="none" stroke="#141413" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M74 170 C 130 180 190 180 246 170"/>
+                            </g>
+                            <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M108 202 C 104 230 104 254 108 274 C 142 282 178 282 212 274 C 216 254 216 230 212 202 C 178 194 142 194 108 202 Z"/>
+                            </g>
+                            <g fill="none" stroke="#141413" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M142 140 C 154 138 166 138 178 140"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <h3>Experience</h3>
+                    <span class="card-go" aria-hidden="true">&#8594;</span>
+                </div>
+                <p class="card-desc">
+                    <strong>Ph.D. at Arizona State</strong> · research at <strong>Mayo Clinic</strong> and
+                    <strong>EMIL</strong> · <strong>ML Engineer at Mofid Securities</strong> · four years
+                    teaching at Shahid Beheshti.
+                </p>
+                <div class="card-stats">
+                    <span class="stat"><b>4.00</b> GPA</span>
+                    <span class="stat"><b>2</b> Research labs</span>
+                    <span class="stat"><b>2</b> Industry roles</span>
+                    <span class="stat"><b>5</b> Courses TA'd</span>
+                </div>
+            </a>
+
+            <a class="card" href="publications.html">
+                <div class="card-head">
+                    <div class="card-logo">
+                        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Publications">
+                            <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                            <rect x="34" y="78" width="140" height="176" fill="#FAF9F6" transform="rotate(-7 104 166)"/>
+                            <rect x="86" y="62" width="146" height="182" fill="#FAF9F6" transform="rotate(2 159 153)"/>
+                            <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M48 96 C 44 152 45 208 50 258 C 92 264 134 263 168 257"/>
+                            </g>
+                            <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M92 78 C 88 136 89 194 94 246 C 138 254 186 252 226 244 C 230 190 229 132 225 74 C 180 66 134 68 92 78 Z"/>
+                            </g>
+                            <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M120 116 C 146 111 176 111 200 115"/>
+                                <path d="M120 152 C 146 147 176 147 200 151"/>
+                                <path d="M120 188 C 138 184 156 184 172 187"/>
+                            </g>
+                            <g fill="#FAF9F6" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M271 18 C 280 18 292 22 299 30 C 304 36 305 40 303 43 C 302 50 300 54 298 57 C 294 61 290 63 291 66 C 295 70 298 72 298 75 C 299 80 299 84 298 87 C 296 92 292 96 289 98 C 284 103 280 105 276 105 C 271 106 267 105 265 106 C 268 110 269 113 268 116 C 267 121 265 124 263 126 C 258 131 253 133 248 134 C 241 136 234 136 227 136 C 218 136 210 135 202 133 C 195 132 187 131 181 129 C 185 124 189 119 193 114 C 197 108 201 102 204 98 C 206 96 208 95 209 94 C 213 88 217 81 221 74 C 226 66 231 58 236 50 C 241 42 246 35 251 29 C 257 23 264 19 271 18 Z"/>
+                            </g>
+                            <g fill="none" stroke="#141413" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M209 95 C 226 82 245 68 260 57"/>
+                            </g>
+                            <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M181 129 C 173 137 165 150 156 166"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <h3>Publications</h3>
+                    <span class="card-go" aria-hidden="true">&#8594;</span>
+                </div>
+                <p class="card-desc">
+                    Peer-reviewed work on blood glucose forecasting, reinforcement learning for
+                    behavioral support, digital twins, and large language models for nutrition.
+                </p>
+                <div class="card-stats">
+                    <span class="stat"><b>3</b> Journals</span>
+                    <span class="stat"><b>3</b> Conferences</span>
+                    <span class="stat"><b>2</b> Patents</span>
+                    <span class="stat"><b>2</b> Under review</span>
+                </div>
+            </a>
+
+            <a class="card" href="#">
+                <div class="card-head">
+                    <div class="card-logo">
+                        <!-- terminal -->
+                        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Projects">
+                            <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                            <rect x="36" y="74" width="146" height="160" fill="#FAF9F6" transform="rotate(-4 109 154)"/>
+                            <rect x="112" y="60" width="150" height="166" fill="#FAF9F6" transform="rotate(3 187 143)"/>
+                            <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M50 90 C 46 144 47 198 52 242 C 94 248 136 247 170 242"/>
+                            </g>
+                            <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M44 74 C 40 130 41 190 46 240 C 116 250 208 249 276 240 C 280 190 279 130 275 74 C 206 64 114 64 44 74 Z"/>
+                                <path d="M44 116 C 116 124 208 124 276 116"/>
+                            </g>
+                            <g fill="#141413"><circle cx="72" cy="96" r="8"/><circle cx="102" cy="95" r="8"/><circle cx="132" cy="95" r="8"/></g>
+                            <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M78 152 L 116 178 L 78 202"/>
+                                <path d="M138 206 C 166 209 196 209 222 206"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <h3>Projects</h3>
+                    <span class="card-go" aria-hidden="true">&#8594;</span>
+                </div>
+                <p class="card-desc">
+                    Open-source work, side builds, and the tools behind the research, with the
+                    skills and topics each one covers.
+                </p>
+                <div class="card-stats">
+                    <span class="stat">Coming soon</span>
+                </div>
+            </a>
+
+            <a class="card" href="#">
+                <div class="card-head">
+                    <div class="card-logo">
+                        <!-- ring bell -->
+                        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Activities">
+                            <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                            <rect x="36" y="74" width="146" height="160" fill="#FAF9F6" transform="rotate(-4 109 154)"/>
+                            <rect x="112" y="60" width="150" height="166" fill="#FAF9F6" transform="rotate(3 187 143)"/>
+                            <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M50 90 C 46 144 47 198 52 242 C 94 248 136 247 170 242"/>
+                            </g>
+                            <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M160 40 C 172 40 180 48 180 58 C 180 68 172 76 160 76 C 148 76 140 68 140 58 C 140 48 148 40 160 40 Z"/>
+                            </g>
+                            <g fill="#FAF9F6" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M160 76 C 204 76 232 114 236 158 C 240 194 248 214 262 228 C 202 240 118 240 58 228 C 72 214 80 194 84 158 C 88 114 116 76 160 76 Z"/>
+                                <path d="M160 240 C 148 246 142 256 148 266 C 154 276 166 276 172 266 C 178 256 172 246 160 240 Z"/>
+                            </g>
+                            <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M46 128 C 34 140 28 156 30 172"/>
+                                <path d="M274 128 C 286 140 292 156 290 172"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <h3>Activities</h3>
+                    <span class="card-go" aria-hidden="true">&#8594;</span>
+                </div>
+                <p class="card-desc">
+                    Conferences, summer schools, and workshops · programming contests and hackathons ·
+                    awards, honors, and peer review for IEEE-EMBS venues.
+                </p>
+                <div class="card-stats">
+                    <span class="stat"><b>4</b> Awards</span>
+                    <span class="stat"><b>2</b> ICPC regionals</span>
+                    <span class="stat"><b>9</b> Papers reviewed</span>
+                </div>
+            </a>
+
         </div>
-
-        <ol class="tl">
-
-            <li>
-                <span class="tl-dot"></span>
-                <div class="when">JAN 2024 — EXPECTED JAN 2029</div>
-                <div class="deg">Ph.D. in Computer Science</div>
-                <div class="sch">Arizona State University</div>
-                <div class="meta">
-                    School of Computing and Augmented Intelligence · Tempe, AZ, USA<br>
-                    GPA 4.00 / 4.00
-                </div>
-            </li>
-
-            <li>
-                <span class="tl-dot"></span>
-                <div class="when">SEP 2018 — JUL 2021</div>
-                <div class="deg">M.Sc. in Computer Engineering</div>
-                <div class="track">Artificial Intelligence and Robotics</div>
-                <div class="sch">Shahid Beheshti University</div>
-                <div class="meta">
-                    Faculty of Computer Science and Engineering · Tehran, Iran<br>
-                    GPA 17.59 / 20.00
-                </div>
-            </li>
-
-            <li>
-                <span class="tl-dot"></span>
-                <div class="when">SEP 2014 — AUG 2018</div>
-                <div class="deg">B.Sc. in Computer Engineering</div>
-                <div class="track">Hardware</div>
-                <div class="sch">Shahid Beheshti University</div>
-                <div class="meta">
-                    Faculty of Computer Science and Engineering · Tehran, Iran<br>
-                    GPA 17.16 / 20.00
-                </div>
-            </li>
-
-            <li>
-                <span class="tl-dot"></span>
-                <div class="when">2011 — 2014</div>
-                <div class="deg">Diploma in Mathematics &amp; Physics</div>
-                <div class="sch">Shahid Beheshti High School (SAMPAD)</div>
-                <div class="meta">
-                    National Organization for Development of Exceptional Talents · Babol, Mazandaran, Iran<br>
-                    GPA 19.53 / 20.00
-                </div>
-            </li>
-
-        </ol>
     </section>
 
-    <!-- ============================================================
-         WORK EXPERIENCE — same construction as Education above:
-         a SIBLING of #page so fitViewport() never scales it, and
-         fitEdu() pins it to the same left edge and width.
-         ============================================================ -->
-    <section class="edu" id="work">
-
-        <div class="edu-head">
-            <div class="edu-logo">
-                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Work Experience">
-                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
-                    <rect x="32" y="112" width="150" height="136" fill="#FAF9F6" transform="rotate(-3.5 107 180)"/>
-                    <rect x="142" y="92" width="152" height="146" fill="#FAF9F6" transform="rotate(3 218 165)"/>
-                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M56 168 C 118 177 206 177 264 168"/>
-                        <path d="M142 182 C 154 180 168 180 180 182"/>
-                    </g>
-                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M56 132 C 54 164 55 198 58 228 C 118 236 208 235 264 228 C 267 198 266 164 264 132 C 196 124 122 124 56 132 Z"/>
-                        <path d="M126 128 C 126 108 132 98 146 95 C 160 92 173 93 182 98 C 192 104 196 114 196 128"/>
-                    </g>
-                </svg>
-            </div>
-            <h2>Work<span class="hsp"> </span>Experience</h2>
-        </div>
-
-        <ol class="tl">
-
-            <li>
-                <span class="tl-dot"></span>
-                <div class="when">OCT 2021 — JUN 2023</div>
-                <div class="deg">Machine Learning Engineer</div>
-                <div class="sch">Mofid Securities</div>
-                <div class="meta">Tehran, Iran</div>
-                <ul class="pts">
-                    <li>Designed a stock recommender system using market trends and user behavior to improve engagement.</li>
-                    <li>Built LSTM-based models to improve forecasting accuracy and predict stock trading volumes.</li>
-                    <li>Implemented spoof detection for eKYC using anomaly detection and video analysis, achieving 98% TPR at 5% FPR.</li>
-                    <li>Partnered with data engineers, analysts, and product managers to deliver business-aligned technical solutions.</li>
-                </ul>
-            </li>
-
-            <li>
-                <span class="tl-dot"></span>
-                <div class="when">JUL 2018 — SEP 2018</div>
-                <div class="deg">Software Engineering Intern</div>
-                <div class="sch">Cafebazaar</div>
-                <div class="meta">Tehran, Iran</div>
-                <ul class="pts">
-                    <li>Developed a news agency website as the core internship project.</li>
-                    <li>Worked across backend and frontend using Django and Python.</li>
-                    <li>Collaborated in a six-person engineering team following an Agile workflow, with sprint planning, stand-ups, and code reviews.</li>
-                </ul>
-            </li>
-
-        </ol>
-    </section>
-
-    <!-- ============================================================
-         RESEARCH EXPERIENCE — same construction as Work above:
-         a SIBLING of #page so fitViewport() never scales it, and
-         fitEdu() pins it to the same left edge and width.
-         ============================================================ -->
-    <section class="edu" id="research">
-
-        <div class="edu-head">
-            <div class="edu-logo">
-                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Research Experience">
-                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
-                    <rect x="38" y="76" width="146" height="158" fill="#FAF9F6" transform="rotate(-4 111 155)"/>
-                    <rect x="112" y="62" width="150" height="164" fill="#FAF9F6" transform="rotate(3 187 144)"/>
-                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M52 92 C 48 144 49 196 54 240 C 96 246 138 245 172 240"/>
-                    </g>
-                    <g fill="#FAF9F6" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M186 196 C 202 210 224 232 244 252 C 252 260 264 259 270 251 C 276 243 274 232 266 225 C 246 207 224 187 208 173 Z"/>
-                    </g>
-                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M134 52 C 178 52 214 88 214 132 C 214 176 178 212 134 212 C 90 212 54 176 54 132 C 54 88 90 52 134 52 Z"/>
-                    </g>
-                    <g fill="none" stroke="#141413" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M86 118 C 92 100 104 88 120 82"/>
-                    </g>
-                </svg>
-            </div>
-            <h2>Research<span class="hsp"> </span>Experience</h2>
-        </div>
-
-        <ol class="tl">
-
-            <li>
-                <span class="tl-dot"></span>
-                <div class="when">JAN 2024 — PRESENT</div>
-                <div class="deg">Graduate Research Associate</div>
-                <div class="sch">Embedded Machine Intelligence Lab (EMIL)</div>
-                <div class="meta">Arizona State University · Phoenix, AZ</div>
-                <ul class="pts">
-                    <li><span class="pj">GUIDE</span> &ndash; Reinforcement Learning for Behavioral Support in T1D: Designed an RL framework for personalized insulin dosing, meal timing, and activity decisions; trained and evaluated offline and online agents on patient-specific simulators under realistic behavioral and physiological constraints. Conducted with the University of Texas at Austin through the NSF-funded ASU IFML ExpandAI project.</li>
-                    <li><span class="pj">NutriGen</span> &ndash; LLM-Based Personalized Meal Planning: Built an LLM framework that grounds structured meal plans in USDA nutrition data via prompt engineering, achieving 1.55% (Llama 3.1 8B) and 3.68% (GPT-3.5 Turbo) caloric error while minimizing required user input.</li>
-                </ul>
-            </li>
-
-            <li>
-                <span class="tl-dot"></span>
-                <div class="when">MAR 2024 — PRESENT</div>
-                <div class="deg">Research Affiliate</div>
-                <div class="sch">Mayo Clinic</div>
-                <div class="meta">Scottsdale, AZ</div>
-                <ul class="pts">
-                    <li><span class="pj">ExActHealth</span> &ndash; Mobile App for Food and Activity Data Collection: Designed and deployed an Android application for research data collection, integrating Health Connect smartwatch streams (activity, heart rate, sleep) with structured food logging; ran a 30-day clinical study with 20 type 1 diabetes participants and achieved 87% usability approval.</li>
-                    <li><span class="pj">GLIMMER</span> &ndash; Glycemic-Aware Blood Glucose Forecasting: Developed an architecture-agnostic forecasting framework with a genetic-algorithm-optimized loss function emphasizing dysglycemic regions; improved RMSE by up to 24.6% and MAE by 29.6% over baselines, reaching 98.4% recall and 86.8% F1 for dysglycemia detection with only 10K parameters.</li>
-                </ul>
-            </li>
-
-        </ol>
-    </section>
-
-    <!-- ============================================================
-         PUBLICATIONS — same construction again: a SIBLING of #page,
-         and class="edu pub" so fitEdu() pins it to the same left
-         edge and width as Education and Work.
-         ============================================================ -->
-    <section class="edu pub" id="publications">
-
-        <div class="edu-head">
-            <div class="edu-logo">
-                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Publications">
-                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
-                    <rect x="34" y="78" width="140" height="176" fill="#FAF9F6" transform="rotate(-7 104 166)"/>
-                    <rect x="86" y="62" width="146" height="182" fill="#FAF9F6" transform="rotate(2 159 153)"/>
-                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M48 96 C 44 152 45 208 50 258 C 92 264 134 263 168 257"/>
-                    </g>
-                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M92 78 C 88 136 89 194 94 246 C 138 254 186 252 226 244 C 230 190 229 132 225 74 C 180 66 134 68 92 78 Z"/>
-                    </g>
-                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M120 116 C 146 111 176 111 200 115"/>
-                        <path d="M120 152 C 146 147 176 147 200 151"/>
-                        <path d="M120 188 C 138 184 156 184 172 187"/>
-                    </g>
-                    <g fill="#FAF9F6" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M271 18
-                                 C 280 18 292 22 299 30 C 304 36 305 40 303 43
-                                 C 302 50 300 54 298 57 C 294 61 290 63 291 66
-                                 C 295 70 298 72 298 75 C 299 80 299 84 298 87
-                                 C 296 92 292 96 289 98 C 284 103 280 105 276 105
-                                 C 271 106 267 105 265 106 C 268 110 269 113 268 116
-                                 C 267 121 265 124 263 126 C 258 131 253 133 248 134
-                                 C 241 136 234 136 227 136 C 218 136 210 135 202 133
-                                 C 195 132 187 131 181 129 C 185 124 189 119 193 114
-                                 C 197 108 201 102 204 98 C 206 96 208 95 209 94
-                                 C 213 88 217 81 221 74 C 226 66 231 58 236 50
-                                 C 241 42 246 35 251 29 C 257 23 264 19 271 18 Z"/>
-                    </g>
-                    <g fill="none" stroke="#141413" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M209 95 C 226 82 245 68 260 57"/>
-                    </g>
-                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M181 129 C 173 137 165 150 156 166"/>
-                    </g>
-                </svg>
-            </div>
-            <h2>Publications</h2>
-        </div>
-
-        <div class="pub-grp">Journal Articles</div>
-        <ol class="pub-list">
-
-            <li>
-                <span class="pub-yr">2026</span>
-                <div>
-                    <span class="pub-me">S. Khamesian</span>, A. Arefeen, M. A. Grando, B. M. Thompson, and H. Ghasemzadeh, <span class="pub-t">&ldquo;Glycemic-aware and architecture-agnostic training framework for blood glucose forecasting in type 1 diabetes,&rdquo;</span> <span class="pub-ven">BMC Artificial Intelligence</span>, vol. 2, no. 1, Art. no. 13.
-                    <div class="pub-links">
-                        <a class="pub-link" href="https://link.springer.com/article/10.1186/s44398-026-00032-x" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
-                        <a class="pub-link" href="https://github.com/SamanKhamesian/GLIMMER" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <span class="pub-yr">2026</span>
-                <div>
-                    A. Arefeen, <span class="pub-me">S. Khamesian</span>, M. A. Grando, B. Thompson, and H. Ghasemzadeh, <span class="pub-t">&ldquo;GlyTwin: Enhancing digital twin for glucose control in type 1 diabetes using patient-centric counterfactual treatments,&rdquo;</span> <span class="pub-ven">IEEE J. Biomed. Health Inform.</span>
-                    <div class="pub-links">
-                        <a class="pub-link" href="https://arxiv.org/abs/2504.09846" target="_blank" rel="noopener noreferrer">Preprint &#8599;</a>
-                        <a class="pub-link" href="https://github.com/Arefeen06088/GlyTwin" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <span class="pub-yr">2024</span>
-                <div>
-                    <span class="pub-me">S. Khamesian</span> and H. Malek, <span class="pub-t">&ldquo;Hybrid self-attention NEAT: A novel evolutionary self-attention approach to improve the NEAT algorithm in high-dimensional inputs,&rdquo;</span> <span class="pub-ven">Evolving Systems</span>, vol. 15, no. 2, pp. 489&ndash;503.
-                    <div class="pub-links">
-                        <a class="pub-link" href="https://link.springer.com/article/10.1007/s12530-023-09510-3" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
-                        <a class="pub-link" href="https://github.com/SamanKhamesian/Hybrid-Self-Attention-NEAT" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
-                    </div>
-                </div>
-            </li>
-
-        </ol>
-
-        <div class="pub-grp">Conference Papers</div>
-        <ol class="pub-list">
-
-            <li>
-                <span class="pub-yr">2025</span>
-                <div>
-                    <span class="pub-me">S. Khamesian</span>, A. Arefeen, B. M. Thompson, M. A. Grando, and H. Ghasemzadeh, <span class="pub-t">&ldquo;AZT1D: A real-world dataset for type 1 diabetes,&rdquo;</span> in <span class="pub-ven">Proc. IEEE 21st Int. Conf. Body Sensor Netw. (BSN)</span>.
-                    <div class="pub-links">
-                        <a class="pub-link" href="https://ieeexplore.ieee.org/document/11337496" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
-                        <a class="pub-link" href="https://data.mendeley.com/datasets/gk9m674wcx/1" target="_blank" rel="noopener noreferrer">Dataset &#8599;</a>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <span class="pub-yr">2025</span>
-                <div>
-                    <span class="pub-me">S. Khamesian</span>, A. Arefeen, S. M. Carpenter, and H. Ghasemzadeh, <span class="pub-t">&ldquo;NutriGen: Personalized meal plan generator leveraging large language models to enhance dietary and nutritional adherence,&rdquo;</span> in <span class="pub-ven">Proc. 47th Annu. Int. Conf. IEEE Eng. Med. Biol. Soc. (EMBC)</span>, Copenhagen, Denmark.
-                    <div class="pub-links">
-                        <a class="pub-link" href="https://ieeexplore.ieee.org/document/11253879" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
-                        <a class="pub-link" href="https://github.com/SamanKhamesian/NutriGen" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <span class="pub-yr">2024</span>
-                <div>
-                    A. Arefeen, <span class="pub-me">S. Khamesian</span>, M. A. Grando, B. Thompson, and H. Ghasemzadeh, <span class="pub-t">&ldquo;GlyMan: Glycemic management using patient-centric counterfactuals,&rdquo;</span> in <span class="pub-ven">Proc. IEEE Int. Conf. Biomed. Health Inform. (BHI)</span>.
-                    <div class="pub-links">
-                        <a class="pub-link" href="https://ieeexplore.ieee.org/document/10913587" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
-                        <a class="pub-link" href="https://github.com/Arefeen06088/GlyMan" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
-                    </div>
-                </div>
-            </li>
-
-        </ol>
-
-        <div class="pub-grp">Under Review</div>
-        <ol class="pub-list">
-
-            <li>
-                <span class="pub-yr">2026</span>
-                <div>
-                    <span class="pub-me">S. Khamesian</span>, S. H. Balaji, D. Y. Shi, S. M. Carpenter, D. E. Rivera, W. B. Knox, P. Stone, and H. Ghasemzadeh, <span class="pub-t">&ldquo;GUIDE: Reinforcement learning for behavioral action support in type 1 diabetes,&rdquo;</span> submitted to <span class="pub-ven">IEEE J. Biomed. Health Inform.</span>
-                    <div class="pub-links">
-                        <a class="pub-link" href="https://arxiv.org/abs/2604.00385" target="_blank" rel="noopener noreferrer">Preprint &#8599;</a>
-                        <a class="pub-link" href="https://github.com/SamanKhamesian/GUIDE" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <span class="pub-yr">2026</span>
-                <div>
-                    <span class="pub-me">S. Khamesian</span>, A. Arefeen, M. A. Grando, B. M. Thompson, C. B. Cook, and H. Ghasemzadeh, <span class="pub-t">&ldquo;Understanding associations between behavioral factors and glycemic outcomes in patients with type 1 diabetes using automated insulin delivery systems: Longitudinal observational study,&rdquo;</span> submitted to <span class="pub-ven">JMIR Diabetes</span>.
-                    <div class="pub-links">
-                        <a class="pub-link" href="https://preprints.jmir.org/preprint/94692" target="_blank" rel="noopener noreferrer">Preprint &#8599;</a>
-                    </div>
-                </div>
-            </li>
-
-        </ol>
-    </section>
-
-    <script>
-        /* ---------- email assembled at runtime (anti-scrape) ---------- */
-        (function () {
-            var a = document.getElementById('emailLink');
-            if (!a) return;
-            var addr = a.getAttribute('data-u')
-                     + String.fromCharCode(64)
-                     + a.getAttribute('data-d') + '.' + a.getAttribute('data-t');
-            a.href = 'mailto:' + addr;
-            a.setAttribute('aria-label', 'Email ' + addr);
-            a.removeAttribute('data-u');
-            a.removeAttribute('data-d');
-            a.removeAttribute('data-t');
-        })();
-
-        var MIN_PAGE_SCALE = 0.72;   // readability floor — never shrink past this
-
-        /* Scale the ASCII name down if it's wider than its column. */
-        function fitName() {
-            var box = document.getElementById('artFit');
-            var block = document.getElementById('nameBlock');
-            if (!box || !block) return;
-
-            block.style.transform = 'none';
-            box.style.height = 'auto';
-
-            var available = box.clientWidth;
-            var natural = block.scrollWidth;
-            if (!available || !natural) return;
-
-            var scale = Math.min(1, available / natural);
-            block.style.transform = 'scale(' + scale + ')';
-            box.style.height = Math.ceil(block.offsetHeight * scale) + 'px';
-        }
-
-        /* Size the photo to the EXACT height of the name block, so the
-           circle's top edge meets the top of the ASCII art and its bottom
-           edge meets the bottom of the icon row. */
-        function fitPhoto() {
-            var nameWrap = document.getElementById('nameWrap');
-            var photo = document.querySelector('.photo-frame');
-            if (!nameWrap || !photo) return;
-
-            if (window.innerWidth <= 640) {   // stacked layout: keep the clamp
-                photo.style.width = '';
-                photo.style.height = '';
-                return;
-            }
-
-            var h = nameWrap.getBoundingClientRect().height;
-            if (!h) return;
-
-            var size = Math.round(Math.max(150, Math.min(320, h)));
-            photo.style.width = size + 'px';
-            photo.style.height = size + 'px';
-        }
-
-        /* Match the terminal width to the hero: LEFT edge of the name
-           through RIGHT edge of the photo. Handles the mobile column
-           layout too, since it takes the outer bounds of both. */
-        function fitBio() {
-            var nameWrap = document.getElementById('nameWrap');
-            var photo = document.querySelector('.photo-frame');
-            var bio = document.getElementById('bio');
-            var page = document.getElementById('page');
-            if (!nameWrap || !photo || !bio || !page) return;
-
-            bio.style.width = 'auto';
-
-            var a = nameWrap.getBoundingClientRect();
-            var b = photo.getBoundingClientRect();
-            var p = page.getBoundingClientRect();
-
-            var left = Math.min(a.left, b.left);
-            var width = Math.max(a.right, b.right) - left;
-            if (width <= 0) return;
-
-            /* Pin to the measured left edge rather than centering with
-               `margin: auto`, so the terminal tracks the name even when
-               the hero isn't perfectly centered in the page. */
-            bio.style.marginLeft = Math.round(left - p.left) + 'px';
-            bio.style.marginRight = '0';
-            bio.style.width = Math.round(width) + 'px';
-        }
-
-        /* Pin the Education / Work sections to the hero's RENDERED bounds.
-
-           #page is scaled with transform: scale() + transform-origin:
-           top center, so its on-screen left edge sits inboard of its
-           layout position. .edu is never scaled, so matching CSS widths
-           does NOT align them. Measure the terminal's real rect instead
-           (it already spans name-left -> photo-right) and copy it onto
-           every .edu section. Must run AFTER fitBio() and fitViewport(). */
-        function fitEdu() {
-            var sections = document.querySelectorAll('.edu');
-            var bio = document.getElementById('bio');
-            if (!sections.length || !bio) return;
-
-            for (var i = 0; i < sections.length; i++) {
-                sections[i].style.alignSelf = '';
-                sections[i].style.marginLeft = '';
-                sections[i].style.width = '';
-            }
-
-            var b = bio.getBoundingClientRect();
-            if (!b.width) return;
-
-            var body = document.body;
-            var padLeft = parseFloat(getComputedStyle(body).paddingLeft) || 0;
-            var bodyLeft = body.getBoundingClientRect().left + padLeft;
-
-            for (var j = 0; j < sections.length; j++) {
-                sections[j].style.alignSelf = 'flex-start';
-                sections[j].style.marginLeft = Math.round(b.left - bodyLeft) + 'px';
-                sections[j].style.width = Math.round(b.width) + 'px';
-            }
-        }
-
-        /* Shrink the whole column just enough to clear the fold. */
-        function fitViewport() {
-            var page = document.getElementById('page');
-            if (!page) return;
-
-            if (window.innerWidth <= 640) {   // mobile scrolls, by design
-                page.style.transform = '';
-                page.style.height = '';
-                return;
-            }
-
-            var cs = getComputedStyle(document.body);
-            var chrome = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-            var natural = page.scrollHeight;
-            var available = window.innerHeight - chrome;
-            if (!natural || available <= 0) return;
-
-            var scale = Math.max(MIN_PAGE_SCALE, Math.min(1, available / natural));
-            page.style.transform = 'scale(' + scale + ')';
-            page.style.height = Math.ceil(natural * scale) + 'px';
-        }
-
-        function relayout() {
-            var page = document.getElementById('page');
-            if (page) {                       // measure unscaled
-                page.style.transform = 'none';
-                page.style.height = 'auto';
-            }
-            /* Two passes: the photo's width changes how much room the name
-               has, which changes the name's height, which changes the photo.
-               Two rounds is plenty for it to settle. */
-            fitName();
-            fitPhoto();
-            fitName();
-            fitPhoto();
-
-            fitBio();
-            fitViewport();
-            fitEdu();      /* last: needs the post-scale rendered rect */
-        }
-
-        document.addEventListener('DOMContentLoaded', relayout);
-        window.addEventListener('load', relayout);
-        window.addEventListener('resize', relayout);
-
-        /* ---------- binary background ---------- */
-        function measureSlot(container) {
-            var probe = document.createElement('div');
-            probe.className = 'bin-row';
-            probe.style.animation = 'none';
-            probe.style.visibility = 'hidden';
-            probe.style.top = '0';
-
-            var probeHalf = document.createElement('span');
-            probeHalf.className = 'half';
-            probeHalf.textContent = '0101010101';
-            probe.appendChild(probeHalf);
-            container.appendChild(probe);
-
-            var slot = probeHalf.getBoundingClientRect().width / 10;
-            container.removeChild(probe);
-
-            return (slot && slot > 1) ? slot : 71;
-        }
-
-        function buildBinaryRows() {
-            var container = document.getElementById('binRows');
-            if (!container) return;
-            container.innerHTML = '';
-
-            var speeds = [28, 18, 38, 22, 32, 16];
-            var tops = [6, 20, 38, 55, 72, 88];
-            var slot = measureSlot(container);
-            var digitsPerHalf = Math.ceil(window.innerWidth / slot) + 2;
-
-            for (var i = 0; i < speeds.length; i++) {
-                var row = document.createElement('div');
-                row.className = 'bin-row';
-                row.style.top = tops[i] + '%';
-                row.style.animationDuration = speeds[i] + 's';
-                row.style.transform = 'translateX(-50%)';
-
-                var str = '';
-                for (var j = 0; j < digitsPerHalf; j++) {
-                    str += Math.round(Math.random());
-                }
-
-                var half1 = document.createElement('span');
-                half1.className = 'half';
-                half1.textContent = str;
-                var half2 = half1.cloneNode(true);
-
-                row.appendChild(half1);
-                row.appendChild(half2);
-                container.appendChild(row);
-            }
-        }
-
-        buildBinaryRows();
-
-        var binResizeTimer;
-        window.addEventListener('resize', function () {
-            clearTimeout(binResizeTimer);
-            binResizeTimer = setTimeout(buildBinaryRows, 200);
-        });
-
-        if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(function () {
-                buildBinaryRows();
-                relayout();
-            });
-        }
-    </script>
+    <script src="site.js"></script>
 </body>
 </html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience — Saman Khamesian</title>
+    <meta name="description" content="Education, research experience, industry work, and teaching.">
+    <meta name="theme-color" content="#FCFCFB" id="themeColorMeta">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="theme.js"></script>
+</head>
+<body>
+    <nav class="nav" id="nav" aria-label="Main">
+        <button class="nav-burger" id="navBurger" type="button"
+                aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+            <svg class="bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+
+        <a class="nav-home" href="index.html">Saman Khamesian</a>
+
+        <div class="nav-links" id="navLinks">
+            <a class="nav-link" href="index.html">About Me</a>
+            <a class="nav-link" href="experience.html" aria-current="page">Experience</a>
+            <a class="nav-link" href="publications.html">Publications</a>
+            <a class="nav-link is-soon" href="#" aria-disabled="true">Projects</a>
+            <a class="nav-link is-soon" href="#" aria-disabled="true">Activities</a>
+            <a class="nav-link is-soon" href="#" aria-disabled="true">Personal</a>
+        </div>
+
+        <div class="nav-tools">
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeBtn" type="button" data-mode="system"
+                        aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu" title="Theme">
+                    <svg data-mode="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="4.1"/>
+                        <path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/>
+                    </svg>
+                    <svg data-mode="dark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                        <path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/>
+                    </svg>
+                    <svg data-mode="system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/>
+                        <path d="M8.8 21h6.4M12 17v4"/>
+                    </svg>
+                </button>
+
+                <div class="theme-menu" id="themeMenu" role="menu" aria-label="Theme" hidden>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="light" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/></svg>
+                        <span class="ti-label">Light</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="dark" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/></svg>
+                        <span class="ti-label">Dark</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="system" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/><path d="M8.8 21h6.4M12 17v4"/></svg>
+                        <span class="ti-label">System</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+         EDUCATION
+         ============================================================ -->
+    <section class="edu" id="education">
+        <div class="edu-head">
+            <div class="edu-logo">
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Education">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <!-- sheets, corner rule and cap scaled together about
+                         the tile centre (1.15). Stroke widths are divided
+                         by the same factor so the linework stays the same
+                         weight as the other tiles. -->
+                    <g transform="matrix(1.15 0 0 1.15 -24 -24)">
+                        <rect x="60" y="86" width="140" height="164" fill="#FAF9F6" transform="rotate(-2 130 168)"/>
+                        <rect x="96" y="70" width="146" height="168" fill="#FAF9F6" transform="rotate(1.5 169 154)"/>
+                        <g fill="none" stroke="#141413" stroke-width="6.96" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M74 108 C 70 158 71 208 76 252 C 114 258 152 257 186 251"/>
+                        </g>
+                        <g fill="none" stroke="#141413" stroke-width="9.57" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M52 148 C 88 126 122 108 152 92 C 186 110 222 130 258 150 C 224 170 190 188 158 202 C 124 186 88 168 52 148 Z"/>
+                            <path d="M104 172 C 100 194 100 212 104 224 C 126 240 190 240 210 223 C 213 210 212 192 210 170"/>
+                            <path d="M152 94 C 190 110 226 132 256 150 C 259 176 257 200 254 218"/>
+                            <path d="M244 222 C 240 232 239 242 241 250"/>
+                            <path d="M254 224 C 254 234 255 244 257 252"/>
+                            <path d="M264 221 C 269 230 271 240 270 249"/>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <h2>Education</h2>
+        </div>
+
+        <ol class="tl">
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">JAN 2024 — EXPECTED JAN 2029</div>
+                <div class="deg">Ph.D. in Computer Science</div>
+                <div class="sch">Arizona State University</div>
+                <div class="meta">
+                    School of Computing and Augmented Intelligence · Tempe, AZ, USA<br>
+                    GPA 4.00 / 4.00
+                </div>
+            </li>
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">SEP 2018 — JUL 2021</div>
+                <div class="deg">M.Sc. in Computer Engineering</div>
+                <div class="track">Artificial Intelligence and Robotics</div>
+                <div class="sch">Shahid Beheshti University</div>
+                <div class="meta">
+                    Faculty of Computer Science and Engineering · Tehran, Iran<br>
+                    GPA 17.59 / 20.00
+                </div>
+            </li>
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">SEP 2014 — AUG 2018</div>
+                <div class="deg">B.Sc. in Computer Engineering</div>
+                <div class="track">Hardware</div>
+                <div class="sch">Shahid Beheshti University</div>
+                <div class="meta">
+                    Faculty of Computer Science and Engineering · Tehran, Iran<br>
+                    GPA 17.16 / 20.00
+                </div>
+            </li>
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">2011 — 2014</div>
+                <div class="deg">Diploma in Mathematics &amp; Physics</div>
+                <div class="sch">Shahid Beheshti High School (SAMPAD)</div>
+                <div class="meta">
+                    National Organization for Development of Exceptional Talents · Babol, Mazandaran, Iran<br>
+                    GPA 19.53 / 20.00
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <!-- ============================================================
+         RESEARCH EXPERIENCE
+         ============================================================ -->
+    <section class="edu" id="research">
+        <div class="edu-head">
+            <div class="edu-logo">
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Research Experience">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="38" y="76" width="146" height="158" fill="#FAF9F6" transform="rotate(-4 111 155)"/>
+                    <rect x="112" y="62" width="150" height="164" fill="#FAF9F6" transform="rotate(3 187 144)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M52 92 C 48 144 49 196 54 240 C 96 246 138 245 172 240"/>
+                    </g>
+                    <g fill="#FAF9F6" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M186 196 C 202 210 224 232 244 252 C 252 260 264 259 270 251 C 276 243 274 232 266 225 C 246 207 224 187 208 173 Z"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M134 52 C 178 52 214 88 214 132 C 214 176 178 212 134 212 C 90 212 54 176 54 132 C 54 88 90 52 134 52 Z"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M86 118 C 92 100 104 88 120 82"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Research<span class="hsp"> </span>Experience</h2>
+        </div>
+
+        <ol class="tl">
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">JAN 2024 — PRESENT</div>
+                <div class="deg">Graduate Research Associate</div>
+                <div class="sch">Embedded Machine Intelligence Lab (EMIL)</div>
+                <div class="meta">Arizona State University · Phoenix, AZ</div>
+                <ul class="pts">
+                    <li><span class="pj">GUIDE</span> &ndash; Reinforcement Learning for Behavioral Support in T1D: Designed an RL framework for personalized insulin dosing, meal timing, and activity decisions; trained and evaluated offline and online agents on patient-specific simulators under realistic behavioral and physiological constraints. Conducted with the University of Texas at Austin through the NSF-funded ASU IFML ExpandAI project.</li>
+                    <li><span class="pj">NutriGen</span> &ndash; LLM-Based Personalized Meal Planning: Built an LLM framework that grounds structured meal plans in USDA nutrition data via prompt engineering, achieving 1.55% (Llama 3.1 8B) and 3.68% (GPT-3.5 Turbo) caloric error while minimizing required user input.</li>
+                </ul>
+            </li>
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">MAR 2024 — PRESENT</div>
+                <div class="deg">Research Affiliate</div>
+                <div class="sch">Mayo Clinic</div>
+                <div class="meta">Scottsdale, AZ</div>
+                <ul class="pts">
+                    <li><span class="pj">ExActHealth</span> &ndash; Mobile App for Food and Activity Data Collection: Designed and deployed an Android application for research data collection, integrating Health Connect smartwatch streams (activity, heart rate, sleep) with structured food logging; ran a 30-day clinical study with 20 type 1 diabetes participants and achieved 87% usability approval.</li>
+                    <li><span class="pj">GLIMMER</span> &ndash; Glycemic-Aware Blood Glucose Forecasting: Developed an architecture-agnostic forecasting framework with a genetic-algorithm-optimized loss function emphasizing dysglycemic regions; improved RMSE by up to 24.6% and MAE by 29.6% over baselines, reaching 98.4% recall and 86.8% F1 for dysglycemia detection with only 10K parameters.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+
+    <!-- ============================================================
+         WORK EXPERIENCE
+         ============================================================ -->
+    <section class="edu" id="work">
+        <div class="edu-head">
+            <div class="edu-logo">
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Work Experience">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="38" y="76" width="146" height="158" fill="#FAF9F6" transform="rotate(-4 111 155)"/>
+                    <rect x="112" y="62" width="150" height="164" fill="#FAF9F6" transform="rotate(3 187 144)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M52 92 C 48 146 49 200 54 246 C 100 252 148 251 186 246"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M54 162 C 126 170 196 170 268 162"/>
+                        <path d="M138 176 C 152 174 170 174 184 176"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M58 104 C 54 148 54 200 60 246 C 128 256 194 256 262 246 C 268 200 268 148 264 104 C 196 94 126 94 58 104 Z"/>
+                        <path d="M120 98 C 120 64 134 46 160 46 C 186 46 200 64 200 98"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Work<span class="hsp"> </span>Experience</h2>
+        </div>
+
+        <ol class="tl">
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">OCT 2021 — JUN 2023</div>
+                <div class="deg">Machine Learning Engineer</div>
+                <div class="sch">Mofid Securities</div>
+                <div class="meta">Tehran, Iran</div>
+                <ul class="pts">
+                    <li>Designed a stock recommender system using market trends and user behavior to improve engagement.</li>
+                    <li>Built LSTM-based models to improve forecasting accuracy and predict stock trading volumes.</li>
+                    <li>Implemented spoof detection for eKYC using anomaly detection and video analysis, achieving 98% TPR at 5% FPR.</li>
+                    <li>Partnered with data engineers, analysts, and product managers to deliver business-aligned technical solutions.</li>
+                </ul>
+            </li>
+
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">JUL 2018 — SEP 2018</div>
+                <div class="deg">Software Engineering Intern</div>
+                <div class="sch">Cafebazaar</div>
+                <div class="meta">Tehran, Iran</div>
+                <ul class="pts">
+                    <li>Developed a news agency website as the core internship project.</li>
+                    <li>Worked across backend and frontend using Django and Python.</li>
+                    <li>Collaborated in a six-person engineering team following an Agile workflow, with sprint planning, stand-ups, and code reviews.</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+
+    <!-- ============================================================
+         TEACHING
+         ============================================================ -->
+    <section class="edu" id="teaching">
+        <div class="edu-head">
+            <div class="edu-logo">
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Teaching">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="34" y="72" width="146" height="152" fill="#FAF9F6" transform="rotate(-4 107 148)"/>
+                    <rect x="118" y="58" width="150" height="158" fill="#FAF9F6" transform="rotate(3 193 137)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M44 88 C 40 138 41 188 46 232"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M50 76 C 46 130 47 186 52 238 C 122 248 200 247 270 238 C 275 186 274 130 270 76 C 198 66 122 66 50 76 Z"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M84 118 C 118 113 158 113 192 117"/>
+                        <path d="M84 154 C 128 149 178 149 222 153"/>
+                        <path d="M84 190 C 110 186 138 186 162 189"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M52 238 C 122 248 200 247 270 238"/>
+                        <path d="M88 248 C 86 262 84 274 82 286"/>
+                        <path d="M232 248 C 234 262 236 274 238 286"/>
+                    </g>
+                    <g fill="#FAF9F6" stroke="#141413" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M196 224 C 210 222 224 222 236 224 C 238 230 238 236 236 240 C 224 243 210 243 196 240 C 194 236 194 230 196 224 Z"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Teaching</h2>
+        </div>
+
+        <ol class="tl">
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">SEP 2015 — MAY 2019</div>
+                <div class="deg">Teaching Assistant</div>
+                <div class="sch">Shahid Beheshti University</div>
+                <div class="meta">Dept. of Electrical and Computer Engineering · Tehran, Iran</div>
+                <ul class="pts">
+                    <li><span class="trm">2016 — 2019</span><span class="pj">Data Structures</span></li>
+                    <li><span class="trm">2016 — 2018</span><span class="pj">Discrete Mathematics</span></li>
+                    <li><span class="trm">Spring 2018</span><span class="pj">VHDL Automated Design</span></li>
+                    <li><span class="trm">Spring 2017</span><span class="pj">Algorithms Design</span></li>
+                    <li><span class="trm">Spring 2016</span><span class="pj">Fundamentals of Computer and Programming</span></li>
+                    <li><span class="trm">Spring 2015</span><span class="pj">Fundamentals of Computer and Programming</span></li>
+                    <li><span class="trm">Spring 2015</span><span class="pj">Advanced Programming (Java)</span></li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+
+    <script src="site.js"></script>
+</body>
+</html>
