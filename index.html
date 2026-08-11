@@ -44,16 +44,32 @@
             --term-shadow: 0 20px 44px rgba(44, 44, 42, 0.15),
                            0 2px 6px rgba(44, 44, 42, 0.08);
 
+            /* Theme control — button + dropdown panel.
+               These FOLLOW the page theme instead of inverting it, so a
+               light page gets a light button. That's the opposite of
+               --icon-bg below, which inverts on purpose so the profile
+               tiles stay high-contrast. */
+            --tbtn-bg: #FFFFFF;
+            --tbtn-fg: #2A2825;
+            --tbtn-border: #E2DCD3;
+            --menu-bg: #FFFFFF;
+            --menu-border: #E2DCD3;
+            --menu-hover: #F3F1ED;
+            --menu-shadow: 0 16px 36px rgba(44, 44, 42, 0.16),
+                           0 2px 6px rgba(44, 44, 42, 0.08);
+
             /* misc themed bits */
             --bin-opacity: 0.55;
             --dot-glow: rgba(238, 93, 41, 0.14);
             --hover-shadow: rgba(44, 44, 42, 0.30);
 
             /* ASCII art metrics — these two also drive the photo diameter,
-               since the photo is sized to the name block's height. */
+               since the photo is sized to the name block's height.
+               --icon-size also sets the Download Resume pill's height and
+               the theme button, so all three stay the same size. */
             --art-font-size: 0.68rem;
-            --icon-size: 40px;
-            --icon-radius: 10px;
+            --icon-size: 36px;
+            --icon-radius: 9px;
 
             --hero-gap: 1.25rem;
 
@@ -99,6 +115,16 @@
             --term-shadow: 0 22px 48px rgba(0, 0, 0, 0.55),
                            0 2px 8px rgba(0, 0, 0, 0.40);
 
+            /* Theme control — dark page, dark button. */
+            --tbtn-bg: #232322;
+            --tbtn-fg: #EDEAE4;
+            --tbtn-border: #3A3735;
+            --menu-bg: #2A2A28;
+            --menu-border: #3A3735;
+            --menu-hover: #383633;
+            --menu-shadow: 0 18px 40px rgba(0, 0, 0, 0.60),
+                           0 2px 8px rgba(0, 0, 0, 0.45);
+
             --bin-opacity: 0.42;
             --dot-glow: rgba(238, 93, 41, 0.20);
             --hover-shadow: rgba(0, 0, 0, 0.55);
@@ -128,31 +154,34 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* ---------- theme toggle ---------- */
-        /* Fixed top-right for now. When the nav tabs land, move this
-           into that row and drop `position: fixed`. */
+        /* =========================================================
+           THEME CONTROL — button plus a three-choice menu.
+           Fixed top-right for now. When the nav tabs land, move
+           .theme-toggle into that row and drop `position: fixed`.
+           ========================================================= */
         .theme-toggle {
             position: fixed;
             top: 1.15rem;
             right: 1.5rem;
-            z-index: 20;
+            z-index: 30;
         }
         .theme-btn {
             width: var(--icon-size);
             height: var(--icon-size);
             padding: 0;
-            border: 0;
+            border: 1px solid var(--tbtn-border);
             cursor: pointer;
             border-radius: var(--icon-radius);
-            background-color: var(--icon-bg);
-            color: var(--icon-fg);
+            background-color: var(--tbtn-bg);
+            color: var(--tbtn-fg);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
                         box-shadow 0.22s ease,
                         background-color 0.3s ease,
-                        color 0.3s ease;
+                        color 0.3s ease,
+                        border-color 0.3s ease;
         }
         .theme-btn svg {
             width: 66%;
@@ -160,11 +189,14 @@
             display: none;
             pointer-events: none;
         }
+        /* The button shows the icon of the SELECTED mode, so System
+           shows the display icon rather than the resolved sun/moon. */
         .theme-btn[data-mode="light"]  svg[data-mode="light"],
         .theme-btn[data-mode="dark"]   svg[data-mode="dark"],
         .theme-btn[data-mode="system"] svg[data-mode="system"] { display: block; }
         .theme-btn:hover,
-        .theme-btn:focus-visible {
+        .theme-btn:focus-visible,
+        .theme-btn[aria-expanded="true"] {
             transform: translateY(-4px) scale(1.12);
             box-shadow: 0 10px 22px var(--hover-shadow);
         }
@@ -172,6 +204,66 @@
             outline: 3px solid var(--accent);
             outline-offset: 4px;
         }
+
+        .theme-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 176px;
+            padding: 6px;
+            background: var(--menu-bg);
+            border: 1px solid var(--menu-border);
+            border-radius: 14px;
+            box-shadow: var(--menu-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            transform-origin: top right;
+            animation: menuIn 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .theme-menu[hidden] { display: none; }
+        @keyframes menuIn {
+            from { opacity: 0; transform: translateY(-6px) scale(0.96); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .theme-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 0.52rem 0.6rem;
+            border: 0;
+            background: transparent;
+            border-radius: 9px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            text-align: left;
+            transition: background-color 0.15s ease;
+        }
+        .theme-item:hover { background: var(--menu-hover); }
+        .theme-item:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+        }
+        .ti-icon {
+            width: 17px;
+            height: 17px;
+            flex: 0 0 auto;
+            color: var(--text-secondary);
+        }
+        .ti-label { flex: 1; }
+        .ti-check {
+            width: 15px;
+            height: 15px;
+            flex: 0 0 auto;
+            color: var(--accent);
+            opacity: 0;
+        }
+        .theme-item[aria-checked="true"] { font-weight: 500; }
+        .theme-item[aria-checked="true"] .ti-icon { color: var(--text-primary); }
+        .theme-item[aria-checked="true"] .ti-check { opacity: 1; }
 
         /* ---------- animated binary background ---------- */
         .bin-rows {
@@ -265,7 +357,14 @@
             display: block;
         }
 
-        /* ---------- social icons ---------- */
+        /* =========================================================
+           ACTION ROW — Download Resume pill first, then the profile
+           tiles, spread edge to edge across the name block so the
+           last tile lands flush with the final ASCII character.
+           space-between splits the leftover width EQUALLY between
+           every pair, so all the gaps stay identical on their own;
+           the 0.5rem gap below is only the floor if space runs out.
+           ========================================================= */
         .socials {
             display: flex;
             flex-wrap: wrap;
@@ -314,6 +413,49 @@
             box-shadow: 0 10px 22px var(--hover-shadow);
         }
         .social:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        /* Download Resume — same fill as the tiles (--icon-bg / --icon-fg),
+           so the whole row is one material and orange stays reserved for
+           the name, the prompt and the timeline dots. */
+        .resume {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            flex: 0 0 auto;
+            height: var(--icon-size);
+            padding: 0 0.8rem;
+            border-radius: var(--icon-radius);
+            background-color: var(--icon-bg);
+            color: var(--icon-fg);
+            border: 1.5px solid var(--icon-bg);
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+                        box-shadow 0.22s ease,
+                        background-color 0.3s ease,
+                        color 0.3s ease,
+                        border-color 0.3s ease;
+        }
+        .resume svg {
+            width: 13px;
+            height: 13px;
+            flex: 0 0 auto;
+            pointer-events: none;
+        }
+        .resume:hover,
+        .resume:focus-visible {
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 10px 22px var(--hover-shadow);
+        }
+        .resume:focus-visible {
             outline: 3px solid var(--accent);
             outline-offset: 4px;
         }
@@ -604,8 +746,8 @@
         @media (max-width: 640px) {
             :root {
                 --nav-reserve: 2rem;
-                --icon-size: min(44px, 10.5vw);
-                --icon-radius: 11px;
+                --icon-size: min(40px, 10vw);
+                --icon-radius: 10px;
                 --art-font-size: 0.7rem;
                 --edu-logo-size: 56px;
             }
@@ -620,10 +762,15 @@
                 width: 100%;
             }
             .name-wrap { width: 100%; }
+            /* resume bar gets its own line, tiles centered below it */
             .socials {
                 justify-content: center;
-                gap: clamp(4px, 2.2vw, 12px);
+                gap: clamp(6px, 3vw, 14px);
                 margin-top: 1.1rem;
+            }
+            .socials .resume {
+                flex: 1 0 100%;
+                margin-bottom: 0.35rem;
             }
             .photo-frame {
                 width: clamp(150px, 46vw, 210px);
@@ -654,7 +801,9 @@
         @media (prefers-reduced-motion: reduce) {
             .bin-row { animation: none; transform: translateX(-50%); }
             .social { transition: none; }
+            .resume { transition: none; }
             .theme-btn { transition: none; }
+            .theme-menu { animation: none; }
             .cursor { animation: none; }
         }
     </style>
@@ -665,17 +814,17 @@
            Runs in <head> so the right theme is on <html> before the
            first paint — no white flash on a dark-mode load.
 
-           Modes cycle:  system -> light -> dark
-             system = follows the OS setting  (the default)
+           Three explicit choices in a menu (no cycling):
              light  = forced day
              dark   = forced night
+             system = follows the OS setting  (the default)
            ========================================================= */
         (function () {
-            var MODES  = ['system', 'light', 'dark'];
+            var MODES  = ['light', 'dark', 'system'];
             var LABELS = {
-                system: 'System',
                 light:  'Light',
-                dark:   'Dark'
+                dark:   'Dark',
+                system: 'System'
             };
             var STORE_KEY = 'sk-theme-mode';
 
@@ -705,11 +854,15 @@
 
                 var btn = document.getElementById('themeBtn');
                 if (btn) {
-                    var i    = MODES.indexOf(mode);
-                    var next = MODES[(i + 1) % MODES.length];
                     btn.setAttribute('data-mode', mode);
-                    btn.setAttribute('title', 'Theme: ' + LABELS[mode] + ' — click for ' + LABELS[next]);
-                    btn.setAttribute('aria-label', 'Theme: ' + LABELS[mode] + '. Click to switch to ' + LABELS[next] + '.');
+                    btn.setAttribute('title', 'Theme: ' + LABELS[mode]);
+                    btn.setAttribute('aria-label', 'Theme: ' + LABELS[mode] + '. Change theme.');
+                }
+
+                var items = document.querySelectorAll('.theme-item');
+                for (var i = 0; i < items.length; i++) {
+                    items[i].setAttribute('aria-checked',
+                        items[i].getAttribute('data-set') === mode ? 'true' : 'false');
                 }
             }
 
@@ -725,13 +878,57 @@
             }
 
             document.addEventListener('DOMContentLoaded', function () {
-                var btn = document.getElementById('themeBtn');
-                if (!btn) return;
-                btn.addEventListener('click', function () {
-                    mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length];
-                    try { localStorage.setItem(STORE_KEY, mode); } catch (e) {}
-                    apply();
+                var btn  = document.getElementById('themeBtn');
+                var menu = document.getElementById('themeMenu');
+                if (!btn || !menu) return;
+
+                var items = menu.querySelectorAll('.theme-item');
+
+                function open() {
+                    menu.hidden = false;
+                    btn.setAttribute('aria-expanded', 'true');
+                    var checked = menu.querySelector('.theme-item[aria-checked="true"]');
+                    (checked || items[0]).focus();
+                }
+                function close(returnFocus) {
+                    menu.hidden = true;
+                    btn.setAttribute('aria-expanded', 'false');
+                    if (returnFocus) btn.focus();
+                }
+                function isOpen() { return !menu.hidden; }
+
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    if (isOpen()) { close(false); } else { open(); }
                 });
+
+                for (var i = 0; i < items.length; i++) {
+                    (function (item, idx) {
+                        item.addEventListener('click', function () {
+                            mode = item.getAttribute('data-set');
+                            try { localStorage.setItem(STORE_KEY, mode); } catch (e) {}
+                            apply();
+                            close(true);
+                        });
+                        item.addEventListener('keydown', function (e) {
+                            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                                e.preventDefault();
+                                var n = (e.key === 'ArrowDown') ? idx + 1 : idx - 1;
+                                items[(n + items.length) % items.length].focus();
+                            }
+                        });
+                    })(items[i], i);
+                }
+
+                /* clicks inside the panel must not bubble to the
+                   document handler that closes it */
+                menu.addEventListener('click', function (e) { e.stopPropagation(); });
+
+                document.addEventListener('click', function () { if (isOpen()) close(false); });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && isOpen()) close(true);
+                });
+
                 apply();
             });
         })();
@@ -745,7 +942,8 @@
          When they land, move .theme-toggle into that row. -->
 
     <div class="theme-toggle">
-        <button class="theme-btn" id="themeBtn" type="button" data-mode="system" title="Theme">
+        <button class="theme-btn" id="themeBtn" type="button" data-mode="system"
+                aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu" title="Theme">
             <!-- light: sun -->
             <svg data-mode="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                 <circle cx="12" cy="12" r="4.1"/>
@@ -761,6 +959,26 @@
                 <path d="M8.8 21h6.4M12 17v4"/>
             </svg>
         </button>
+
+        <div class="theme-menu" id="themeMenu" role="menu" aria-label="Theme" hidden>
+            <button class="theme-item" type="button" role="menuitemradio" data-set="light" aria-checked="false">
+                <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/></svg>
+                <span class="ti-label">Light</span>
+                <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+            </button>
+
+            <button class="theme-item" type="button" role="menuitemradio" data-set="dark" aria-checked="false">
+                <svg class="ti-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/></svg>
+                <span class="ti-label">Dark</span>
+                <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+            </button>
+
+            <button class="theme-item" type="button" role="menuitemradio" data-set="system" aria-checked="false">
+                <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/><path d="M8.8 21h6.4M12 17v4"/></svg>
+                <span class="ti-label">System</span>
+                <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+            </button>
+        </div>
     </div>
 
     <div class="page" id="page">
@@ -785,7 +1003,14 @@
                     </div>
                 </div>
 
-                <nav class="socials" id="socials" aria-label="Profiles">
+                <nav class="socials" id="socials" aria-label="Resume and profiles">
+                    <!-- Resume sits first: it's the primary action, so it
+                         reads before the profile tiles. -->
+                    <a class="resume" href="files/Resume_Saman_Khamesian.pdf" download aria-label="Download resume (PDF)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.5v11"/><path d="M7.5 10.5 12 15l4.5-4.5"/><path d="M4.5 19.5h15"/></svg>
+                        <span>Download Resume</span>
+                    </a>
+
                     <a class="social" href="https://github.com/SamanKhamesian" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
                         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path transform="matrix(0.9583 0 0 0.9583 0.500 0.500)" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
                     </a>
