@@ -63,6 +63,11 @@
     --card-shadow-hi: 0 18px 40px rgba(44, 44, 42, 0.14),
                       0 2px 6px rgba(44, 44, 42, 0.07);
 
+    /* Gutter between the four cards. Deliberately a whole number:
+       grid subtracts the gap and splits the remainder, so a
+       fractional gap can leave the two columns half a pixel apart. */
+    --hub-gap: 18px;
+
     --bin-opacity: 0.55;
     --dot-glow: rgba(238, 93, 41, 0.14);
     --hover-shadow: rgba(44, 44, 42, 0.30);
@@ -534,8 +539,12 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 }
 
 /* ===========================================================
-   OVERVIEW CARDS (home only) — 2x2, sibling of #page so the
-   hero can still scale independently. Each card is one link.
+   OVERVIEW CARDS (home only) — 2 x 2, sibling of #page so the
+   hero can still scale independently.
+
+   A live card is one <a class="card">. A page that doesn't
+   exist yet is <div class="card is-soon"> — same shell, dashed
+   border, no "View more", no hover lift.
    =========================================================== */
 .hub {
     width: 100%;
@@ -545,7 +554,17 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     margin-top: 3.25rem;
     padding-bottom: 4rem;
 }
-.hub-grid { display: grid; grid-template-columns: 1fr; gap: 1.15rem; }
+/* minmax(0, 1fr) rather than 1fr: plain `1fr` means
+   minmax(auto, 1fr), and that auto floor lets a column refuse to
+   shrink below its longest unbreakable line — which made the
+   left column wider than the right. A 0 floor splits the row
+   exactly in half and wraps the text instead. */
+.hub-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--hub-gap);
+    align-items: stretch;
+}
 .card {
     display: block;
     text-decoration: none;
@@ -582,22 +601,54 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     flex: 1;
 }
 .card-head h3 .hsp { display: inline-block; width: var(--head-space); }
-/* arrow slides right on hover — the only motion on the card */
-.card-go {
-    font-family: var(--font-mono);
-    font-size: 1rem;
-    color: var(--text-secondary);
+
+/* "View more" — a <span>, not a link, because the whole card is
+   already the <a> and HTML forbids nesting one inside another.
+   Same orange + hover underline as .pub-link; the arrow slides
+   right on card hover, as the old bare arrow did. */
+.card-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     flex: 0 0 auto;
-    transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), color 0.24s ease;
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
 }
-.card:hover .card-go { color: var(--accent); transform: translateX(4px); }
-.card-desc {
-    font-size: 0.86rem;
-    line-height: 1.65;
+.card-more .hsp { display: inline-block; width: var(--head-space); }
+.card-more .arw {
+    font-size: 0.95rem;
+    transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card:hover .card-more { border-bottom-color: var(--accent); }
+.card:hover .card-more .arw { transform: translateX(4px); }
+
+/* ---------- card bullets ---------- */
+.card-pts { list-style: none; }
+.card-pts li {
+    position: relative;
+    padding-left: 1.15rem;
+    margin-top: 0.45rem;
+    font-size: 0.84rem;
+    line-height: 1.55;
     color: var(--text-secondary);
-    min-height: 4.3em;
 }
-.card-desc strong { color: var(--text-primary); font-weight: 600; }
+.card-pts li::before {
+    content: '';
+    position: absolute;
+    left: 0.1rem;
+    top: 0.62em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+.card-pts strong { color: var(--text-primary); font-weight: 600; }
+
 .card-stats {
     display: flex;
     flex-wrap: wrap;
@@ -618,6 +669,17 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     white-space: nowrap;
 }
 .stat b { color: var(--accent); font-weight: 700; }
+
+/* ---------- pages that don't exist yet ---------- */
+.card.is-soon { border-style: dashed; }
+.card.is-soon:hover {
+    transform: none;
+    box-shadow: var(--card-shadow);
+    border-color: var(--card-border);
+}
+.card.is-soon .card-logo { opacity: 0.55; }
+.card.is-soon .card-head h3 { color: var(--text-secondary); }
+.stat.soon { border-style: dashed; letter-spacing: 0.12em; }
 
 /* ===========================================================
    SECTIONS — Education / Research / Work / Teaching / Pubs.
@@ -878,6 +940,7 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
         --art-font-size: 0.7rem;
         --edu-logo-size: 56px;
         --card-logo-size: 48px;
+        --hub-gap: 14px;
     }
     body { padding: calc(var(--nav-h) + 1.25rem) 1rem 3rem; }
     .nav { padding: 0 1rem; gap: 0.6rem; }
@@ -910,10 +973,10 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     .bin-row { font-size: 18px; letter-spacing: 34px; }
 
     .hub { margin-top: 2.5rem; padding-bottom: 2rem; }
-    .hub-grid { gap: 0.9rem; }
+    /* one card per row on a phone */
+    .hub-grid { grid-template-columns: 1fr; }
     .card { padding: 1.25rem 1.2rem 1.1rem; }
     .card-head h3 { font-size: 1.35rem; }
-    .card-desc { min-height: 0; }
 
     .edu { margin-top: 3.25rem; padding-bottom: 2rem; }
     .edu + .edu { margin-top: 1.25rem; }
@@ -931,7 +994,7 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .bin-row { animation: none; transform: translateX(-50%); }
-    .social, .resume, .theme-btn, .card, .card-go { transition: none; }
+    .social, .resume, .theme-btn, .card, .card-more .arw { transition: none; }
     .theme-menu { animation: none; }
     .cursor { animation: none; }
 }

@@ -18,7 +18,7 @@
 <body>
     <div class="bin-rows" id="binRows"></div>
 
-    <!-- ============================================================got
+    <!-- ============================================================
          NAV — identical on every page except which link carries
          aria-current="page". Links marked .is-soon point nowhere
          until those pages exist.
@@ -171,9 +171,13 @@
     <!-- /#page — fitViewport() scales ONLY what is inside the div above -->
 
     <!-- ============================================================
-         OVERVIEW CARDS — deliberately a SIBLING of #page, so
+         OVERVIEW CARDS — 2 x 2. Deliberately a SIBLING of #page, so
          fitViewport() never scales them. fitHub() pins the grid to
          the terminal's rendered left edge and width.
+
+         A live page is one anchor with class "card". A page that
+         doesn't exist yet is a div with class "card is-soon" —
+         same shell, dashed border, no "View more", not clickable.
          ============================================================ -->
     <section class="hub" id="hub" aria-label="Sections">
         <div class="hub-grid">
@@ -206,18 +210,21 @@
                         </svg>
                     </div>
                     <h3>Experience</h3>
-                    <span class="card-go" aria-hidden="true">&#8594;</span>
+                    <span class="card-more">View<span class="hsp"> </span>more <span class="arw" aria-hidden="true">&#8594;</span></span>
                 </div>
-                <p class="card-desc">
-                    <strong>Ph.D. at Arizona State</strong> · research at <strong>Mayo Clinic</strong> and
-                    <strong>EMIL</strong> · <strong>ML Engineer at Mofid Securities</strong> · four years
-                    teaching at Shahid Beheshti.
-                </p>
+
+                <ul class="card-pts">
+                    <li><strong>Ph.D. in CS</strong> at Arizona State University.</li>
+                    <li>Research at the <strong>EMIL lab</strong> and <strong>Mayo Clinic</strong>.</li>
+                    <li>Ex <strong>ML engineer</strong> at Mofid Securities.</li>
+                    <li><strong>Four years</strong> as a teaching assistant.</li>
+                </ul>
+
                 <div class="card-stats">
                     <span class="stat"><b>4.00</b> GPA</span>
                     <span class="stat"><b>2</b> Research labs</span>
                     <span class="stat"><b>2</b> Industry roles</span>
-                    <span class="stat"><b>5</b> Courses TA'd</span>
+                    <span class="stat"><b>6</b> Courses taught</span>
                 </div>
             </a>
 
@@ -251,21 +258,25 @@
                         </svg>
                     </div>
                     <h3>Publications</h3>
-                    <span class="card-go" aria-hidden="true">&#8594;</span>
+                    <span class="card-more">View<span class="hsp"> </span>more <span class="arw" aria-hidden="true">&#8594;</span></span>
                 </div>
-                <p class="card-desc">
-                    Peer-reviewed work on blood glucose forecasting, reinforcement learning for
-                    behavioral support, digital twins, and large language models for nutrition.
-                </p>
+
+                <ul class="card-pts">
+                    <li><strong>Blood glucose forecasting</strong> and digital twins.</li>
+                    <li><strong>RL</strong> in diabetes management.</li>
+                    <li><strong>LLMs</strong> for personalized meal planning.</li>
+                    <li><strong>Behavioral factors</strong> in AID systems.</li>
+                </ul>
+
                 <div class="card-stats">
-                    <span class="stat"><b>3</b> Journals</span>
-                    <span class="stat"><b>3</b> Conferences</span>
+                    <span class="stat"><b>3</b> Journal papers</span>
+                    <span class="stat"><b>3</b> Conference papers</span>
+                    <span class="stat"><b>3</b> Under review</span>
                     <span class="stat"><b>2</b> Patents</span>
-                    <span class="stat"><b>2</b> Under review</span>
                 </div>
             </a>
 
-            <a class="card" href="#">
+            <div class="card is-soon">
                 <div class="card-head">
                     <div class="card-logo">
                         <!-- terminal -->
@@ -288,18 +299,21 @@
                         </svg>
                     </div>
                     <h3>Projects</h3>
-                    <span class="card-go" aria-hidden="true">&#8594;</span>
                 </div>
-                <p class="card-desc">
-                    Open-source work, side builds, and the tools behind the research, with the
-                    skills and topics each one covers.
-                </p>
-                <div class="card-stats">
-                    <span class="stat">Coming soon</span>
-                </div>
-            </a>
 
-            <a class="card" href="#">
+                <ul class="card-pts">
+                    <li><strong>Open-source code</strong> released with the papers.</li>
+                    <li>Side builds and research tools.</li>
+                    <li>The stack behind each one.</li>
+                    <li>Links to every repository.</li>
+                </ul>
+
+                <div class="card-stats">
+                    <span class="stat soon">Coming soon</span>
+                </div>
+            </div>
+
+            <div class="card is-soon">
                 <div class="card-head">
                     <div class="card-logo">
                         <!-- ring bell -->
@@ -324,18 +338,19 @@
                         </svg>
                     </div>
                     <h3>Activities</h3>
-                    <span class="card-go" aria-hidden="true">&#8594;</span>
                 </div>
-                <p class="card-desc">
-                    Conferences, summer schools, and workshops · programming contests and hackathons ·
-                    awards, honors, and peer review for IEEE-EMBS venues.
-                </p>
+
+                <ul class="card-pts">
+                    <li>Conferences and <strong>summer schools</strong>.</li>
+                    <li><strong>Programming contests</strong> and hackathons.</li>
+                    <li><strong>Awards</strong> and honors.</li>
+                    <li><strong>Peer review</strong> for IEEE-EMBS venues.</li>
+                </ul>
+
                 <div class="card-stats">
-                    <span class="stat"><b>4</b> Awards</span>
-                    <span class="stat"><b>2</b> ICPC regionals</span>
-                    <span class="stat"><b>9</b> Papers reviewed</span>
+                    <span class="stat soon">Coming soon</span>
                 </div>
-            </a>
+            </div>
 
         </div>
     </section>
