@@ -75,7 +75,7 @@
     /* ASCII art metrics — --icon-size also sets the Download
        Resume pill's height and the theme button, so all three
        stay the same size. */
-    --art-font-size: 0.68rem;
+    --art-font-size: 0.7rem;
     --icon-size: 36px;
     --icon-radius: 9px;
     --hero-gap: 1.25rem;
