@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects — Saman Khamesian</title>
+    <meta name="description" content="Open-source research code and side projects: reinforcement learning, blood glucose forecasting, large language models, neuroevolution, and optimization.">
+    <link rel="canonical" href="https://samankhamesian.github.io/projects">
+    <meta name="theme-color" content="#FCFCFB" id="themeColorMeta">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="theme.js"></script>
+</head>
+<body>
+    <nav class="nav" id="nav" aria-label="Main">
+        <button class="nav-burger" id="navBurger" type="button"
+                aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+            <svg class="bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+
+        <a class="nav-home" href="/">Saman Khamesian</a>
+
+        <div class="nav-links" id="navLinks">
+            <a class="nav-link" href="/">About Me</a>
+            <a class="nav-link" href="/experience">Experience</a>
+            <a class="nav-link" href="/publications">Publications</a>
+            <a class="nav-link" href="/projects" aria-current="page">Projects</a>
+            <a class="nav-link is-soon" href="#" aria-disabled="true">Activities</a>
+            <a class="nav-link is-soon" href="#" aria-disabled="true">Personal</a>
+        </div>
+
+        <div class="nav-tools">
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeBtn" type="button" data-mode="system"
+                        aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu" title="Theme">
+                    <svg data-mode="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="4.1"/>
+                        <path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/>
+                    </svg>
+                    <svg data-mode="dark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                        <path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/>
+                    </svg>
+                    <svg data-mode="system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/>
+                        <path d="M8.8 21h6.4M12 17v4"/>
+                    </svg>
+                </button>
+
+                <div class="theme-menu" id="themeMenu" role="menu" aria-label="Theme" hidden>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="light" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/></svg>
+                        <span class="ti-label">Light</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="dark" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/></svg>
+                        <span class="ti-label">Dark</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="system" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/><path d="M8.8 21h6.4M12 17v4"/></svg>
+                        <span class="ti-label">System</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="edu" id="projects">
+
+        <div class="edu-head">
+            <div class="edu-logo">
+                <!-- terminal -->
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Projects">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="36" y="74" width="146" height="160" fill="#FAF9F6" transform="rotate(-4 109 154)"/>
+                    <rect x="112" y="60" width="150" height="166" fill="#FAF9F6" transform="rotate(3 187 143)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M50 90 C 46 144 47 198 52 242 C 94 248 136 247 170 242"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M44 74 C 40 130 41 190 46 240 C 116 250 208 249 276 240 C 280 190 279 130 275 74 C 206 64 114 64 44 74 Z"/>
+                        <path d="M44 116 C 116 124 208 124 276 116"/>
+                    </g>
+                    <g fill="#141413"><circle cx="72" cy="96" r="8"/><circle cx="102" cy="95" r="8"/><circle cx="132" cy="95" r="8"/></g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M78 152 L 116 178 L 78 202"/>
+                        <path d="M138 206 C 166 209 196 209 222 206"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Projects</h2>
+        </div>
+
+        <div class="pj-list">
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>GUIDE</h3>
+                    <span class="pj-yr">2026</span>
+                </div>
+                <span class="pj-sub">Reinforcement learning for behavioral action support in type 1 diabetes</span>
+                <p class="pj-desc">Automated insulin delivery has improved glycemic outcomes, yet many patients still fall short of clinical targets &mdash; and existing reinforcement learning work optimizes insulin alone, leaving behavior untouched. GUIDE is a decision-support framework that complements AID by recommending <strong>structured actions</strong> defined by intervention type, magnitude, and timing, covering both bolus insulin and carbohydrate intake. It pairs a patient-specific glucose predictor trained on real CGM data with a unified environment that supports offline and online algorithms. Across 25 individuals, <strong>CQL-BC</strong> reached <strong>85.49% time-in-range</strong> with low hypoglycemia exposure, and its learned policy stayed behaviorally plausible &mdash; a mean cosine similarity of 0.87 with real patient action patterns.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Python</span>
+                    <span class="pj-tag">PyTorch</span>
+                    <span class="pj-tag">Offline RL</span>
+                    <span class="pj-tag">Decision Support</span>
+                    <span class="pj-tag">T1D</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://arxiv.org/abs/2604.00385" target="_blank" rel="noopener noreferrer">Preprint &#8599;</a>
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/GUIDE" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                    <a class="pj-link" href="https://data.mendeley.com/datasets/gk9m674wcx/1" target="_blank" rel="noopener noreferrer">Dataset &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>GLIMMER</h3>
+                    <span class="pj-yr">2026</span>
+                </div>
+                <span class="pj-sub">Glucose Level Indicator Model with Modified Error Rate</span>
+                <p class="pj-desc">Automated insulin delivery systems still miss impending glycemic excursions, partly because forecasting models are trained to treat every error the same no matter where on the glucose range it falls. GLIMMER is an <strong>architecture-agnostic</strong> training framework that moves the fix into the loss function: a genetic algorithm tunes region-specific penalties so mistakes inside the hypo- and hyperglycemic ranges cost the model the most. Evaluated on OhioT1DM and the newly collected AZT1D dataset, it improves RMSE by up to <strong>24.6%</strong> and MAE by <strong>29.6%</strong> over baseline architectures, and reaches <strong>98.4% recall</strong> on dysglycemic events using only <strong>10K parameters</strong> &mdash; against baselines carrying millions.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Python</span>
+                    <span class="pj-tag">TensorFlow</span>
+                    <span class="pj-tag">Genetic Algorithm</span>
+                    <span class="pj-tag">Forecasting</span>
+                    <span class="pj-tag">T1D</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://link.springer.com/article/10.1186/s44398-026-00032-x" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
+                    <a class="pj-link" href="https://arxiv.org/abs/2502.14183" target="_blank" rel="noopener noreferrer">Preprint &#8599;</a>
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/GLIMMER" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                    <a class="pj-link" href="https://data.mendeley.com/datasets/gk9m674wcx/1" target="_blank" rel="noopener noreferrer">Dataset &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>NutriGen</h3>
+                    <span class="pj-yr">2025</span>
+                </div>
+                <span class="pj-sub">Personalized meal plan generator built on large language models</span>
+                <p class="pj-desc">Existing dietary recommendation systems tend to be rigid, ignore real-world constraints such as which ingredients are actually available, and demand so much user input that nobody keeps using them. NutriGen builds a personalized nutrition database and uses <strong>prompt engineering</strong> to ground LLM-generated meal plans in the USDA nutrition database, keeping the output structured and practical while asking very little of the user. Across the models evaluated, <strong>Llama 3.1 8B</strong> and <strong>GPT-3.5 Turbo</strong> came closest to user-defined caloric targets at <strong>1.55%</strong> and <strong>3.68%</strong> error; DeepSeek V3 lagged at 10.45% MAE and was considerably slower to generate.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Python</span>
+                    <span class="pj-tag">LLMs</span>
+                    <span class="pj-tag">Prompt Engineering</span>
+                    <span class="pj-tag">Meal Planning</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://ieeexplore.ieee.org/document/11253879" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
+                    <a class="pj-link" href="https://arxiv.org/abs/2502.20601" target="_blank" rel="noopener noreferrer">Preprint &#8599;</a>
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/NutriGen" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>Hybrid<span class="hsp"> </span>Self-Attention<span class="hsp"> </span>NEAT</h3>
+                    <span class="pj-yr">2024</span>
+                </div>
+                <span class="pj-sub">Evolutionary self-attention for neuroevolution on high-dimensional inputs</span>
+                <p class="pj-desc">NEAT evolves a network&rsquo;s topology and its weights together, which works well until the input gets large &mdash; with raw pixels it can no longer build a well-tuned network. This work introduces <strong>self-attention as an indirect encoding</strong>: attention selects the most important regions of the input before the evolved network ever sees them, and a hybrid scheme handles the final weight optimization. On Atari games with raw pixel input, the method reaches scores comparable to other evolutionary approaches while using a <strong>far smaller number of parameters</strong>, lifting the dimensionality restriction that constrained the original algorithm.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Python</span>
+                    <span class="pj-tag">Neuroevolution</span>
+                    <span class="pj-tag">Self-Attention</span>
+                    <span class="pj-tag">Atari</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://link.springer.com/article/10.1007/s12530-023-09510-3" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/Hybrid-Self-Attention-NEAT" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>Human<span class="hsp"> </span>Activity<span class="hsp"> </span>Recognition</h3>
+                    <span class="pj-yr">2020</span>
+                </div>
+                <span class="pj-sub">CNN-LSTM classifier for time-series accelerometer data</span>
+                <p class="pj-desc">A deep-learning take on the classic smartphone activity problem: given a short window of raw motion data, decide which of six activities the wearer is performing. Convolutional layers learn features directly from the 50 Hz accelerometer and gyroscope signal, so none of the hand-crafted window statistics that classical tree-based approaches depend on are needed, and an <strong>LSTM</strong> head reads the temporal order across the window. Trained on the UCI Human Activity Recognition dataset &mdash; 30 subjects wearing a waist-mounted phone &mdash; the model reaches roughly <strong>88&ndash;92% accuracy</strong> across the six activity classes.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Python</span>
+                    <span class="pj-tag">Keras</span>
+                    <span class="pj-tag">CNN-LSTM</span>
+                    <span class="pj-tag">Classification</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/Time-Series-Classification-for-Human-Activity-Recognition" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                    <a class="pj-link" href="https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones" target="_blank" rel="noopener noreferrer">Dataset &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>Two-Level<span class="hsp"> </span>Genetic<span class="hsp"> </span>Algorithm</h3>
+                    <span class="pj-yr">2019</span>
+                </div>
+                <span class="pj-sub">Clustered traveling salesman problem at large scale</span>
+                <p class="pj-desc">In the clustered traveling salesman problem the cities are partitioned into groups, and a valid tour has to finish every city in a group before moving on to the next one. This C++ implementation follows the <strong>two-level genetic algorithm</strong>, which evolves the paths inside each cluster and the ordering between clusters together rather than optimizing one level and then the other. The same machinery extends to plain large-scale TSP instances: cluster the cities first, then solve the resulting CTSP, which converges faster than running a classical genetic algorithm across the whole instance.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">C++</span>
+                    <span class="pj-tag">Genetic Algorithm</span>
+                    <span class="pj-tag">Combinatorial Optimization</span>
+                    <span class="pj-tag">TSP</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/Two-Level-Genetic-Algorithm-for-Clustered-TSP" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                    <a class="pj-link" href="https://ieeexplore.ieee.org/document/6071779" target="_blank" rel="noopener noreferrer">Method paper &#8599;</a>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <script src="site.js"></script>
+</body>
+</html>

@@ -605,7 +605,12 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 /* "View more" — a <span>, not a link, because the whole card is
    already the <a> and HTML forbids nesting one inside another.
    Same orange + hover underline as .pub-link; the arrow slides
-   right on card hover, as the old bare arrow did. */
+   right on card hover, as the old bare arrow did.
+
+   NOTE: no .hsp here. This is set in --font-mono, which has a
+   real space glyph, and inline-flex turns every text run into
+   its own flex item — so an .hsp span would collect the 0.4rem
+   gap on BOTH sides and blow the word gap out to ~16px. */
 .card-more {
     display: inline-flex;
     align-items: center;
@@ -619,7 +624,6 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     border-bottom: 1px solid transparent;
     transition: border-color 0.2s ease;
 }
-.card-more .hsp { display: inline-block; width: var(--head-space); }
 .card-more .arw {
     font-size: 0.95rem;
     transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
@@ -887,6 +891,123 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 .pub-link + .pub-link { margin-left: 0.9rem; }
 
 /* ===========================================================
+   PROJECTS — one card per project, newest first. Every class is
+   prefixed .pj- so nothing collides with the .tl timeline or the
+   .pub- reference list. Note that .tl .pts .pj already exists as
+   a DESCENDANT selector inside a timeline bullet, so it can't
+   reach anything here.
+   =========================================================== */
+.pj-list { display: flex; flex-direction: column; gap: 1.15rem; }
+
+/* Same shell as the home page's .card, minus the anchor behavior
+   — these aren't links, since every destination they'd point to
+   is already in the .pj-links row at the bottom. */
+.pj-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.5rem 1.55rem 1.3rem;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.24s ease, border-color 0.24s ease,
+                background-color 0.3s ease;
+}
+/*.pj-card:hover {*/
+/*    transform: translateY(-4px);*/
+/*    box-shadow: var(--card-shadow-hi);*/
+/*    border-color: var(--accent);*/
+/*}*/
+
+/* margin-left: auto pushes the year to the right edge; baseline
+   alignment keeps it sitting on the title's baseline rather than
+   floating in the middle of the line box */
+.pj-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.15rem 0.8rem;
+    margin-bottom: 0.15rem;
+}
+.pj-head h3 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: 1.55rem;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    color: var(--heading);
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+}
+.pj-head h3 .hsp { display: inline-block; width: var(--head-space); }
+.pj-yr {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-left: auto;
+    white-space: nowrap;
+    padding-top: 0.2rem;
+}
+.pj-sub {
+    display: block;
+    font-size: 0.84rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.85rem;
+}
+
+/* Justified with hyphens: at this column width an unhyphenated
+   justify opens rivers of white space between words. */
+.pj-desc {
+    font-size: 0.86rem;
+    line-height: 1.68;
+    color: var(--text-secondary);
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+}
+.pj-desc strong { color: var(--text-primary); font-weight: 600; }
+
+/* same chip language as .stat on the home cards */
+.pj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem; margin-top: 1.05rem; }
+.pj-tag {
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.28rem 0.5rem;
+    white-space: nowrap;
+}
+
+/* same look as .pub-link, but laid out as a flex row with a
+   hairline above it instead of inline after a citation */
+.pj-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 1.05rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--border-color);
+}
+.pj-link {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+.pj-link:hover, .pj-link:focus-visible { border-bottom-color: var(--accent); }
+.pj-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ===========================================================
    MOBILE
    =========================================================== */
 @media (max-width: 860px) {
@@ -989,12 +1110,18 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     /* year moves above the entry instead of beside it */
     .pub-list li { flex-direction: column; gap: 0.25rem; }
     .pub-yr { flex: none; }
+
+    /* project cards: same padding as the home cards, and the year
+       drops under the title instead of being pushed to the right */
+    .pj-card { padding: 1.25rem 1.2rem 1.1rem; }
+    .pj-head h3 { font-size: 1.35rem; }
+    .pj-yr { margin-left: 0; padding-top: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .bin-row { animation: none; transform: translateX(-50%); }
-    .social, .resume, .theme-btn, .card, .card-more .arw { transition: none; }
+    .social, .resume, .theme-btn, .card, .card-more .arw, .pj-card { transition: none; }
     .theme-menu { animation: none; }
     .cursor { animation: none; }
 }
