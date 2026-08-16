@@ -144,6 +144,48 @@
 
             <article class="pj-card">
                 <div class="pj-head">
+                    <h3>AZT1D</h3>
+                    <span class="pj-yr">2025</span>
+                </div>
+                <span class="pj-sub">A real-world type 1 diabetes dataset from 25 adults on automated insulin delivery</span>
+                <p class="pj-desc">Data-driven work in type 1 diabetes keeps running into the same wall: the publicly available datasets are either simulated or drawn from very small cohorts, and almost none of them record what the pump actually did. AZT1D closes part of that gap with <strong>6&ndash;8 weeks</strong> of naturalistic data per participant &mdash; <strong>320,488 CGM entries</strong> across <strong>26,707 hours</strong> of monitoring &mdash; pairing Dexcom G6 Pro readings with insulin delivery logs, carbohydrate intake, and pump device mode (regular, sleep, exercise). Its distinguishing feature is the granularity on bolus events: total dose, bolus type (standard, correction, automatic), and the split between correction and food insulin, fields that are rarely exposed elsewhere. Assembling it meant reconciling two incompatible Tandem t:slim X2 exports, with hourly basal rates and device modes recovered from PDF reports through <strong>coordinate-based cropping and OCR</strong>. A second release is planned, expanding the cohort to <strong>up to 100 patients</strong>.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Python</span>
+                    <span class="pj-tag">Dataset Curation</span>
+                    <span class="pj-tag">OCR</span>
+                    <span class="pj-tag">CGM</span>
+                    <span class="pj-tag">T1D</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://ieeexplore.ieee.org/document/11337496" target="_blank" rel="noopener noreferrer">Paper &#8599;</a>
+                    <a class="pj-link" href="https://data.mendeley.com/datasets/gk9m674wcx/1" target="_blank" rel="noopener noreferrer">Dataset &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>ExActHealth</h3>
+                    <span class="pj-yr">2025</span>
+                </div>
+                <span class="pj-sub">Mobile app for food and activity data collection in type 1 diabetes</span>
+                <p class="pj-desc">CGM and pump records describe what glucose did, not what the person did &mdash; and the lifestyle half of that picture is exactly what gets lost when studies rely on third-party trackers. ExActHealth is a <strong>custom mobile application</strong> for structured food, health monitoring, and physical activity data collection, paired with a smartwatch and built natively on both Android and iOS, with the <strong>Android client developed end to end by me</strong>. Participants log meals with name, timestamp, and macronutrients (carbohydrate required, protein and fat optional), optionally attaching photos, and can save frequently eaten foods so a repeat entry takes one tap instead of a full form. The app reads heart rate, step count, sleep duration, and workout sessions from the paired watch and syncs everything to a private cloud server; no personally identifiable information is collected, and participants sign in with study-specific credentials issued at enrollment. The <strong>30-day pilot</strong> ran on iOS with an Apple Watch Series 10 across <strong>20 patients</strong> at Mayo Clinic Arizona: <strong>87% rated the app easy</strong> to use and <strong>73% said it supported their diabetes self-management</strong>, while the smartwatch scored 100% on ease of use and 87% on perceived help with management. Presented as a poster at <strong>IEEE BHI 2025</strong>.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Android</span>
+                    <span class="pj-tag">iOS</span>
+                    <span class="pj-tag">Wearables</span>
+                    <span class="pj-tag">Mobile Development</span>
+                    <span class="pj-tag">Data Collection</span>
+                    <span class="pj-tag">T1D</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="/files/ExActHealth_BHI2025_abstract.pdf" target="_blank" rel="noopener noreferrer">Abstract &#8599;</a>
+                    <a class="pj-link" href="/files/ExActHealth_BHI2025_poster.pdf" target="_blank" rel="noopener noreferrer">Poster &#8599;</a>
+                    <a class="pj-link" href="https://drive.google.com/file/d/1A13KLiUapLCTqUsSab7tVqZC4_MzFbe3/view?usp=sharing" target="_blank" rel="noopener noreferrer">Demo &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
                     <h3>NutriGen</h3>
                     <span class="pj-yr">2025</span>
                 </div>
