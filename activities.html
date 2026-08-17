@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activities — Saman Khamesian</title>
+    <meta name="description" content="Honors and awards, conferences, summer schools, competitions, talks, and volunteer service.">
+    <link rel="canonical" href="https://samankhamesian.github.io/activities">
+    <meta name="theme-color" content="#FCFCFB" id="themeColorMeta">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="theme.js"></script>
+</head>
+<body>
+    <nav class="nav" id="nav" aria-label="Main">
+        <button class="nav-burger" id="navBurger" type="button"
+                aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+            <svg class="bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+
+        <a class="nav-home" href="/">Saman Khamesian</a>
+
+        <div class="nav-links" id="navLinks">
+            <a class="nav-link" href="/">About Me</a>
+            <a class="nav-link" href="/experience">Experience</a>
+            <a class="nav-link" href="/publications">Publications</a>
+            <a class="nav-link" href="/projects">Projects</a>
+            <a class="nav-link" href="/activities" aria-current="page">Activities</a>
+            <a class="nav-link is-soon" href="#" aria-disabled="true">Personal</a>
+        </div>
+
+        <div class="nav-tools">
+            <div class="theme-toggle">
+                <button class="theme-btn" id="themeBtn" type="button" data-mode="system"
+                        aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu" title="Theme">
+                    <svg data-mode="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="4.1"/>
+                        <path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/>
+                    </svg>
+                    <svg data-mode="dark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                        <path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/>
+                    </svg>
+                    <svg data-mode="system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/>
+                        <path d="M8.8 21h6.4M12 17v4"/>
+                    </svg>
+                </button>
+
+                <div class="theme-menu" id="themeMenu" role="menu" aria-label="Theme" hidden>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="light" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/></svg>
+                        <span class="ti-label">Light</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="dark" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 14.9A8.9 8.9 0 0 1 9.1 3.7a9 9 0 1 0 11.2 11.2z"/></svg>
+                        <span class="ti-label">Dark</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                    <button class="theme-item" type="button" role="menuitemradio" data-set="system" aria-checked="false">
+                        <svg class="ti-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="4.4" width="18.4" height="12.6" rx="2"/><path d="M8.8 21h6.4M12 17v4"/></svg>
+                        <span class="ti-label">System</span>
+                        <svg class="ti-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+         HONORS AND AWARDS
+         ============================================================ -->
+    <section class="edu" id="honors">
+        <div class="edu-head">
+            <div class="edu-logo">
+                <!-- trophy -->
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Honors and Awards">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="38" y="76" width="146" height="158" fill="#FAF9F6" transform="rotate(-4 111 155)"/>
+                    <rect x="112" y="62" width="150" height="164" fill="#FAF9F6" transform="rotate(3 187 144)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M52 92 C 48 146 49 200 54 246 C 106 253 166 252 226 246"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M96 44 C 96 112 116 160 160 174 C 204 160 224 112 224 44 C 180 34 140 34 96 44 Z"/>
+                        <path d="M96 60 C 56 52 36 78 44 108 C 51 134 74 148 102 150"/>
+                        <path d="M224 60 C 264 52 284 78 276 108 C 269 134 246 148 218 150"/>
+                        <path d="M160 174 C 160 190 160 200 159 208"/>
+                        <path d="M110 212 C 144 204 176 204 210 212 C 212 222 212 232 210 240 C 176 246 144 246 110 240 C 108 232 108 222 110 212 Z"/>
+                    </g>
+                    <g fill="#141413">
+                        <path d="M160 70 L166.9 88.5 L186.6 89.4 L171.2 101.6 L176.5 120.7 L160 109.8 L143.5 120.7 L148.8 101.6 L133.4 89.4 L153.1 88.5 Z"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Honors<span class="hsp"> </span>and<span class="hsp"> </span>Awards</h2>
+        </div>
+
+        <ol class="tl">
+            <!-- entry template:
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">YEAR</div>
+                <div class="deg">Award name</div>
+                <div class="sch">Awarding body</div>
+                <div class="meta">City, Country</div>
+            </li>
+            -->
+        </ol>
+    </section>
+
+    <!-- ============================================================
+         CONFERENCES
+         ============================================================ -->
+    <section class="edu" id="conferences">
+        <div class="edu-head">
+            <div class="edu-logo">
+                <!-- screen and audience -->
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conferences">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="38" y="76" width="146" height="158" fill="#FAF9F6" transform="rotate(-4 111 155)"/>
+                    <rect x="112" y="62" width="150" height="164" fill="#FAF9F6" transform="rotate(3 187 144)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M52 92 C 48 146 49 200 54 246 C 100 252 148 251 186 246"/>
+                        <path d="M96 146 C 96 128 96 114 96 104"/>
+                        <path d="M134 146 C 134 122 134 104 134 94"/>
+                        <path d="M172 146 C 172 132 172 120 172 112"/>
+                        <path d="M210 146 C 210 118 210 98 210 86"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M50 56 C 46 96 47 134 52 168 C 122 178 200 178 268 168 C 273 134 274 96 270 56 C 200 46 120 46 50 56 Z"/>
+                        <path d="M160 168 C 160 184 160 196 159 206"/>
+                        <path d="M64 268 C 64 246 78 234 94 234 C 110 234 124 246 124 268"/>
+                        <path d="M196 268 C 196 246 210 234 226 234 C 242 234 256 246 256 268"/>
+                    </g>
+                    <g fill="#141413">
+                        <circle cx="94" cy="214" r="17"/>
+                        <circle cx="226" cy="214" r="17"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Conferences</h2>
+        </div>
+
+        <ol class="tl">
+            <!-- entry template:
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">MON YEAR</div>
+                <div class="deg">Conference name</div>
+                <div class="sch">Role — attendee, presenter, poster</div>
+                <div class="meta">City, Country</div>
+            </li>
+            -->
+        </ol>
+    </section>
+
+    <!-- ============================================================
+         SUMMER SCHOOLS
+         ============================================================ -->
+    <section class="edu" id="summer-schools">
+        <div class="edu-head">
+            <div class="edu-logo">
+                <!-- backpack and sun -->
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Summer Schools">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="38" y="76" width="146" height="158" fill="#FAF9F6" transform="rotate(-4 111 155)"/>
+                    <rect x="112" y="62" width="150" height="164" fill="#FAF9F6" transform="rotate(3 187 144)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M52 92 C 48 146 49 200 54 246 C 100 252 148 251 186 246"/>
+                        <path d="M248 30 L248 22"/>
+                        <path d="M248 106 L248 114"/>
+                        <path d="M210 68 L202 68"/>
+                        <path d="M286 68 L294 68"/>
+                        <path d="M221 41 L216 36"/>
+                        <path d="M275 95 L280 102"/>
+                        <path d="M275 41 L280 36"/>
+                        <path d="M221 95 L216 102"/>
+                        <path d="M102 204 C 100 222 100 236 102 246 C 128 252 160 252 186 246 C 188 236 188 222 186 204"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M248 45 C 234 45 223 55 223 68 C 223 81 234 91 248 91 C 262 91 273 81 273 68 C 273 55 262 45 248 45 Z"/>
+                        <path d="M66 130 C 60 172 60 214 66 250 C 112 260 176 260 222 250 C 228 214 228 172 222 130 C 176 120 112 120 66 130 Z"/>
+                        <path d="M66 168 C 112 178 176 178 222 168"/>
+                        <path d="M106 126 C 106 92 122 74 144 74 C 166 74 182 92 182 126"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Summer<span class="hsp"> </span>Schools</h2>
+        </div>
+
+        <ol class="tl">
+            <!-- entry template:
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">MON YEAR</div>
+                <div class="deg">School name</div>
+                <div class="sch">Host institution</div>
+                <div class="meta">City, Country</div>
+            </li>
+            -->
+        </ol>
+    </section>
+
+    <!-- ============================================================
+         COMPETITIONS
+         ============================================================ -->
+    <section class="edu" id="competitions">
+        <div class="edu-head">
+            <div class="edu-logo">
+                <!-- balloons -->
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Competitions">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="38" y="76" width="146" height="158" fill="#FAF9F6" transform="rotate(-4 111 155)"/>
+                    <rect x="112" y="62" width="150" height="164" fill="#FAF9F6" transform="rotate(3 187 144)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M52 92 C 48 146 49 200 54 246 C 100 252 148 251 186 246"/>
+                        <path d="M82 173 C 74 200 88 224 80 254"/>
+                        <path d="M160 135 C 152 168 166 198 158 248"/>
+                        <path d="M238 177 C 230 200 244 222 236 250"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M82 70 C 36 72 32 132 61 158 C 72 173 92 173 103 158 C 132 132 128 72 82 70 Z"/>
+                        <path d="M160 32 C 114 34 110 94 139 120 C 150 135 170 135 181 120 C 210 94 206 34 160 32 Z"/>
+                        <path d="M238 74 C 192 76 188 136 217 162 C 228 177 248 177 259 162 C 288 136 284 76 238 74 Z"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Competitions</h2>
+        </div>
+
+        <ol class="tl">
+            <!-- entry template:
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">YEAR</div>
+                <div class="deg">Contest name</div>
+                <div class="track">Regional / national / final</div>
+                <div class="sch">Placement or rank</div>
+                <div class="meta">City, Country</div>
+            </li>
+            -->
+        </ol>
+    </section>
+
+    <!-- ============================================================
+         TALKS
+         ============================================================ -->
+    <section class="edu" id="talks">
+        <div class="edu-head">
+            <div class="edu-logo">
+                <!-- microphone -->
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Talks">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="38" y="76" width="146" height="158" fill="#FAF9F6" transform="rotate(-4 111 155)"/>
+                    <rect x="112" y="62" width="150" height="164" fill="#FAF9F6" transform="rotate(3 187 144)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M52 92 C 48 146 49 200 54 246 C 100 252 148 251 186 246"/>
+                        <path d="M124 78 C 144 73 176 73 196 78"/>
+                        <path d="M124 110 C 144 105 176 105 196 110"/>
+                        <path d="M124 142 C 144 137 176 137 196 142"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M160 32 C 128 32 110 52 110 78 C 110 106 110 128 110 146 C 110 172 128 190 160 190 C 192 190 210 172 210 146 C 210 128 210 106 210 78 C 210 52 192 32 160 32 Z"/>
+                        <path d="M74 138 C 74 194 112 232 160 232 C 208 232 246 194 246 138"/>
+                        <path d="M160 232 C 160 252 160 264 159 274"/>
+                        <path d="M114 280 C 146 274 176 274 206 280"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Talks</h2>
+        </div>
+
+        <ol class="tl">
+            <!-- entry template:
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">MON YEAR</div>
+                <div class="deg">Talk title</div>
+                <div class="sch">Venue or host</div>
+                <div class="meta">City, Country</div>
+            </li>
+            -->
+        </ol>
+    </section>
+
+    <!-- ============================================================
+         VOLUNTEERING
+         ============================================================ -->
+    <section class="edu" id="volunteering">
+        <div class="edu-head">
+            <div class="edu-logo">
+                <!-- heart in an open hand -->
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Volunteering">
+                    <rect width="320" height="320" rx="18" fill="#BFD1C9"/>
+                    <rect x="38" y="76" width="146" height="158" fill="#FAF9F6" transform="rotate(-4 111 155)"/>
+                    <rect x="112" y="62" width="150" height="164" fill="#FAF9F6" transform="rotate(3 187 144)"/>
+                    <g fill="none" stroke="#141413" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M52 92 C 48 146 49 200 54 246 C 100 252 148 251 186 246"/>
+                    </g>
+                    <g fill="none" stroke="#141413" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M160 78 C 147 54 114 49 96 70 C 76 93 88 128 114 151 C 129 164 148 177 160 185 C 172 177 191 164 206 151 C 232 128 244 93 224 70 C 206 49 173 54 160 78 Z"/>
+                        <path d="M40 200 C 62 196 86 194 108 196 C 148 210 196 210 236 196 C 250 192 260 188 268 182 C 258 202 234 218 204 226 C 190 234 178 240 166 244 C 144 242 124 236 108 230 C 96 236 84 244 72 250 C 60 236 48 218 40 200 Z"/>
+                        <path d="M186 230 C 204 210 232 204 250 216"/>
+                    </g>
+                </svg>
+            </div>
+            <h2>Volunteering</h2>
+        </div>
+
+        <ol class="tl">
+            <!-- entry template:
+            <li>
+                <span class="tl-dot"></span>
+                <div class="when">YEAR — YEAR</div>
+                <div class="deg">Reviewer</div>
+                <div class="sch">Journal or conference</div>
+                <div class="meta">Number of reviews, track, or note</div>
+            </li>
+            -->
+        </ol>
+    </section>
+
+    <script src="site.js"></script>
+</body>
+</html>
