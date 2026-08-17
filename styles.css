@@ -1010,6 +1010,53 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 /* ===========================================================
    MOBILE
    =========================================================== */
+/* ===========================================================
+   HONORS AND AWARDS — awards.html. Every class is prefixed
+   .aw- so nothing collides with the .tl timeline, the .pub-
+   reference list, or the .pj- project cards.
+
+   No rail: a timeline implies one thing leading to the next,
+   which is true of degrees and jobs but not of awards. The
+   hairlines separate rather than connect.
+
+   The type scale is lifted verbatim from the .tl education
+   entries, so an award reads in the same voice as a degree.
+   =========================================================== */
+.aw-list { list-style: none; border-top: 1px solid var(--border-color); }
+.aw-list li {
+    padding: 1.2rem 0 1.3rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.aw-when {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+}
+.aw-t {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+    line-height: 1.35;
+}
+.aw-org {
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: 0.28rem;
+    line-height: 1.4;
+}
+/* everything qualifying the award — scale, cohort, place —
+   lives here, under the awarding body */
+.aw-meta {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.32rem;
+    line-height: 1.6;
+}
+
 @media (max-width: 860px) {
     .nav-burger {
         display: flex;
@@ -1110,6 +1157,8 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     /* year moves above the entry instead of beside it */
     .pub-list li { flex-direction: column; gap: 0.25rem; }
     .pub-yr { flex: none; }
+
+    .aw-list li { padding: 1.05rem 0 1.15rem; }
 
     /* project cards: same padding as the home cards, and the year
        drops under the title instead of being pushed to the right */
