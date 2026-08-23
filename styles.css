@@ -1174,3 +1174,271 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     .theme-menu { animation: none; }
     .cursor { animation: none; }
 }
+
+
+/* ===========================================================
+   ACTIVITIES ENTRIES — activities.html. Every class is prefixed
+   .ac- so nothing collides with the .tl timeline, the .pub-
+   reference list, the .pj- project cards or the .aw- awards.
+
+   No rail: like awards, these events don't lead into one
+   another. Each entry is a card and the gaps separate them.
+
+   The shell is the .pj-card shell verbatim — 16px radius, the
+   same padding, border and shadow — minus the hover lift, which
+   reads as a promise that the card is clickable. It isn't;
+   every destination sits in the .ac-links row.
+
+   TWO ARRANGEMENTS, ONE SET OF MARKUP. The children are always
+   .ac-pic, .ac-head, .ac-links, .ac-body in that order; adding
+   .is-portrait to the row switches which arrangement applies.
+
+     LANDSCAPE (default) — a grid. The photo has no ratio of its
+     own: it is a fixed-width column that stretches from the top
+     of the date to the bottom of the links. The description
+     then runs the full width of the card underneath, with a
+     full-width rule separating the two.
+
+     PORTRAIT (.is-portrait) — a float. A tall photo beside a
+     grid column would leave a block of dead space under itself,
+     so instead the heading and links set beside it and the
+     description carries on under it once the lines clear its
+     bottom edge. .ac-head and .ac-links get overflow:hidden so
+     they stay put beside the photo, which also stops the rule
+     under the links being drawn across the picture.
+
+   PER-PHOTO SHAPE AND CROP. --pic-ar, --pic-x and --pic-y go
+   inline on .ac-pic, so each photo carries its own settings:
+
+     <div class="ac-pic" style="--pic-ar: 4 / 5; --pic-y: 34%">
+
+   --pic-ar applies to portrait entries only, since a landscape
+   frame takes its height from the text. It defaults to 4/5, and
+   --pic-x / --pic-y default to 50%. Set --pic-ar to the source
+   file's own ratio and nothing is cropped at all.
+   =========================================================== */
+:root {
+    --ac-pic-w: 240px;    /* one width for every photo, both orientations */
+    --ac-pic-mr: 20px;    /* space between a floated photo and the text   */
+    --ac-pic-mb: 10px;    /* space under it before a line runs full width */
+}
+
+.ac-list { list-style: none; display: flex; flex-direction: column; gap: 1.15rem; }
+
+.ac-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.5rem 1.55rem 1.3rem;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- shared pieces ----------
+
+   The <img> is absolutely positioned, which is not decoration.
+   A landscape frame is sized by the text beside it, and a grid
+   item that spans rows contributes its min-content height to
+   those rows. An in-flow <img> has an intrinsic height — a
+   240px-wide 4:3 photo reports 180px — so it would push the
+   rows taller than the copy needs and open a gap between the
+   location line and the links. Out of flow it contributes
+   nothing and the rows size to the text alone. */
+.ac-pic {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background: var(--paper);
+}
+.ac-shot {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--pic-x, 50%) var(--pic-y, 50%);
+}
+
+/* ===========================================================
+   LANDSCAPE — grid. Photo spans the heading and the links, so
+   its bottom edge lands on the last link.
+   =========================================================== */
+.ac-row {
+    display: grid;
+    grid-template-columns: var(--ac-pic-w) 1fr;
+    column-gap: 1.5rem;
+    grid-template-areas:
+        "pic head"
+        "pic links"
+        "body body";
+}
+.ac-row > .ac-pic {
+    grid-area: pic;
+    align-self: stretch;
+    /* stops a short entry squashing the frame into a letterbox */
+    min-height: 118px;
+}
+.ac-head  { grid-area: head; }
+.ac-links { grid-area: links; }
+.ac-body  { grid-area: body; }
+
+/* the separator, full width, between the heading block and the
+   description */
+.ac-body {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.ac-row.no-photo {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "head"
+        "links"
+        "body";
+}
+
+/* ===========================================================
+   PORTRAIT — float. Description wraps under the photo.
+   =========================================================== */
+.ac-row.is-portrait { display: block; }
+.ac-row.is-portrait::after { content: ''; display: block; clear: both; }
+
+/* The bottom margin is deliberately small. Text only runs the
+   full width once a whole line box clears the float's MARGIN
+   box, and a line that overlaps it by even a pixel is pushed
+   down entire — so every extra pixel here can cost a full line
+   of dead space under the photo. The leading of the first
+   full-width line already supplies the visual gap. */
+.ac-row.is-portrait > .ac-pic {
+    float: left;
+    width: var(--ac-pic-w);
+    aspect-ratio: var(--pic-ar, 4 / 5);
+    min-height: 0;
+    margin: 0.25rem var(--ac-pic-mr) var(--ac-pic-mb) 0;
+}
+/* block formatting contexts, so these two sit beside the photo
+   rather than flowing around it */
+.ac-row.is-portrait > .ac-head,
+.ac-row.is-portrait > .ac-links { overflow: hidden; }
+
+/* the rule moves onto the links row, where it stops at the
+   photo's edge instead of crossing it */
+.ac-row.is-portrait > .ac-links {
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.ac-row.is-portrait > .ac-body {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+}
+
+/* ===========================================================
+   TYPE — lifted verbatim from the .tl education entries and the
+   .aw- awards, so an event reads in the same voice
+   =========================================================== */
+.ac-when {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+}
+.ac-t {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+    line-height: 1.35;
+}
+/* line-height 1.2, not the 1.4 of .aw-org. A landscape frame
+   takes its height from this block, so a looser leading here
+   makes the photo taller and squarer — 1.2 is what the approved
+   proportion was measured at. */
+.ac-org {
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: 0.28rem;
+    line-height: 1.2;
+}
+.ac-meta {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.32rem;
+    line-height: 1.6;
+}
+
+/* same look as .pj-link */
+.ac-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 1.15rem;
+    margin-top: 0.95rem;
+}
+.ac-link {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+    white-space: nowrap;
+}
+.ac-link:hover, .ac-link:focus-visible { border-bottom-color: var(--accent); }
+.ac-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.ac-link .arw { font-size: 0.85em; }
+
+/* same justification as .pj-desc — at this measure an
+   unhyphenated justify opens rivers of white space */
+.ac-desc {
+    font-size: 0.875rem;
+    line-height: 1.68;
+    color: var(--text-secondary);
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+}
+.ac-desc strong { color: var(--text-primary); font-weight: 600; }
+
+/* ===========================================================
+   MOBILE — the photo goes full width above the text in both
+   arrangements, so neither the grid columns nor the float have
+   anything left to do. Padding matches .pj-card's phone padding.
+   =========================================================== */
+@media (max-width: 640px) {
+    .ac-card { padding: 1.25rem 1.2rem 1.1rem; }
+
+    .ac-row,
+    .ac-row.no-photo {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "pic"
+            "head"
+            "links"
+            "body";
+    }
+    .ac-row > .ac-pic {
+        align-self: start;
+        aspect-ratio: 16 / 10;
+        min-height: 0;
+        margin-bottom: 1.15rem;
+    }
+    .ac-row.is-portrait > .ac-pic {
+        float: none;
+        width: 100%;
+        aspect-ratio: var(--pic-ar, 4 / 5);
+        margin: 0 0 1.15rem;
+    }
+    .ac-desc { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ac-card { transition: none; }
+}
