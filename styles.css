@@ -1057,7 +1057,7 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     line-height: 1.6;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 980px) {
     .nav-burger {
         display: flex;
         align-items: center;

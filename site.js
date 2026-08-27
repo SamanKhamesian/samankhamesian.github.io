@@ -43,7 +43,7 @@
         var links  = document.getElementById('navLinks');
         if (!burger || !links) return;
 
-        function isMobileNav() { return window.innerWidth <= 860; }
+        function isMobileNav() { return window.innerWidth <= 980; }
         function sync() {
             if (isMobileNav()) {
                 links.hidden = burger.getAttribute('aria-expanded') !== 'true';
