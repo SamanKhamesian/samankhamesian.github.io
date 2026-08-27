@@ -388,7 +388,7 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 .art-fit { width: 100%; overflow: hidden; }
 .name-block { display: block; width: max-content; transform-origin: left top; }
 .name {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: ui-monospace, monospace;
     font-weight: 700;
     font-size: var(--art-font-size);
     line-height: 1;
@@ -1164,7 +1164,7 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
        drops under the title instead of being pushed to the right */
     .pj-card { padding: 1.25rem 1.2rem 1.1rem; }
     .pj-head h3 { font-size: 1.35rem; }
-    .pj-yr { margin-left: 0; padding-top: 0; }
+    /*.pj-yr { margin-left: 0; padding-top: 0; }*/
 }
 
 @media (prefers-reduced-motion: reduce) {
