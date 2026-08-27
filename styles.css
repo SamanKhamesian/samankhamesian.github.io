@@ -3,14 +3,39 @@
    Loaded by every page. Nothing here is page-specific; the
    only thing that changes per page is which blocks of markup
    are present.
+
+   FILE ORDER
+     1  Fonts
+     2  Tokens (:root) and dark theme
+     3  Base / reset
+     4  Sticky nav and theme control
+     5  Binary background
+     6  Hero (home only)
+     7  Overview cards (home only)
+     8  Sections and the education timeline
+     9  Publications      .pub-
+    10  Projects          .pj-
+    11  Awards and honors .aw-
+    12  Activities        .ac-
+    13  Talks             .tk-
+    14  Media queries — every responsive rule on the site
+
+   Every page block is prefixed so nothing collides. All the
+   phone and tablet rules live together at the bottom, so
+   changing how something behaves on mobile means editing one
+   place rather than hunting through the file.
    =========================================================== */
 
-/* ---------- Anthropic Serif (self-hosted, headings only).
-   One variable font: wght 300..800, opsz 16..48. The weight
-   RANGE below is what tells the browser the axis exists — with
-   a single value it assumes the file only has Light and FAKES
-   any other weight by smearing the outlines, which is what
-   swallowed the space in "Work Experience". ---------- */
+
+/* ===========================================================
+   1  FONTS
+   ===========================================================
+   Anthropic Serif, self-hosted, headings only. One variable
+   font: wght 300..800, opsz 16..48. The weight RANGE below is
+   what tells the browser the axis exists — with a single value
+   it assumes the file only has Light and FAKES any other weight
+   by smearing the outlines, which is what swallowed the space
+   in "Work Experience". */
 @font-face {
     font-family: 'Anthropic Serif';
     src: url('fonts/AnthropicSerif.woff2') format('woff2');
@@ -19,6 +44,10 @@
     font-display: swap;
 }
 
+
+/* ===========================================================
+   2  TOKENS
+   =========================================================== */
 :root {
     --bg-color: #FCFCFB;
     --text-primary: #2A2825;
@@ -104,12 +133,16 @@
        have no hero to measure against, so this is the dial that
        matches them to the home page's on-screen width. */
     --col-sub: 755px;
+
+    /* activities photos — see section 12 */
+    --ac-pic-w: 240px;    /* one width for every photo, both orientations */
+    --ac-pic-mr: 20px;    /* space between a floated photo and the text   */
+    --ac-pic-mb: 10px;    /* space under it before a line runs full width */
 }
 
-/* ===========================================================
-   DARK THEME — only colors change here, no layout values.
-   Set by theme.js on <html data-theme="dark"> before first paint.
-   =========================================================== */
+/* ---------- dark theme — only colors change here, no layout
+   values. Set by theme.js on <html data-theme="dark"> before
+   first paint. ---------- */
 html[data-theme="dark"] {
     --bg-color: #181818;            /* rgb(24,24,24) */
     --text-primary: #EDEAE4;
@@ -153,6 +186,10 @@ html[data-theme="dark"] {
     color-scheme: dark;
 }
 
+
+/* ===========================================================
+   3  BASE
+   =========================================================== */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 /* min-height (not height) so the body can grow past one screen */
@@ -174,12 +211,13 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+
 /* ===========================================================
-   STICKY NAV
+   4  STICKY NAV
    DOM order is burger -> name -> links -> tools, which gives
    the desktop row (name left, tabs right) and the mobile row
    (burger left, name beside it, theme right) with no duplicated
-   markup — only `order` and `display` change in the media query.
+   markup — only `order` and `display` change in section 14.
    =========================================================== */
 .nav {
     position: fixed;
@@ -330,8 +368,9 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 .theme-item[aria-checked="true"] .ti-icon { color: var(--text-primary); }
 .theme-item[aria-checked="true"] .ti-check { opacity: 1; }
 
+
 /* ===========================================================
-   ANIMATED BINARY BACKGROUND
+   5  ANIMATED BINARY BACKGROUND
    absolute (not fixed) = stays at the top of the page and
    scrolls away, so you only ever see these 6 rows
    =========================================================== */
@@ -366,7 +405,11 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     to   { transform: translateX(0%); }
 }
 
-/* ---------- page column (JS scales this to fit the viewport) ---------- */
+
+/* ===========================================================
+   6  HERO (home only)
+   =========================================================== */
+/* page column — JS scales this to fit the viewport */
 .page {
     max-width: var(--col);
     width: 110%;
@@ -375,9 +418,6 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     transform-origin: top center;
 }
 
-/* ===========================================================
-   HERO (home only)
-   =========================================================== */
 .hero {
     display: flex;
     align-items: center;
@@ -408,14 +448,12 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 }
 .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* ===========================================================
-   ACTION ROW — Download Resume pill first, then the profile
-   tiles, spread edge to edge across the name block so the last
-   tile lands flush with the final ASCII character.
+/* ---------- action row — Download Resume pill first, then the
+   profile tiles, spread edge to edge across the name block so
+   the last tile lands flush with the final ASCII character.
    space-between splits the leftover width EQUALLY between every
    pair, so all the gaps stay identical on their own; the 0.5rem
-   gap below is only the floor if space runs out.
-   =========================================================== */
+   gap below is only the floor if space runs out. ---------- */
 .socials {
     display: flex;
     flex-wrap: wrap;
@@ -538,9 +576,10 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     50.01%, 100% { opacity: 0; }
 }
 
+
 /* ===========================================================
-   OVERVIEW CARDS (home only) — 2 x 2, sibling of #page so the
-   hero can still scale independently.
+   7  OVERVIEW CARDS (home only) — 2 x 2, sibling of #page so
+   the hero can still scale independently.
 
    A live card is one <a class="card">. A page that doesn't
    exist yet is <div class="card is-soon"> — same shell, dashed
@@ -685,8 +724,9 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 .card.is-soon .card-head h3 { color: var(--text-secondary); }
 .stat.soon { border-style: dashed; letter-spacing: 0.12em; }
 
+
 /* ===========================================================
-   SECTIONS — Education / Research / Work / Teaching / Pubs.
+   8  SECTIONS — Education / Research / Work / Teaching / Pubs.
    On the home page these were pinned to the hero by JS; on the
    subpages there is no hero, so plain centering does the job.
    =========================================================== */
@@ -832,8 +872,8 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 
 
 /* ===========================================================
-   PUBLICATIONS — reference list. Every class is prefixed .pub-
-   so nothing collides with the .tl timeline.
+   9  PUBLICATIONS — reference list. Every class is prefixed
+   .pub- so nothing collides with the .tl timeline.
    =========================================================== */
 .pub-grp {
     font-family: var(--font-mono);
@@ -890,12 +930,13 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 .pub-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .pub-link + .pub-link { margin-left: 0.9rem; }
 
+
 /* ===========================================================
-   PROJECTS — one card per project, newest first. Every class is
-   prefixed .pj- so nothing collides with the .tl timeline or the
-   .pub- reference list. Note that .tl .pts .pj already exists as
-   a DESCENDANT selector inside a timeline bullet, so it can't
-   reach anything here.
+   10  PROJECTS — one card per project, newest first. Every
+   class is prefixed .pj- so nothing collides with the .tl
+   timeline or the .pub- reference list. Note that .tl .pts .pj
+   already exists as a DESCENDANT selector inside a timeline
+   bullet, so it can't reach anything here.
    =========================================================== */
 .pj-list { display: flex; flex-direction: column; gap: 1.15rem; }
 
@@ -1007,25 +1048,48 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 .pj-link:hover, .pj-link:focus-visible { border-bottom-color: var(--accent); }
 .pj-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+
 /* ===========================================================
-   MOBILE
-   =========================================================== */
-/* ===========================================================
-   HONORS AND AWARDS — awards.html. Every class is prefixed
+   11  AWARDS AND HONORS — awards.html. Every class is prefixed
    .aw- so nothing collides with the .tl timeline, the .pub-
    reference list, or the .pj- project cards.
 
-   No rail: a timeline implies one thing leading to the next,
-   which is true of degrees and jobs but not of awards. The
-   hairlines separate rather than connect.
+   The page carries two .aw-list sections: Awards (grants and
+   selections conferred) and Honors (placements, rankings and
+   academic milestones). Each list is sorted newest first and
+   gets its own rail, so the orange dot at the top of each one
+   means "most recent in this section", exactly as it does on
+   the education timeline.
 
-   The type scale is lifted verbatim from the .tl education
-   entries, so an award reads in the same voice as a degree.
+   The rail and the type scale are both lifted verbatim from
+   the .tl education entries, so an award reads in the same
+   voice as a degree.
    =========================================================== */
-.aw-list { list-style: none; border-top: 1px solid var(--border-color); }
-.aw-list li {
-    padding: 1.2rem 0 1.3rem;
-    border-bottom: 1px solid var(--border-color);
+.aw-list { list-style: none; position: relative; padding-left: 2.5rem; }
+.aw-list::before {
+    content: '';
+    position: absolute;
+    left: var(--edu-rail);
+    top: 0.6rem;
+    bottom: 0.6rem;
+    width: 1px;
+    background: var(--border-color);
+}
+.aw-list li { position: relative; padding: 0 0 2.1rem; }
+.aw-list li:last-child { padding-bottom: 0; }
+
+.aw-dot {
+    position: absolute;
+    left: calc(var(--edu-rail) - 2.5rem - 4px);
+    top: 0.42rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--border-color);
+}
+.aw-list li:first-child .aw-dot {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--dot-glow);
 }
 
 .aw-when {
@@ -1057,132 +1121,14 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     line-height: 1.6;
 }
 
-@media (max-width: 980px) {
-    .nav-burger {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        order: 1;
-        width: var(--icon-size);
-        height: var(--icon-size);
-        padding: 0;
-        border-radius: var(--icon-radius);
-        border: 1px solid var(--tbtn-border);
-        background: var(--tbtn-bg);
-        color: var(--tbtn-fg);
-        cursor: pointer;
-    }
-    .nav-burger svg { width: 60%; height: 60%; }
-    .nav-burger .x { display: none; }
-    .nav-burger[aria-expanded="true"] .bars { display: none; }
-    .nav-burger[aria-expanded="true"] .x { display: block; }
-
-    .nav-home { order: 2; }
-    .nav-tools { order: 3; margin-left: auto; }
-
-    .nav-links {
-        order: 4;
-        position: absolute;
-        top: 100%; left: 1rem; right: 1rem;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 2px;
-        margin: 0.5rem 0 0;
-        padding: 7px;
-        background: var(--menu-bg);
-        border: 1px solid var(--menu-border);
-        border-radius: 14px;
-        box-shadow: var(--menu-shadow);
-    }
-    .nav-links[hidden] { display: none; }
-    .nav-link { font-size: 0.78rem; padding: 0.72rem 0.75rem; border-radius: 9px; }
-    .nav-link[aria-current="page"]::after { display: none; }
-    .nav-link[aria-current="page"] { background: var(--menu-hover); }
-}
-
-@media (max-width: 640px) {
-    :root {
-        --nav-h: 3.4rem;
-        --icon-size: min(40px, 10vw);
-        --icon-radius: 10px;
-        --art-font-size: 0.7rem;
-        --edu-logo-size: 56px;
-        --card-logo-size: 48px;
-        --hub-gap: 14px;
-    }
-    body { padding: calc(var(--nav-h) + 1.25rem) 1rem 3rem; }
-    .nav { padding: 0 1rem; gap: 0.6rem; }
-    .nav-home { font-size: 0.62rem; letter-spacing: 0.1em; }
-
-    /* 110% overflowed the screen and clipped long lines */
-    .page { width: 100%; }
-    .hero { flex-direction: column-reverse; align-items: center; gap: 1.6rem; width: 100%; }
-    .name-wrap { width: 100%; }
-    .photo-frame {
-        width: clamp(150px, 46vw, 210px);
-        height: clamp(150px, 46vw, 210px);
-        margin: 0 auto;
-    }
-
-    /* PHONE ONLY — tiles keep their spread across the full width,
-       then the resume drops to its own full-width row underneath,
-       sitting directly above the terminal. `order` does the move,
-       so the desktop markup is untouched. */
-    .socials {
-        justify-content: space-between;
-        gap: clamp(4px, 2vw, 10px);
-        margin-top: 1.1rem;
-    }
-    .socials .resume { order: 99; flex: 1 0 100%; margin-top: 1rem; }
-
-    .bio { margin-top: 1.1rem; }
-    .term-body { padding: 1.1rem 1rem 1.2rem; }
-    .term { font-size: 0.76rem; line-height: 1.66; }
-    .bin-row { font-size: 18px; letter-spacing: 34px; }
-
-    .hub { margin-top: 2.5rem; padding-bottom: 2rem; }
-    /* one card per row on a phone */
-    .hub-grid { grid-template-columns: 1fr; }
-    .card { padding: 1.25rem 1.2rem 1.1rem; }
-    .card-head h3 { font-size: 1.35rem; }
-
-    .edu { margin-top: 3.25rem; padding-bottom: 2rem; }
-    .edu + .edu { margin-top: 1.25rem; }
-    .edu-head { gap: 0.85rem; margin-bottom: 1.9rem; }
-    .tl { padding-left: 1.9rem; }
-    .tl .tl-dot { left: calc(var(--edu-rail) - 1.9rem - 4px); }
-    .tl li { padding-bottom: 1.8rem; }
-    .tl .deg { font-size: 0.95rem; }
-
-    /* year moves above the entry instead of beside it */
-    .pub-list li { flex-direction: column; gap: 0.25rem; }
-    .pub-yr { flex: none; }
-
-    .aw-list li { padding: 1.05rem 0 1.15rem; }
-
-    /* project cards: same padding as the home cards, and the year
-       drops under the title instead of being pushed to the right */
-    .pj-card { padding: 1.25rem 1.2rem 1.1rem; }
-    .pj-head h3 { font-size: 1.35rem; }
-    /*.pj-yr { margin-left: 0; padding-top: 0; }*/
-}
-
-@media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .bin-row { animation: none; transform: translateX(-50%); }
-    .social, .resume, .theme-btn, .card, .card-more .arw, .pj-card { transition: none; }
-    .theme-menu { animation: none; }
-    .cursor { animation: none; }
-}
-
 
 /* ===========================================================
-   ACTIVITIES ENTRIES — activities.html. Every class is prefixed
+   12  ACTIVITIES — activities.html. Every class is prefixed
    .ac- so nothing collides with the .tl timeline, the .pub-
    reference list, the .pj- project cards or the .aw- awards.
 
-   No rail: like awards, these events don't lead into one
-   another. Each entry is a card and the gaps separate them.
+   No rail: these events don't lead into one another. Each entry
+   is a card and the gaps separate them.
 
    The shell is the .pj-card shell verbatim — 16px radius, the
    same padding, border and shadow — minus the hover lift, which
@@ -1216,13 +1162,9 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
    frame takes its height from the text. It defaults to 4/5, and
    --pic-x / --pic-y default to 50%. Set --pic-ar to the source
    file's own ratio and nothing is cropped at all.
-   =========================================================== */
-:root {
-    --ac-pic-w: 240px;    /* one width for every photo, both orientations */
-    --ac-pic-mr: 20px;    /* space between a floated photo and the text   */
-    --ac-pic-mb: 10px;    /* space under it before a line runs full width */
-}
 
+   The three --ac-pic-* dials live in :root, section 2.
+   =========================================================== */
 .ac-list { list-style: none; display: flex; flex-direction: column; gap: 1.15rem; }
 
 .ac-card {
@@ -1250,7 +1192,7 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--border-color);
-    background: var(--paper);
+    background: var(--card-bg);
 }
 .ac-shot {
     position: absolute;
@@ -1262,10 +1204,8 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     object-position: var(--pic-x, 50%) var(--pic-y, 50%);
 }
 
-/* ===========================================================
-   LANDSCAPE — grid. Photo spans the heading and the links, so
-   its bottom edge lands on the last link.
-   =========================================================== */
+/* ---------- landscape — grid. Photo spans the heading and the
+   links, so its bottom edge lands on the last link. ---------- */
 .ac-row {
     display: grid;
     grid-template-columns: var(--ac-pic-w) 1fr;
@@ -1301,9 +1241,8 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
         "body";
 }
 
-/* ===========================================================
-   PORTRAIT — float. Description wraps under the photo.
-   =========================================================== */
+/* ---------- portrait — float. Description wraps under the
+   photo. ---------- */
 .ac-row.is-portrait { display: block; }
 .ac-row.is-portrait::after { content: ''; display: block; clear: both; }
 
@@ -1338,10 +1277,9 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
     border-top: 0;
 }
 
-/* ===========================================================
-   TYPE — lifted verbatim from the .tl education entries and the
-   .aw- awards, so an event reads in the same voice
-   =========================================================== */
+/* ---------- type — lifted verbatim from the .tl education
+   entries and the .aw- awards, so an event reads in the same
+   voice ---------- */
 .ac-when {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -1407,14 +1345,243 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 }
 .ac-desc strong { color: var(--text-primary); font-weight: 600; }
 
-/* ===========================================================
-   MOBILE — the photo goes full width above the text in both
-   arrangements, so neither the grid columns nor the float have
-   anything left to do. Padding matches .pj-card's phone padding.
-   =========================================================== */
-@media (max-width: 640px) {
-    .ac-card { padding: 1.25rem 1.2rem 1.1rem; }
 
+/* ===========================================================
+   13  TALKS — talks.html. Every class is prefixed .tk- so
+   nothing collides with the .tl timeline, the .pub- reference
+   list, the .pj- project cards, the .aw- awards or the .ac-
+   activities.
+
+   No rail and no card. Talks are grouped by year, and the only
+   rule on the page is the hairline in the year label, so the
+   year groups are the only visible division. The gap between
+   the date column and the entry is the .pub-list gap, and the
+   date itself is the .pub-yr type, so a talk lines up with a
+   publication.
+
+   The type scale is lifted from the .tl education entries and
+   the .aw- awards: title, then host in accent, then location.
+   =========================================================== */
+
+/* year label — .pub-grp verbatim */
+.tk-grp {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin: 2.4rem 0 1.15rem;
+}
+.tk-grp:first-of-type { margin-top: 0; }
+/* hairline that runs from the label out to the right edge */
+.tk-grp::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.tk-list { list-style: none; display: flex; flex-direction: column; gap: 2.1rem; }
+.tk-list li { display: flex; gap: 1.15rem; }
+
+/* fixed-width date column so every entry's text starts on the
+   same vertical line. .pub-yr's type at a width that fits
+   "Sep 30" rather than a bare year. */
+.tk-when {
+    flex: 0 0 4.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding-top: 0.12em;
+}
+
+.tk-main { min-width: 0; }
+
+.tk-t {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.35;
+}
+.tk-org {
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: 0.28rem;
+    line-height: 1.4;
+}
+.tk-meta {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.32rem;
+    line-height: 1.6;
+}
+
+/* Justified with hyphens: at this column width an unhyphenated
+   justify opens rivers of white space between words. */
+.tk-desc {
+    font-size: 0.875rem;
+    line-height: 1.68;
+    color: var(--text-secondary);
+    margin-top: 0.6rem;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+}
+.tk-desc strong { color: var(--text-primary); font-weight: 600; }
+
+.tk-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 1.15rem;
+    margin-top: 0.85rem;
+}
+.tk-link {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    white-space: nowrap;
+    transition: border-color 0.2s ease;
+}
+.tk-link:hover, .tk-link:focus-visible { border-bottom-color: var(--accent); }
+.tk-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+
+/* ===========================================================
+   14  MEDIA QUERIES
+   Every responsive rule on the site lives here, in one place,
+   grouped by breakpoint and then by the section it belongs to.
+   =========================================================== */
+
+/* ---------- 980px — tablet. The nav collapses into a burger
+   menu; nothing else changes. ---------- */
+@media (max-width: 980px) {
+    .nav-burger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        order: 1;
+        width: var(--icon-size);
+        height: var(--icon-size);
+        padding: 0;
+        border-radius: var(--icon-radius);
+        border: 1px solid var(--tbtn-border);
+        background: var(--tbtn-bg);
+        color: var(--tbtn-fg);
+        cursor: pointer;
+    }
+    .nav-burger svg { width: 60%; height: 60%; }
+    .nav-burger .x { display: none; }
+    .nav-burger[aria-expanded="true"] .bars { display: none; }
+    .nav-burger[aria-expanded="true"] .x { display: block; }
+
+    .nav-home { order: 2; }
+    .nav-tools { order: 3; margin-left: auto; }
+
+    .nav-links {
+        order: 4;
+        position: absolute;
+        top: 100%; left: 1rem; right: 1rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        margin: 0.5rem 0 0;
+        padding: 7px;
+        background: var(--menu-bg);
+        border: 1px solid var(--menu-border);
+        border-radius: 14px;
+        box-shadow: var(--menu-shadow);
+    }
+    .nav-links[hidden] { display: none; }
+    .nav-link { font-size: 0.78rem; padding: 0.72rem 0.75rem; border-radius: 9px; }
+    .nav-link[aria-current="page"]::after { display: none; }
+    .nav-link[aria-current="page"] { background: var(--menu-hover); }
+}
+
+/* ---------- 640px — phone ---------- */
+@media (max-width: 640px) {
+
+    /* tokens */
+    :root {
+        --nav-h: 3.4rem;
+        --icon-size: min(40px, 10vw);
+        --icon-radius: 10px;
+        --art-font-size: 0.7rem;
+        --edu-logo-size: 56px;
+        --card-logo-size: 48px;
+        --hub-gap: 14px;
+    }
+
+    /* base and nav */
+    body { padding: calc(var(--nav-h) + 1.25rem) 1rem 3rem; }
+    .nav { padding: 0 1rem; gap: 0.6rem; }
+    .nav-home { font-size: 0.62rem; letter-spacing: 0.1em; }
+
+    /* hero — 110% overflowed the screen and clipped long lines */
+    .page { width: 100%; }
+    .hero { flex-direction: column-reverse; align-items: center; gap: 1.6rem; width: 100%; }
+    .name-wrap { width: 100%; }
+    .photo-frame {
+        width: clamp(150px, 46vw, 210px);
+        height: clamp(150px, 46vw, 210px);
+        margin: 0 auto;
+    }
+    /* PHONE ONLY — tiles keep their spread across the full width,
+       then the resume drops to its own full-width row underneath,
+       sitting directly above the terminal. `order` does the move,
+       so the desktop markup is untouched. */
+    .socials {
+        justify-content: space-between;
+        gap: clamp(4px, 2vw, 10px);
+        margin-top: 1.1rem;
+    }
+    .socials .resume { order: 99; flex: 1 0 100%; margin-top: 1rem; }
+    .bio { margin-top: 1.1rem; }
+    .term-body { padding: 1.1rem 1rem 1.2rem; }
+    .term { font-size: 0.76rem; line-height: 1.66; }
+    .bin-row { font-size: 18px; letter-spacing: 34px; }
+
+    /* overview cards — one per row */
+    .hub { margin-top: 2.5rem; padding-bottom: 2rem; }
+    .hub-grid { grid-template-columns: 1fr; }
+    .card { padding: 1.25rem 1.2rem 1.1rem; }
+    .card-head h3 { font-size: 1.35rem; }
+
+    /* sections and timeline */
+    .edu { margin-top: 3.25rem; padding-bottom: 2rem; }
+    .edu + .edu { margin-top: 1.25rem; }
+    .edu-head { gap: 0.85rem; margin-bottom: 1.9rem; }
+    .tl { padding-left: 1.9rem; }
+    .tl .tl-dot { left: calc(var(--edu-rail) - 1.9rem - 4px); }
+    .tl li { padding-bottom: 1.8rem; }
+    .tl .deg { font-size: 0.95rem; }
+
+    /* publications — year moves above the entry instead of
+       beside it */
+    .pub-list li { flex-direction: column; gap: 0.25rem; }
+    .pub-yr { flex: none; }
+
+    /* projects — same padding as the home cards */
+    .pj-card { padding: 1.25rem 1.2rem 1.1rem; }
+    .pj-head h3 { font-size: 1.35rem; }
+    /*.pj-yr { margin-left: 0; padding-top: 0; }*/
+
+    /* awards — the rail narrows to match .tl */
+    .aw-list { padding-left: 1.9rem; }
+    .aw-dot { left: calc(var(--edu-rail) - 1.9rem - 4px); }
+
+    /* activities — the photo goes full width above the text in
+       both arrangements, so neither the grid columns nor the
+       float have anything left to do. Padding matches .pj-card. */
+    .ac-card { padding: 1.25rem 1.2rem 1.1rem; }
     .ac-row,
     .ac-row.no-photo {
         grid-template-columns: 1fr;
@@ -1437,8 +1604,20 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
         margin: 0 0 1.15rem;
     }
     .ac-desc { text-align: left; }
+
+    /* talks — date moves above the entry instead of beside it */
+    .tk-list li { flex-direction: column; gap: 0.3rem; }
+    .tk-when { flex: none; padding-top: 0; }
+    .tk-desc { text-align: left; }
 }
 
+/* ---------- reduced motion — applies when the visitor has
+   turned off animations in their operating system ---------- */
 @media (prefers-reduced-motion: reduce) {
-    .ac-card { transition: none; }
+    html { scroll-behavior: auto; }
+    .bin-row { animation: none; transform: translateX(-50%); }
+    .social, .resume, .theme-btn, .card, .card-more .arw,
+    .pj-card, .ac-card { transition: none; }
+    .theme-menu { animation: none; }
+    .cursor { animation: none; }
 }
