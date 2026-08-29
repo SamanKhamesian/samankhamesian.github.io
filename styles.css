@@ -578,7 +578,7 @@ html[data-theme="dark"] .nav.is-stuck { box-shadow: 0 1px 14px rgba(0, 0, 0, 0.4
 
 
 /* ===========================================================
-   7  OVERVIEW CARDS (home only) — 2 x 2, sibling of #page so
+   7  OVERVIEW CARDS (home only) — 3 x 2, sibling of #page so
    the hero can still scale independently.
 
    A live card is one <a class="card">. A page that doesn't
