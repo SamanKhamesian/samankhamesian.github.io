@@ -245,6 +245,26 @@
 
             <article class="pj-card">
                 <div class="pj-head">
+                    <h3>Winton<span class="hsp"> </span>Stock<span class="hsp"> </span>Market<span class="hsp"> </span>Challenge</h3>
+                    <span class="pj-yr">2020</span>
+                </div>
+                <span class="pj-sub">Neural network baseline for short-term stock return forecasting</span>
+                <p class="pj-desc">The Winton Stock Market Challenge asked competitors to forecast the short-term returns of anonymised stocks. Every sample is a <strong>five-day window</strong>: the model sees two days of history plus the first two hours of minute-by-minute intraday returns, and has to predict <strong>62 target values</strong> &mdash; the rest of that day and the next two daily returns. The masked features are deliberately undisclosed and financial returns sit close to <strong>noise</strong>, so the difficulty is resisting the temptation to fit it. This repository is a compact, readable <strong>Keras</strong> baseline over <strong>147 min-max scaled inputs</strong>, training a small fully connected network <strong>one target column at a time</strong> across both horizons.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Python</span>
+                    <span class="pj-tag">Keras</span>
+                    <span class="pj-tag">Time Series</span>
+                    <span class="pj-tag">Forecasting</span>
+                    <span class="pj-tag">Kaggle</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/The-Winton-Stock-Market-Challenge" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                    <a class="pj-link" href="https://www.kaggle.com/c/the-winton-stock-market-challenge/data" target="_blank" rel="noopener noreferrer">Dataset &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
                     <h3>Two-Level<span class="hsp"> </span>Genetic<span class="hsp"> </span>Algorithm</h3>
                     <span class="pj-yr">2019</span>
                 </div>
@@ -259,6 +279,64 @@
                 <div class="pj-links">
                     <a class="pj-link" href="https://ieeexplore.ieee.org/document/6071779" target="_blank" rel="noopener noreferrer">Method paper &#8599;</a>
                     <a class="pj-link" href="https://github.com/SamanKhamesian/Two-Level-Genetic-Algorithm-for-Clustered-TSP" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>K-Means<span class="hsp"> </span>on<span class="hsp"> </span>ECT<span class="hsp"> </span>Distances</h3>
+                    <span class="pj-yr">2019</span>
+                </div>
+                <span class="pj-sub">Clustering on a random-walk metric that recovers clusters of arbitrary shape</span>
+                <p class="pj-desc">A clustering algorithm that measures similarity with the straight-line <strong>Euclidean distance</strong> quietly assumes its clusters are compact and roughly spherical, and fails when they are not &mdash; faced with two concentric rings, k-means cuts them both in half. This implementation swaps in the <strong>Euclidean Commute Time</strong> distance: a graph built from <strong>nearest neighbours</strong> plus the <strong>minimum spanning tree</strong> is read as a <strong>Markov chain</strong>, so two points count as close when a random walker travels between them easily &mdash; the shape of the data, not the straight line, decides what is near. Scored by <strong>normalized mutual information</strong> across <strong>six datasets</strong>, it recovers well separated clusters of arbitrary shape.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Python</span>
+                    <span class="pj-tag">Clustering</span>
+                    <span class="pj-tag">Random Walk</span>
+                    <span class="pj-tag">Graph Theory</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://perso.uclouvain.be/michel.verleysen/papers/esann05ly.pdf" target="_blank" rel="noopener noreferrer">Method paper &#8599;</a>
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/Kmeans-Based-on-ECT-Distances" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>Imputation<span class="hsp"> </span>of<span class="hsp"> </span>Missing<span class="hsp"> </span>Values</h3>
+                    <span class="pj-yr">2019</span>
+                </div>
+                <span class="pj-sub">Hybrid fuzzy c-means, support vector regression and genetic algorithm estimator</span>
+                <p class="pj-desc">Real datasets are rarely complete, and neither easy option is satisfying: dropping every affected record throws away information that is often scarce, while filling the gaps with a constant distorts the distribution later stages depend on. This implementation runs two estimators over the damaged data &mdash; a <strong>support vector regression</strong> model trained on the complete rows, and a <strong>fuzzy c-means</strong> estimator that rebuilds an entry as the membership-weighted combination of <strong>cluster centers</strong>. Rather than tuning the fuzzy parameters by hand, a <strong>genetic algorithm</strong> searches over cluster size and weighting factor until the two estimators agree. Evaluated on <strong>six UCI datasets</strong> by <strong>RMSE</strong> against the values it replaced.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Python</span>
+                    <span class="pj-tag">Fuzzy Clustering</span>
+                    <span class="pj-tag">Genetic Algorithm</span>
+                    <span class="pj-tag">SVR</span>
+                    <span class="pj-tag">Imputation</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://www.sciencedirect.com/science/article/pii/S0020025513000789" target="_blank" rel="noopener noreferrer">Method paper &#8599;</a>
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/Imputation-of-Missing-Values" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>Tic-Tac-Toe</h3>
+                    <span class="pj-yr">2019</span>
+                </div>
+                <span class="pj-sub">Evolving no-loss game strategies with a genetic algorithm</span>
+                <p class="pj-desc">Tic-Tac-Toe cannot reliably be won &mdash; against a competent opponent a large share of games end in a draw, so the best a player can hope for is <strong>not to lose</strong> &mdash; which makes it an appealing test bed for optimisation: the board is small enough to enumerate exactly, while the space of strategies is far too large to search exhaustively. This C++ implementation collapses the legal boards to <strong>765 unique states</strong>, merging the <strong>eight rotations and reflections</strong> of each, so an individual is simply a list of 765 moves. Strategies are scored by the <strong>fraction of games lost</strong> against the whole population and evolved by <strong>tournament selection</strong>, <strong>two-point crossover</strong> and single-state mutation.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">C++</span>
+                    <span class="pj-tag">Genetic Algorithm</span>
+                    <span class="pj-tag">Game Theory</span>
+                    <span class="pj-tag">Evolutionary Computation</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://www.iitk.ac.in/kangal/papers/k2007002.pdf" target="_blank" rel="noopener noreferrer">Method paper &#8599;</a>
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/Tic-Tac-Toe" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
                 </div>
             </article>
 
