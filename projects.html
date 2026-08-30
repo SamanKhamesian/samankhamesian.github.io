@@ -340,6 +340,117 @@
                 </div>
             </article>
 
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>Credit<span class="hsp"> </span>Card<span class="hsp"> </span>Fraud<span class="hsp"> </span>Detection</h3>
+                    <span class="pj-yr">2019</span>
+                </div>
+                <span class="pj-sub">Hidden Markov model of cardholder spending, trained only on normal behaviour</span>
+                <p class="pj-desc">A fraudulent purchase rarely looks wrong on its own &mdash; what gives it away is that it does not fit the way that particular cardholder usually spends &mdash; so detection is better posed as a question about the <strong>sequence</strong> of transactions, and has to be learned without labelled examples of fraud. This Python implementation clusters raw amounts into spending levels such as <strong>low, medium and high</strong> (<strong>k-means</strong> by default, with DBSCAN and linkage variants provided), then trains a <strong>hidden Markov model</strong> over the resulting symbols with <strong>Baum-Welch</strong> re-estimation. A new transaction joins the recent observation window and is flagged when the probability the model assigns that sequence <strong>drops beyond a threshold</strong>.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Python</span>
+                    <span class="pj-tag">Hidden Markov Model</span>
+                    <span class="pj-tag">Anomaly Detection</span>
+                    <span class="pj-tag">Clustering</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://ieeexplore.ieee.org/document/4358713" target="_blank" rel="noopener noreferrer">Method paper &#8599;</a>
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/Credit-Card-Fraud-Detection" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>Hardware<span class="hsp"> </span>Modeling<span class="hsp"> </span>Using<span class="hsp"> </span>VHDL</h3>
+                    <span class="pj-yr">2019</span>
+                </div>
+                <span class="pj-sub">Standalone digital building blocks modeled in VHDL, each with a testbench</span>
+                <p class="pj-desc">A collection of small standalone hardware modules, each modeling a familiar building block of a digital system and each independent of the others, shipping synthesizable source, a testbench and a waveform of the result. The set covers a <strong>multiply-accumulate unit</strong> that folds signed <strong>8-bit</strong> products into a <strong>20-bit accumulator</strong>, a four-deep <strong>FIFO queue</strong> of 16-bit words, an <strong>8-bit shift register</strong> loadable in parallel or fed serially, a four-entry <strong>LIFO stack</strong> with full and empty flags, and a <strong>simple cryptographer</strong> that applies a right shift or a summation through a 16-bit full adder for <strong>K rounds</strong>.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">VHDL</span>
+                    <span class="pj-tag">Digital Design</span>
+                    <span class="pj-tag">RTL</span>
+                    <span class="pj-tag">Testbenches</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/Hardware-Modeling-Using-VHDL" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>Special-Purpose<span class="hsp"> </span>Processor</h3>
+                    <span class="pj-yr">2019</span>
+                </div>
+                <span class="pj-sub">GCD and LCM processor in Verilog, implemented on an FPGA</span>
+                <p class="pj-desc">A special-purpose processor that computes the <strong>greatest common divisor</strong> and the <strong>least common multiple</strong> of two numbers, choosing between them from an input <strong>opcode</strong>. The design splits into the two classical halves, synchronized on the system clock: a <strong>datapath</strong> holding the registers, multiplexers, ALU and comparator, whose values update according to the next state, and a <strong>controller</strong> whose <strong>three-state machine</strong> derives that next state from the comparator outputs. Written in <strong>Verilog</strong>, verified against a testbench waveform, then synthesized and programmed onto an <strong>Altera DE2-115</strong> board carrying a Cyclone IV EP4CE115 device.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Verilog</span>
+                    <span class="pj-tag">FPGA</span>
+                    <span class="pj-tag">Digital Design</span>
+                    <span class="pj-tag">Computer Architecture</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/Special-Purpose-Processor" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>Sudoku</h3>
+                    <span class="pj-yr">2019</span>
+                </div>
+                <span class="pj-sub">Constraint logic programming solver for single and overlapping grids</span>
+                <p class="pj-desc">Sudoku asks for a <strong>9&times;9</strong> grid filled so that every row, every column and each of the nine <strong>3&times;3</strong> blocks holds the digits 1 to 9 exactly once; the multiple variant stacks several grids that <strong>overlap</strong>, and the shared cells have to satisfy every grid they belong to at once. This <strong>Prolog</strong> solver handles both through <strong>constraint logic programming over finite domains</strong>: rather than searching the grid cell by cell, it states the rules of the puzzle as constraints and lets propagation narrow the candidates before a search assigns the rest. The overlapping version needs <strong>no new rules</strong> &mdash; the five grids simply <strong>share variables</strong> wherever they meet.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Prolog</span>
+                    <span class="pj-tag">Constraint Programming</span>
+                    <span class="pj-tag">Logic Programming</span>
+                    <span class="pj-tag">Puzzle Solving</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/Sudoku" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>Music<span class="hsp"> </span>Genre<span class="hsp"> </span>Classification</h3>
+                    <span class="pj-yr">2019</span>
+                </div>
+                <span class="pj-sub">Genre classification of audio signals from librosa features</span>
+                <p class="pj-desc">Musical genres are human labels resting on shared instrumentation, rhythmic structure and harmonic content, and annotating them by hand does not scale to the collections that music information retrieval systems have to index. This Python pipeline reduces every track to a compact numeric summary with <strong>librosa</strong>: <strong>spectral centroid, bandwidth, contrast, roll-off and flux</strong>, zero crossing rate, tempo, <strong>13 MFCCs</strong>, <strong>12 chroma bins</strong>, 10 mel-scale bands and 6 tonal centroid coordinates, each taken as a <strong>mean and standard deviation</strong> over the frames of the signal. The scaled vectors then train a <strong>support vector machine</strong>, with random forest, MLP and k-nearest neighbours left in as alternatives.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Python</span>
+                    <span class="pj-tag">Audio Processing</span>
+                    <span class="pj-tag">Feature Extraction</span>
+                    <span class="pj-tag">SVM</span>
+                    <span class="pj-tag">Classification</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://pdfs.semanticscholar.org/4ccb/0d37c69200dc63d1f757eafb36ef4853c178.pdf" target="_blank" rel="noopener noreferrer">Method paper &#8599;</a>
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/Music-Genre-Classification-of-Audio-Signals" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                </div>
+            </article>
+
+            <article class="pj-card">
+                <div class="pj-head">
+                    <h3>AVL<span class="hsp"> </span>Tree</h3>
+                    <span class="pj-yr">2019</span>
+                </div>
+                <span class="pj-sub">Self-balancing binary search tree implemented from scratch in Java</span>
+                <p class="pj-desc">An AVL tree, named after its inventors Adelson-Velsky and Landis, was the <strong>first self-balancing binary search tree</strong> to be invented: the heights of any node&rsquo;s two child subtrees differ by at most one, and whenever an insertion or a deletion breaks that property the tree restores it with one or more <strong>rotations</strong>. Staying balanced is what keeps lookup, insertion and deletion at <strong>O(log n)</strong> in both the average and the worst case. This is a self-contained <strong>Java</strong> implementation with <strong>no external dependencies</strong>, supporting insertion, deletion, search and depth queries through the <strong>four standard rotation cases</strong>, plus <strong>in-order and pre-order</strong> traversals.</p>
+                <div class="pj-tags">
+                    <span class="pj-tag">Java</span>
+                    <span class="pj-tag">Data Structures</span>
+                    <span class="pj-tag">Algorithms</span>
+                    <span class="pj-tag">Binary Search Tree</span>
+                </div>
+                <div class="pj-links">
+                    <a class="pj-link" href="https://github.com/SamanKhamesian/AVL-Tree" target="_blank" rel="noopener noreferrer">Code &#8599;</a>
+                </div>
+            </article>
+
         </div>
     </section>
 
